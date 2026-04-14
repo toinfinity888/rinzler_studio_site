@@ -439,6 +439,10 @@
       let animationId;
       let isRunning = false;
 
+      // Cached glow canvas for performance
+      let glowCanvas = null;
+      let glowCtx = null;
+
       // Color palette (golden/orange gradient)
       const colors = [
         { r: 251, g: 191, b: 36 },   // Yellow
@@ -687,6 +691,7 @@
 
       function init() {
         resize();
+        createGlowCanvas();
         particles = [];
         escapingParticles = [];
         successFlashes = [];
@@ -702,10 +707,68 @@
         }
       }
 
+      function createGlowCanvas() {
+        // Create offscreen canvas for the glow effect (render once)
+        glowCanvas = document.createElement('canvas');
+        glowCanvas.width = width * pixelRatio;
+        glowCanvas.height = height * pixelRatio;
+        glowCtx = glowCanvas.getContext('2d');
+        glowCtx.scale(pixelRatio, pixelRatio);
+
+        const cx = width / 2;
+        const topWidth = width * 0.5;
+        const bottomWidth = width * 0.01;
+
+        // Draw solid cone shape
+        glowCtx.beginPath();
+        glowCtx.moveTo(cx - topWidth, 0);
+        glowCtx.lineTo(cx + topWidth, 0);
+        glowCtx.lineTo(cx + bottomWidth, height);
+        glowCtx.lineTo(cx - bottomWidth, height);
+        glowCtx.closePath();
+
+        // Fill with vertical gradient (brighter toward bottom)
+        const vertGradient = glowCtx.createLinearGradient(cx, 0, cx, height);
+        vertGradient.addColorStop(0, 'rgba(251, 191, 36, 0.025)');
+        vertGradient.addColorStop(0.7, 'rgba(255, 210, 80, 0.04)');
+        vertGradient.addColorStop(1, 'rgba(251, 191, 36, 0.05)');
+        glowCtx.fillStyle = vertGradient;
+        glowCtx.fill();
+
+        // Apply heavy blur using shadow trick - draw multiple times with shadow
+        glowCtx.globalCompositeOperation = 'source-over';
+
+        // Create soft edges by drawing blurred versions
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = glowCanvas.width;
+        tempCanvas.height = glowCanvas.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.scale(pixelRatio, pixelRatio);
+
+        // Copy current glow and apply blur via CSS filter on temp canvas
+        tempCtx.filter = 'blur(40px)';
+        tempCtx.drawImage(glowCanvas, 0, 0, width, height);
+
+        // Clear original and draw blurred version back
+        glowCtx.clearRect(0, 0, width, height);
+        glowCtx.filter = 'blur(20px)';
+        glowCtx.drawImage(tempCanvas, 0, 0, width, height);
+        glowCtx.filter = 'none';
+      }
+
+      function drawFunnelGlow() {
+        if (glowCanvas) {
+          ctx.drawImage(glowCanvas, 0, 0, width, height);
+        }
+      }
+
       function animate() {
         // Fill with background color instead of clear (faster with alpha:false)
         ctx.fillStyle = 'rgb(12, 12, 18)';
         ctx.fillRect(0, 0, width, height);
+
+        // Draw subtle funnel glow
+        drawFunnelGlow();
 
         // Update and draw particles
         particles.forEach(p => {
@@ -752,7 +815,10 @@
       window.addEventListener('resize', () => {
         if (isRunning) {
           clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(resize, 150);
+          resizeTimeout = setTimeout(() => {
+            resize();
+            createGlowCanvas();
+          }, 150);
         }
       });
 
