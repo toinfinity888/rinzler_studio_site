@@ -22,19 +22,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index.D-yjESuv.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index.CInvDqD2.css">
+  <script type="module" crossorigin src="/assets/index-jThh4L00.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B47ClYae.css">
 </head>
 <body>
 
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <a href="/" class="header-logo-link">
+      <img src="/assets/rinzler_studio_logo_white-C9JkfPs2.svg" alt="Rinzler Studio" class="header-logo">
+    </a>
+    <nav class="header-nav">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#case-study" class="nav-link">Études de cas</a>
+      <a href="#about" class="nav-link">À propos</a>
+      <a href="#audit-booking" class="btn btn-primary btn-sm">Audit Gratuit</a>
+    </nav>
+  </header>
+
   <!-- Hero Section -->
   <section class="hero" data-section="hero">
-    <div class="container">
+    <!-- Three.js Canvas Container -->
+    <div id="hero-canvas-container"></div>
+
+    <div class="hero-layout">
+      <!-- Left: Content -->
       <div class="hero-content">
         <h1 class="hero-tagline">
-          Débloquez la Rentabilité pour le Transport & Logistique Français :
+          Débloquez la Rentabilité :
           <span class="text-gradient-cyan-purple">Réduction de 20% des Coûts</span>
-          via l'IA Souveraine & l'Automatisation Intelligente
+          via l'Automatisation
         </h1>
         <p class="hero-subtitle">
           Réduisez les coûts opérationnels de 20% grâce à l'automatisation intelligente
@@ -51,6 +68,154 @@
           </a>
         </div>
       </div>
+
+      <!-- Right: Workflow Demo -->
+      <div class="hero-workflow">
+        <div class="workflow-panel">
+          <div class="workflow-container">
+            <!-- SVG Connections -->
+            <svg class="workflow-connections" viewBox="0 0 480 576" preserveAspectRatio="xMidYMid meet">
+              <!-- Email to Preprocess -->
+              <path class="connection-line" d="M240,72 L240,120" />
+              <!-- Preprocess to AI Classification -->
+              <path class="connection-line" d="M240,168 L240,216" />
+              <!-- AI Classification to branches -->
+              <path class="connection-line branch-line" d="M240,264 L240,312 L84,312 L84,360" />
+              <path class="connection-line branch-line" d="M240,264 L240,360" />
+              <path class="connection-line branch-line" d="M240,264 L240,312 L396,312 L396,360" />
+              <!-- Branch to actions -->
+              <path class="connection-line" d="M84,408 L84,456" />
+              <path class="connection-line" d="M240,408 L240,456" />
+              <path class="connection-line" d="M396,408 L396,456" />
+
+              <!-- Animated dots -->
+              <circle class="flow-dot dot-1" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+                  <mpath href="#path1" />
+                </animateMotion>
+              </circle>
+              <circle class="flow-dot dot-2" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+                  <mpath href="#path2" />
+                </animateMotion>
+              </circle>
+              <circle class="flow-dot dot-3" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="2s">
+                  <mpath href="#path3" />
+                </animateMotion>
+              </circle>
+
+              <!-- Motion paths -->
+              <defs>
+                <path id="path1" d="M240,72 L240,216 L240,312 L84,312 L84,456" fill="none" />
+                <path id="path2" d="M240,72 L240,216 L240,456" fill="none" />
+                <path id="path3" d="M240,72 L240,216 L240,312 L396,312 L396,456" fill="none" />
+              </defs>
+            </svg>
+
+            <!-- Nodes -->
+            <div class="workflow-node node-trigger" style="top: 24px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <span class="node-label">Email</span>
+            </div>
+
+            <div class="workflow-node node-process" style="top: 120px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <span class="node-label">Preprocess</span>
+            </div>
+
+            <div class="workflow-node node-ai" style="top: 216px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+                  <path d="M16 14v2a4 4 0 0 1-8 0v-2"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/>
+                  <line x1="8" y1="22" x2="16" y2="22"/>
+                </svg>
+              </div>
+              <span class="node-label">AI Classification</span>
+              <span class="node-badge">Mistral AI</span>
+            </div>
+
+            <!-- Decision branches -->
+            <div class="workflow-node node-decision node-spam" style="top: 360px; left: 84px; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="15" y1="9" x2="9" y2="15"/>
+                  <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+              </div>
+              <span class="node-label">Spam</span>
+            </div>
+
+            <div class="workflow-node node-decision node-simple" style="top: 360px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <span class="node-label">Simple</span>
+            </div>
+
+            <div class="workflow-node node-decision node-complex" style="top: 360px; left: calc(100% - 84px); transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <span class="node-label">Complex</span>
+            </div>
+
+            <!-- Action nodes -->
+            <div class="workflow-node node-action node-ignore" style="top: 456px; left: 84px; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </div>
+              <span class="node-label">Ignore</span>
+            </div>
+
+            <div class="workflow-node node-action node-reply" style="top: 456px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </div>
+              <span class="node-label">AI Reply</span>
+              <span class="node-badge">Auto</span>
+            </div>
+
+            <div class="workflow-node node-action node-human" style="top: 456px; left: calc(100% - 84px); transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <span class="node-label">Human + AI</span>
+              <span class="node-badge">Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -62,7 +227,7 @@
       <div class="problems-grid">
         <div class="problem-card">
           <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="/assets/clock-icon.xZRxFmab.svg#icon"></use>
+            <use href="/assets/clock-icon-CqedyM50.svg#icon"></use>
           </svg>
           <h3 class="problem-title">10 heures perdues par semaine</h3>
           <p class="problem-description">
@@ -73,7 +238,7 @@
 
         <div class="problem-card">
           <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="/assets/document-icon.CA0k-9-b.svg#icon"></use>
+            <use href="/assets/document-icon-CbUYWgXE.svg#icon"></use>
           </svg>
           <h3 class="problem-title">Erreurs de dispatch coûteuses</h3>
           <p class="problem-description">
@@ -84,7 +249,7 @@
 
         <div class="problem-card">
           <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="/assets/audit-icon.DKWnAWDJ.svg#icon"></use>
+            <use href="/assets/audit-icon-Cl5VWasT.svg#icon"></use>
           </svg>
           <h3 class="problem-title">Systèmes complexes inadaptés</h3>
           <p class="problem-description">
@@ -95,7 +260,7 @@
 
         <div class="problem-card">
           <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="/assets/shield-icon.C1DO7Rol.svg#icon"></use>
+            <use href="/assets/shield-icon-DOLZPy0e.svg#icon"></use>
           </svg>
           <h3 class="problem-title">Données clients hors de France</h3>
           <p class="problem-description">
@@ -107,28 +272,9 @@
     </div>
   </section>
 
-  <!-- Services Section (Phase 6 - User Story 4) -->
-  <!-- Will be implemented in Phase 6 -->
-
-  <!-- Case Study Section (Phase 4 - User Story 2) -->
-  <!-- Will be implemented in Phase 4 -->
-
-  <!-- Trust & Compliance Section (Phase 4 - User Story 2) -->
-  <!-- Will be implemented in Phase 4 -->
-
-  <!-- Subsidies Section (Phase 5 - User Story 3) -->
-  <!-- Will be implemented in Phase 5 -->
-
-  <!-- Lead Magnet Section (Phase 7 - User Story 5) -->
-  <!-- Will be implemented in Phase 7 -->
-
-  <!-- Final CTA Section (Phase 5 - User Story 3) -->
-  <!-- Will be implemented in Phase 5 -->
-
-  <!-- Audit Booking Form (Phase 5 - User Story 3) -->
-  <!-- Will be implemented in Phase 5 -->
-
   <!-- Main JavaScript -->
+
+  <!-- Three.js Hero Animation -->
 
 </body>
 </html>
