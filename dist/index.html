@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-CMmZdEhu.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BOI8YK8s.css">
+  <script type="module" crossorigin src="./assets/index-R03g84Bf.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CI1oGBpe.css">
 </head>
 <body>
 
@@ -221,17 +221,20 @@
 
   <!-- Pain Bridge Section -->
   <section class="pain-bridge" data-section="pain">
-    <div class="container">
-      <h2 class="pain-bridge-headline">Les Coûts Cachés de la Logistique Manuelle</h2>
+    <h2 class="pain-bridge-headline">Les Coûts Cachés de la Logistique Manuelle</h2>
 
-      <div class="problems-grid">
+    <div class="problems-grid">
         <!-- Card 1: Task Overload Animation -->
-        <div class="problem-card problem-card-animated">
-          <div class="tetris-container" id="tetris-animation">
-            <div class="tetris-icons"></div>
+        <div class="problem-item">
+          <div class="card-border-gradient gradient-border-red-orange">
+            <div class="problem-card-animated">
+              <div class="tetris-container" id="tetris-animation">
+                <div class="tetris-icons"></div>
+              </div>
+            </div>
           </div>
-          <div class="problem-content">
-            <h3 class="problem-title">10 heures perdues par semaine</h3>
+          <div class="problem-text">
+            <h3 class="problem-title gradient-red-orange">10 heures perdues par semaine</h3>
             <p class="problem-description">
               Saisie manuelle des données, documents perdus, conflits de planning...
               Vos équipes passent plus de temps à gérer la paperasse qu'à optimiser les tournées.
@@ -240,12 +243,16 @@
         </div>
 
         <!-- Card 2: Placeholder for future animation -->
-        <div class="problem-card problem-card-animated">
-          <div class="card-animation-placeholder">
-            <span class="placeholder-icon">⚠️</span>
+        <div class="problem-item">
+          <div class="card-border-gradient gradient-border-yellow-orange">
+            <div class="problem-card-animated">
+              <div class="card-animation-placeholder">
+                <span class="placeholder-icon">⚠️</span>
+              </div>
+            </div>
           </div>
-          <div class="problem-content">
-            <h3 class="problem-title">Erreurs de dispatch coûteuses</h3>
+          <div class="problem-text">
+            <h3 class="problem-title gradient-yellow-orange">Erreurs de dispatch coûteuses</h3>
             <p class="problem-description">
               12% d'erreurs moyennes dans l'affectation manuelle = retards de livraison,
               clients mécontents, et surcoûts opérationnels évitables.
@@ -254,12 +261,16 @@
         </div>
 
         <!-- Card 3: Placeholder for future animation -->
-        <div class="problem-card problem-card-animated">
-          <div class="card-animation-placeholder">
-            <span class="placeholder-icon">🔒</span>
+        <div class="problem-item">
+          <div class="card-border-gradient gradient-border-purple-pink">
+            <div class="problem-card-animated">
+              <div class="card-animation-placeholder">
+                <span class="placeholder-icon">🔒</span>
+              </div>
+            </div>
           </div>
-          <div class="problem-content">
-            <h3 class="problem-title">Données hors de contrôle</h3>
+          <div class="problem-text">
+            <h3 class="problem-title gradient-purple-pink">Données hors de contrôle</h3>
             <p class="problem-description">
               Vos informations logistiques hébergées à l'étranger = risques RGPD,
               perte de souveraineté, et impossibilité de contrôle sur vos données métier.
@@ -267,7 +278,6 @@
           </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- Tetris Animation Script -->
@@ -287,13 +297,13 @@
       const container = document.querySelector('#tetris-animation .tetris-icons');
       if (!container) return;
 
-      const ICON_SIZE = 48;
-      const GAP = 6;
+      const ICON_SIZE = 70;
+      const GAP = 8;
       const COLS = 5;
       const ROWS = 4;
-      const DROP_INTERVAL = 400;
-      const PAUSE_BEFORE_DROP = 1500;
-      const DROP_AMOUNT = 0.6;
+      const DROP_INTERVAL = 350;
+      const PAUSE_BEFORE_DROP = 2000;
+      const DROP_AMOUNT = 0.5;
 
       let grid = [];
       let currentCol = 0;
@@ -311,35 +321,52 @@
         return icons[Math.floor(Math.random() * icons.length)];
       }
 
-      function dropIcon() {
-        const col = currentCol % COLS;
-        const row = grid[col].length;
+      function findNextColumn() {
+        // Find column with least icons (more natural filling)
+        let minHeight = Infinity;
+        let candidates = [];
 
-        if (row >= ROWS) {
-          currentCol++;
-          if (currentCol % COLS === 0 && grid.every(c => c.length >= ROWS)) {
-            setTimeout(dropDown, PAUSE_BEFORE_DROP);
-            return;
+        for (let i = 0; i < COLS; i++) {
+          if (grid[i].length < ROWS) {
+            if (grid[i].length < minHeight) {
+              minHeight = grid[i].length;
+              candidates = [i];
+            } else if (grid[i].length === minHeight) {
+              candidates.push(i);
+            }
           }
-          dropIcon();
+        }
+
+        return candidates.length > 0
+          ? candidates[Math.floor(Math.random() * candidates.length)]
+          : -1;
+      }
+
+      function dropIcon() {
+        const col = findNextColumn();
+
+        if (col === -1) {
+          // Grid is full, wait then drop
+          setTimeout(dropDown, PAUSE_BEFORE_DROP);
           return;
         }
 
+        const row = grid[col].length;
         const iconData = getRandomIcon();
         const el = createIconElement(iconData);
 
         const x = col * (ICON_SIZE + GAP);
-        const y = row * (ICON_SIZE + GAP);
+        const targetY = row * (ICON_SIZE + GAP);
 
         el.style.left = x + 'px';
-        el.style.bottom = y + 'px';
-        el.style.transform = 'translateY(-200px)';
+        el.style.bottom = targetY + 'px';
 
         container.appendChild(el);
         grid[col].push(el);
 
+        // Trigger the landing animation
         requestAnimationFrame(() => {
-          el.style.transform = 'translateY(0)';
+          el.classList.add('landing');
         });
 
         currentCol++;
@@ -352,10 +379,15 @@
         grid.forEach(col => {
           col.forEach((el, i) => {
             if (i < removeCount) {
-              el.style.transform = 'translateY(100px)';
+              // Falling out animation
+              el.style.transition = 'transform 0.4s cubic-bezier(0.55, 0, 1, 0.45), opacity 0.4s ease';
+              el.style.transform = 'translateY(150px)';
               el.style.opacity = '0';
-              setTimeout(() => el.remove(), 300);
+              setTimeout(() => el.remove(), 400);
             } else {
+              // Remaining icons settle down smoothly
+              el.classList.remove('landing');
+              el.style.transition = 'bottom 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
               const newY = (i - removeCount) * (ICON_SIZE + GAP);
               el.style.bottom = newY + 'px';
             }
@@ -366,7 +398,7 @@
         setTimeout(() => {
           currentCol = 0;
           dropIcon();
-        }, 500);
+        }, 600);
       }
 
       function init() {
