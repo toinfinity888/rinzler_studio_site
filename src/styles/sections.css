@@ -531,6 +531,26 @@
   border-radius: calc(var(--radius-xl) - 2px);
   overflow: hidden;
   aspect-ratio: 5 / 4;
+  position: relative;
+}
+
+/* Dark overlay for premium look */
+.problem-card-animated::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  pointer-events: none;
+  z-index: 10;
+  border-radius: inherit;
 }
 
 /* Tetris Animation Container - fills entire card */
