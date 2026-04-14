@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Réduisez vos coûts de 20% grâce à l'IA souveraine et l'automatisation intelligente pour PME transport & logistique françaises">
+  <meta name="keywords" content="automatisation, IA, transport, logistique, PME, France, réduction coûts">
+  <meta name="theme-color" content="#0a0a0f">
+
+  <title>Rinzler Studio | Débloquez 20% de Rentabilité pour Transport & Logistique</title>
+
+  <!-- Preconnect to Plausible Analytics -->
+  <link rel="preconnect" href="https://plausible.io">
+
+  <!-- Plausible Analytics - RGPD Compliant, Cookie-Free -->
+  <script defer data-domain="rinzlerstudio.fr" src="https://plausible.io/js/script.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles/tokens.css">
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="stylesheet" href="./styles/components.css">
+  <link rel="stylesheet" href="./styles/sections.css">
+
+  <!-- Font Preload (Inter from Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <a href="/" class="header-logo-link">
+      <img src="./assets/icons/rinzler_studio_logo_white.svg" alt="Rinzler Studio" class="header-logo">
+    </a>
+    <nav class="header-nav">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#case-study" class="nav-link">Études de cas</a>
+      <a href="#about" class="nav-link">À propos</a>
+      <a href="#audit-booking" class="btn btn-primary btn-sm">Audit Gratuit</a>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" data-section="hero">
+    <!-- Three.js Canvas Container -->
+    <div id="hero-canvas-container"></div>
+
+    <div class="hero-layout">
+      <!-- Left: Content -->
+      <div class="hero-content">
+        <h1 class="hero-tagline">
+          Débloquez la Rentabilité :
+          <span class="text-gradient-cyan-purple">Réduction de 20% des Coûts</span>
+          via l'Automatisation
+        </h1>
+        <p class="hero-subtitle">
+          Réduisez les coûts opérationnels de 20% grâce à l'automatisation intelligente
+          et l'IA française (Mistral AI). Infrastructure 100% souveraine, conformité RGPD garantie.
+        </p>
+        <div class="hero-cta">
+          <a
+            href="#audit-booking"
+            class="btn btn-primary"
+            data-cta
+            data-cta-id="hero-cta"
+            data-section="hero">
+            Réserver Mon Audit Gratuit d'Efficacité
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Workflow Demo -->
+      <div class="hero-workflow">
+        <div class="workflow-panel">
+          <div class="workflow-container">
+            <!-- SVG Connections -->
+            <svg class="workflow-connections" viewBox="0 0 480 576" preserveAspectRatio="xMidYMid meet">
+              <!-- Email to Preprocess -->
+              <path class="connection-line" d="M240,72 L240,120" />
+              <!-- Preprocess to AI Classification -->
+              <path class="connection-line" d="M240,168 L240,216" />
+              <!-- AI Classification to branches -->
+              <path class="connection-line branch-line" d="M240,264 L240,312 L84,312 L84,360" />
+              <path class="connection-line branch-line" d="M240,264 L240,360" />
+              <path class="connection-line branch-line" d="M240,264 L240,312 L396,312 L396,360" />
+              <!-- Branch to actions -->
+              <path class="connection-line" d="M84,408 L84,456" />
+              <path class="connection-line" d="M240,408 L240,456" />
+              <path class="connection-line" d="M396,408 L396,456" />
+
+              <!-- Animated dots -->
+              <circle class="flow-dot dot-1" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+                  <mpath href="#path1" />
+                </animateMotion>
+              </circle>
+              <circle class="flow-dot dot-2" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+                  <mpath href="#path2" />
+                </animateMotion>
+              </circle>
+              <circle class="flow-dot dot-3" r="5">
+                <animateMotion dur="3s" repeatCount="indefinite" begin="2s">
+                  <mpath href="#path3" />
+                </animateMotion>
+              </circle>
+
+              <!-- Motion paths -->
+              <defs>
+                <path id="path1" d="M240,72 L240,216 L240,312 L84,312 L84,456" fill="none" />
+                <path id="path2" d="M240,72 L240,216 L240,456" fill="none" />
+                <path id="path3" d="M240,72 L240,216 L240,312 L396,312 L396,456" fill="none" />
+              </defs>
+            </svg>
+
+            <!-- Nodes -->
+            <div class="workflow-node node-trigger" style="top: 24px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <span class="node-label">Email</span>
+            </div>
+
+            <div class="workflow-node node-process" style="top: 120px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                  <polyline points="2 17 12 22 22 17"/>
+                  <polyline points="2 12 12 17 22 12"/>
+                </svg>
+              </div>
+              <span class="node-label">Preprocess</span>
+            </div>
+
+            <div class="workflow-node node-ai" style="top: 216px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+                  <path d="M16 14v2a4 4 0 0 1-8 0v-2"/>
+                  <line x1="12" y1="18" x2="12" y2="22"/>
+                  <line x1="8" y1="22" x2="16" y2="22"/>
+                </svg>
+              </div>
+              <span class="node-label">AI Classification</span>
+              <span class="node-badge">Mistral AI</span>
+            </div>
+
+            <!-- Decision branches -->
+            <div class="workflow-node node-decision node-spam" style="top: 360px; left: 84px; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="15" y1="9" x2="9" y2="15"/>
+                  <line x1="9" y1="9" x2="15" y2="15"/>
+                </svg>
+              </div>
+              <span class="node-label">Spam</span>
+            </div>
+
+            <div class="workflow-node node-decision node-simple" style="top: 360px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <span class="node-label">Simple</span>
+            </div>
+
+            <div class="workflow-node node-decision node-complex" style="top: 360px; left: calc(100% - 84px); transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <span class="node-label">Complex</span>
+            </div>
+
+            <!-- Action nodes -->
+            <div class="workflow-node node-action node-ignore" style="top: 456px; left: 84px; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"/>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                </svg>
+              </div>
+              <span class="node-label">Ignore</span>
+            </div>
+
+            <div class="workflow-node node-action node-reply" style="top: 456px; left: 50%; transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+              </div>
+              <span class="node-label">AI Reply</span>
+              <span class="node-badge">Auto</span>
+            </div>
+
+            <div class="workflow-node node-action node-human" style="top: 456px; left: calc(100% - 84px); transform: translateX(-50%);">
+              <div class="node-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <span class="node-label">Human + AI</span>
+              <span class="node-badge">Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pain Bridge Section -->
+  <section class="pain-bridge" data-section="pain">
+    <div class="container">
+      <h2 class="pain-bridge-headline">Les Coûts Cachés de la Logistique Manuelle</h2>
+
+      <div class="problems-grid">
+        <div class="problem-card">
+          <svg class="problem-icon" viewBox="0 0 24 24">
+            <use href="./assets/icons/clock-icon.svg#icon"></use>
+          </svg>
+          <h3 class="problem-title">10 heures perdues par semaine</h3>
+          <p class="problem-description">
+            Saisie manuelle des données, documents perdus, conflits de planning...
+            Vos équipes passent plus de temps à gérer la paperasse qu'à optimiser les tournées.
+          </p>
+        </div>
+
+        <div class="problem-card">
+          <svg class="problem-icon" viewBox="0 0 24 24">
+            <use href="./assets/icons/document-icon.svg#icon"></use>
+          </svg>
+          <h3 class="problem-title">Erreurs de dispatch coûteuses</h3>
+          <p class="problem-description">
+            12% d'erreurs moyennes dans l'affectation manuelle = retards de livraison,
+            clients mécontents, et surcoûts opérationnels évitables.
+          </p>
+        </div>
+
+        <div class="problem-card">
+          <svg class="problem-icon" viewBox="0 0 24 24">
+            <use href="./assets/icons/audit-icon.svg#icon"></use>
+          </svg>
+          <h3 class="problem-title">Systèmes complexes inadaptés</h3>
+          <p class="problem-description">
+            Les solutions généralistes coûtent cher, nécessitent 6 mois de déploiement,
+            et n'offrent aucune garantie RGPD sur vos données sensibles.
+          </p>
+        </div>
+
+        <div class="problem-card">
+          <svg class="problem-icon" viewBox="0 0 24 24">
+            <use href="./assets/icons/shield-icon.svg#icon"></use>
+          </svg>
+          <h3 class="problem-title">Données clients hors de France</h3>
+          <p class="problem-description">
+            Vos informations logistiques hébergées à l'étranger = risques RGPD,
+            perte de souveraineté, et impossibilité de contrôle sur vos données métier.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main JavaScript -->
+  <script type="module" src="./scripts/main.js"></script>
+
+  <!-- Three.js Hero Animation -->
+  <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
+
+    const container = document.getElementById('hero-canvas-container');
+    if (container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, container.offsetWidth / container.offsetHeight, 1, 5000);
+      camera.position.set(0, 200, 600);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const AMOUNTX = 150;
+      const AMOUNTY = 80;
+      const SEPARATION = 20;
+
+      let count = 0;
+      let mouseX = 0;
+      let mouseY = 0;
+
+      const geometry = new THREE.BufferGeometry();
+      const positions = [];
+      const colors = [];
+
+      for (let x = 0; x < AMOUNTX; x++) {
+        for (let y = 0; y < AMOUNTY; y++) {
+          const px = x * SEPARATION - (AMOUNTX * SEPARATION) / 2;
+          const py = 0;
+          const pz = y * SEPARATION - (AMOUNTY * SEPARATION) / 2;
+
+          positions.push(px, py, pz);
+
+          const intensity = y / AMOUNTY;
+          colors.push(0.2, 0.6 * intensity, 1.0);
+        }
+      }
+
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 2.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.9,
+        blending: THREE.AdditiveBlending
+      });
+
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX - window.innerWidth / 2;
+        mouseY = e.clientY - window.innerHeight / 2;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+
+        const positionsArray = geometry.attributes.position.array;
+        let i = 0;
+
+        for (let x = 0; x < AMOUNTX; x++) {
+          for (let y = 0; y < AMOUNTY; y++) {
+            const wave1 = Math.sin((x + count) * 0.3) * 20;
+            const wave2 = Math.sin((y + count) * 0.5) * 20;
+            const wave3 = Math.sin((x + y + count) * 0.2) * 15;
+
+            positionsArray[i + 1] = wave1 + wave2 + wave3;
+            i += 3;
+          }
+        }
+
+        geometry.attributes.position.needsUpdate = true;
+
+        camera.position.x += (mouseX * 0.05 - camera.position.x) * 0.03;
+        camera.position.y += (-mouseY * 0.05 + 200 - camera.position.y) * 0.03;
+
+        camera.lookAt(scene.position);
+        renderer.render(scene, camera);
+
+        count += 0.05;
+      }
+
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = container.offsetWidth / container.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+      });
+    }
+  </script>
+
+</body>
+</html>
