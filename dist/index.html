@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-DA18U1Tm.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-mk8SI-Y2.css">
+  <script type="module" crossorigin src="./assets/index-CMmZdEhu.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BOI8YK8s.css">
 </head>
 <body>
 
@@ -225,52 +225,170 @@
       <h2 class="pain-bridge-headline">Les Coûts Cachés de la Logistique Manuelle</h2>
 
       <div class="problems-grid">
-        <div class="problem-card">
-          <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="./assets/clock-icon-CqedyM50.svg#icon"></use>
-          </svg>
-          <h3 class="problem-title">10 heures perdues par semaine</h3>
-          <p class="problem-description">
-            Saisie manuelle des données, documents perdus, conflits de planning...
-            Vos équipes passent plus de temps à gérer la paperasse qu'à optimiser les tournées.
-          </p>
+        <!-- Card 1: Task Overload Animation -->
+        <div class="problem-card problem-card-animated">
+          <div class="tetris-container" id="tetris-animation">
+            <div class="tetris-icons"></div>
+          </div>
+          <div class="problem-content">
+            <h3 class="problem-title">10 heures perdues par semaine</h3>
+            <p class="problem-description">
+              Saisie manuelle des données, documents perdus, conflits de planning...
+              Vos équipes passent plus de temps à gérer la paperasse qu'à optimiser les tournées.
+            </p>
+          </div>
         </div>
 
-        <div class="problem-card">
-          <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="./assets/document-icon-CbUYWgXE.svg#icon"></use>
-          </svg>
-          <h3 class="problem-title">Erreurs de dispatch coûteuses</h3>
-          <p class="problem-description">
-            12% d'erreurs moyennes dans l'affectation manuelle = retards de livraison,
-            clients mécontents, et surcoûts opérationnels évitables.
-          </p>
+        <!-- Card 2: Placeholder for future animation -->
+        <div class="problem-card problem-card-animated">
+          <div class="card-animation-placeholder">
+            <span class="placeholder-icon">⚠️</span>
+          </div>
+          <div class="problem-content">
+            <h3 class="problem-title">Erreurs de dispatch coûteuses</h3>
+            <p class="problem-description">
+              12% d'erreurs moyennes dans l'affectation manuelle = retards de livraison,
+              clients mécontents, et surcoûts opérationnels évitables.
+            </p>
+          </div>
         </div>
 
-        <div class="problem-card">
-          <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="./assets/audit-icon-Cl5VWasT.svg#icon"></use>
-          </svg>
-          <h3 class="problem-title">Systèmes complexes inadaptés</h3>
-          <p class="problem-description">
-            Les solutions généralistes coûtent cher, nécessitent 6 mois de déploiement,
-            et n'offrent aucune garantie RGPD sur vos données sensibles.
-          </p>
-        </div>
-
-        <div class="problem-card">
-          <svg class="problem-icon" viewBox="0 0 24 24">
-            <use href="./assets/shield-icon-DOLZPy0e.svg#icon"></use>
-          </svg>
-          <h3 class="problem-title">Données clients hors de France</h3>
-          <p class="problem-description">
-            Vos informations logistiques hébergées à l'étranger = risques RGPD,
-            perte de souveraineté, et impossibilité de contrôle sur vos données métier.
-          </p>
+        <!-- Card 3: Placeholder for future animation -->
+        <div class="problem-card problem-card-animated">
+          <div class="card-animation-placeholder">
+            <span class="placeholder-icon">🔒</span>
+          </div>
+          <div class="problem-content">
+            <h3 class="problem-title">Données hors de contrôle</h3>
+            <p class="problem-description">
+              Vos informations logistiques hébergées à l'étranger = risques RGPD,
+              perte de souveraineté, et impossibilité de contrôle sur vos données métier.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Tetris Animation Script -->
+  <script>
+    (function() {
+      const icons = [
+        { icon: '📧', gradient: 'linear-gradient(135deg, #4a9eff, #0066cc)' },
+        { icon: '📊', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
+        { icon: '📋', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
+        { icon: '📞', gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' },
+        { icon: '📁', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
+        { icon: '🗓️', gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)' },
+        { icon: '📝', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
+        { icon: '💼', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
+      ];
+
+      const container = document.querySelector('#tetris-animation .tetris-icons');
+      if (!container) return;
+
+      const ICON_SIZE = 48;
+      const GAP = 6;
+      const COLS = 5;
+      const ROWS = 4;
+      const DROP_INTERVAL = 400;
+      const PAUSE_BEFORE_DROP = 1500;
+      const DROP_AMOUNT = 0.6;
+
+      let grid = [];
+      let currentCol = 0;
+      let dropTimeout;
+
+      function createIconElement(iconData) {
+        const el = document.createElement('div');
+        el.className = 'tetris-icon';
+        el.style.background = iconData.gradient;
+        el.innerHTML = `<span>${iconData.icon}</span>`;
+        return el;
+      }
+
+      function getRandomIcon() {
+        return icons[Math.floor(Math.random() * icons.length)];
+      }
+
+      function dropIcon() {
+        const col = currentCol % COLS;
+        const row = grid[col].length;
+
+        if (row >= ROWS) {
+          currentCol++;
+          if (currentCol % COLS === 0 && grid.every(c => c.length >= ROWS)) {
+            setTimeout(dropDown, PAUSE_BEFORE_DROP);
+            return;
+          }
+          dropIcon();
+          return;
+        }
+
+        const iconData = getRandomIcon();
+        const el = createIconElement(iconData);
+
+        const x = col * (ICON_SIZE + GAP);
+        const y = row * (ICON_SIZE + GAP);
+
+        el.style.left = x + 'px';
+        el.style.bottom = y + 'px';
+        el.style.transform = 'translateY(-200px)';
+
+        container.appendChild(el);
+        grid[col].push(el);
+
+        requestAnimationFrame(() => {
+          el.style.transform = 'translateY(0)';
+        });
+
+        currentCol++;
+        dropTimeout = setTimeout(dropIcon, DROP_INTERVAL);
+      }
+
+      function dropDown() {
+        const removeCount = Math.floor(ROWS * DROP_AMOUNT);
+
+        grid.forEach(col => {
+          col.forEach((el, i) => {
+            if (i < removeCount) {
+              el.style.transform = 'translateY(100px)';
+              el.style.opacity = '0';
+              setTimeout(() => el.remove(), 300);
+            } else {
+              const newY = (i - removeCount) * (ICON_SIZE + GAP);
+              el.style.bottom = newY + 'px';
+            }
+          });
+          col.splice(0, removeCount);
+        });
+
+        setTimeout(() => {
+          currentCol = 0;
+          dropIcon();
+        }, 500);
+      }
+
+      function init() {
+        grid = Array.from({ length: COLS }, () => []);
+        container.innerHTML = '';
+        currentCol = 0;
+        dropIcon();
+      }
+
+      // Start when visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            init();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(container.parentElement);
+    })();
+  </script>
 
   <!-- Main JavaScript -->
 

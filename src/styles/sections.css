@@ -152,9 +152,9 @@
 
 .hero-content {
   text-align: left;
-  padding-left: 25%;
+  padding-left: 24%;
   padding-right: var(--space-lg);
-  max-width: 100%;
+  max-width: 95%;
 }
 
 .hero-tagline {
@@ -476,49 +476,146 @@
 /* Pain Bridge Section */
 .pain-bridge {
   background: var(--color-bg-secondary);
+  padding: var(--space-xl) 0;
 }
 
 .pain-bridge-headline {
   text-align: center;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
   font-size: var(--font-size-h2);
 }
 
 .problems-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--gap-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
 }
 
-.problem-card {
+/* Animated Problem Cards */
+.problem-card-animated {
   background: var(--color-bg-primary);
-  padding: var(--space-md);
-  border-radius: var(--radius-lg);
-  border-left: 4px solid var(--color-accent-cyan);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.problem-icon {
+.problem-card-animated:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Tetris Animation Container */
+.tetris-container {
+  position: relative;
+  height: 280px;
+  background: linear-gradient(180deg, rgba(20, 20, 30, 0.8) 0%, rgba(10, 10, 15, 0.95) 100%);
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tetris-icons {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  height: 230px;
+}
+
+.tetris-icon {
+  position: absolute;
   width: 48px;
   height: 48px;
-  margin-bottom: var(--space-sm);
-  fill: var(--color-accent-cyan);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              bottom 0.3s ease,
+              opacity 0.3s ease;
+}
+
+.tetris-icon span {
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Placeholder for other cards */
+.card-animation-placeholder {
+  height: 280px;
+  background: linear-gradient(180deg, rgba(20, 20, 30, 0.8) 0%, rgba(10, 10, 15, 0.95) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.placeholder-icon {
+  font-size: 64px;
+  opacity: 0.3;
+}
+
+/* Problem Card Content */
+.problem-content {
+  padding: var(--space-md);
 }
 
 .problem-title {
   font-size: var(--font-size-h4);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-xs);
-  color: var(--color-accent-cyan);
+  color: var(--color-text-primary);
 }
 
 .problem-description {
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .problems-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .problems-grid .problem-card-animated:last-child {
+    grid-column: span 2;
+    max-width: 400px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 768px) {
   .problems-grid {
     grid-template-columns: 1fr;
     gap: var(--gap-md);
+  }
+
+  .problems-grid .problem-card-animated:last-child {
+    grid-column: span 1;
+    max-width: 100%;
+  }
+
+  .tetris-container,
+  .card-animation-placeholder {
+    height: 220px;
+  }
+
+  .tetris-icons {
+    width: 216px;
+    height: 180px;
+  }
+
+  .tetris-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+    border-radius: 8px;
   }
 }
