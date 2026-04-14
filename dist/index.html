@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-R03g84Bf.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CI1oGBpe.css">
+  <script type="module" crossorigin src="./assets/index-BOC1DRnD.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-jTuc1iOc.css">
 </head>
 <body>
 
@@ -242,20 +242,20 @@
           </div>
         </div>
 
-        <!-- Card 2: Placeholder for future animation -->
+        <!-- Card 2: Particle Funnel Animation - Losing Leads -->
         <div class="problem-item">
           <div class="card-border-gradient gradient-border-yellow-orange">
             <div class="problem-card-animated">
-              <div class="card-animation-placeholder">
-                <span class="placeholder-icon">⚠️</span>
+              <div class="particle-funnel-container" id="particle-funnel">
+                <canvas id="particle-funnel-canvas"></canvas>
               </div>
             </div>
           </div>
           <div class="problem-text">
-            <h3 class="problem-title gradient-yellow-orange">Erreurs de dispatch coûteuses</h3>
+            <h3 class="problem-title gradient-yellow-orange">Leads et revenus perdus</h3>
             <p class="problem-description">
-              12% d'erreurs moyennes dans l'affectation manuelle = retards de livraison,
-              clients mécontents, et surcoûts opérationnels évitables.
+              Sans suivi automatisé, 35% des demandes clients tombent dans l'oubli.
+              Chaque lead perdu = opportunité de revenu envolée.
             </p>
           </div>
         </div>
@@ -419,6 +419,308 @@
       }, { threshold: 0.3 });
 
       observer.observe(container.parentElement);
+    })();
+  </script>
+
+  <!-- Particle Funnel Animation Script -->
+  <script>
+    (function() {
+      const container = document.getElementById('particle-funnel');
+      const canvas = document.getElementById('particle-funnel-canvas');
+      if (!container || !canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let width, height, centerX, centerY;
+      let particles = [];
+      let escapingParticles = [];
+      let animationId;
+      let isRunning = false;
+
+      // Color palette (golden/orange gradient)
+      const colors = [
+        { r: 251, g: 191, b: 36 },   // Yellow
+        { r: 249, g: 115, b: 22 },   // Orange
+        { r: 245, g: 158, b: 11 },   // Amber
+        { r: 252, g: 211, b: 77 },   // Light yellow
+        { r: 234, g: 88, b: 12 },    // Deep orange
+      ];
+
+      function resize() {
+        width = container.offsetWidth;
+        height = container.offsetHeight;
+        canvas.width = width * window.devicePixelRatio;
+        canvas.height = height * window.devicePixelRatio;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        centerX = width / 2;
+        centerY = height / 2;
+      }
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          // Start at random position in the funnel area - wide at top
+          this.angle = Math.random() * Math.PI * 2;
+          const topRadius = width * 0.42; // Almost full width at top
+          this.radius = topRadius * (0.3 + Math.random() * 0.7);
+          this.y = height * 0.08 + Math.random() * height * 0.15;
+
+          // Particle properties
+          this.size = 2 + Math.random() * 6;
+          this.baseSize = this.size;
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+          this.alpha = 0.4 + Math.random() * 0.6;
+          this.blur = Math.random() > 0.6 ? 1 + Math.random() * 3 : 0;
+
+          // Movement - smooth and soft
+          this.baseSpinSpeed = 0.006 + Math.random() * 0.012;
+          this.spinSpeed = this.baseSpinSpeed;
+          this.baseFallSpeed = 0.15 + Math.random() * 0.25;
+          this.fallSpeed = this.baseFallSpeed;
+
+          // Wobble - gentle
+          this.wobbleAngle = Math.random() * Math.PI * 2;
+          this.wobbleSpeed = 0.02 + Math.random() * 0.04;
+          this.wobbleAmount = 1.5 + Math.random() * 3;
+
+          this.escaped = false;
+        }
+
+        getFunnelRadius(yPos) {
+          const topY = height * 0.08;
+          const bottomY = height * 0.92;
+
+          const topRadius = width * 0.48;   // шире сверху
+          const bottomRadius = width * 0.015; // уже снизу
+
+          const progress = Math.max(0, Math.min(1, (yPos - topY) / (bottomY - topY)));
+
+          // более резкое сужение (экспонента)
+          const eased = Math.pow(progress, 1.8);
+
+          return topRadius - (topRadius - bottomRadius) * eased;
+}
+
+        update() {
+          // Spiral movement - smooth acceleration
+          this.y += this.fallSpeed;
+
+          // Gentle spin boost as particles descend
+          const spinBoost = 1 + (this.y / height) * 0.8;
+          this.angle += this.spinSpeed * spinBoost;
+
+          // Wobble effect
+          this.wobbleAngle += this.wobbleSpeed;
+
+          // Size pulsing
+          this.size = this.baseSize * (0.8 + Math.sin(this.wobbleAngle) * 0.2);
+
+          // Calculate funnel bounds at current y
+          const maxRadius = this.getFunnelRadius(this.y);
+
+          // Gradually pull particles toward funnel center as they descend
+          const pullStrength = 0.015;
+          if (this.radius > maxRadius) {
+            this.radius -= (this.radius - maxRadius) * pullStrength * 2;
+          } else {
+            this.radius -= (this.radius - maxRadius * 0.6) * pullStrength * 0.5;
+          }
+
+          // Check if particle should escape - can happen anywhere in the funnel
+          // Higher chance near the edges, but possible throughout
+          const edgeProximity = this.radius / maxRadius; // 0 to 1, higher = closer to edge
+          const escapeChance = 0.002 + edgeProximity * 0.006; // Base chance + edge bonus
+
+          if (!this.escaped && Math.random() < escapeChance) {
+            this.escaped = true;
+            escapingParticles.push(new EscapingParticle(this));
+          }
+
+          // Constrain to funnel
+          this.radius = Math.min(this.radius, maxRadius);
+          this.radius = Math.max(this.radius, 3);
+
+          // Gentle slowdown near bottom (calculated fresh each frame, not cumulative)
+          if (this.y > height * 0.75) {
+            const bottomProgress = (this.y - height * 0.75) / (height * 0.17);
+            this.fallSpeed = this.baseFallSpeed * (1 - bottomProgress * 0.5);
+          } else {
+            this.fallSpeed = this.baseFallSpeed;
+          }
+
+          // Reset if reached bottom
+          if (this.y > height * 0.90) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          const wobbleX = Math.sin(this.wobbleAngle) * this.wobbleAmount;
+          const wobbleY = Math.cos(this.wobbleAngle * 0.7) * this.wobbleAmount * 0.5;
+
+          const x = centerX + Math.cos(this.angle) * this.radius + wobbleX;
+          const y = this.y + wobbleY;
+          const depthFade = 1 - (this.y / height);
+          const finalAlpha = this.alpha * depthFade;
+
+          ctx.save();
+
+          if (this.blur > 0) {
+            ctx.filter = `blur(${this.blur}px)`;
+          }
+
+          // Glow effect
+          const gradient = ctx.createRadialGradient(x, y, 0, x, y, this.size * 2);
+          gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`);
+          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha * 0.5})`);
+          gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(x, y, this.size * 2, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+
+          // Core
+          ctx.beginPath();
+          ctx.arc(x, y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
+          ctx.fill();
+
+          ctx.restore();
+        }
+      }
+
+      class EscapingParticle {
+        constructor(source) {
+          this.x = centerX + Math.cos(source.angle) * source.radius;
+          this.y = source.y;
+          this.size = source.size;
+          this.color = source.color;
+          this.alpha = source.alpha;
+          this.blur = source.blur;
+
+          // Escape velocity - drift outward from funnel center
+          const speed = 0.8 + Math.random() * 1.2;
+          // Use particle's current angle to determine escape direction (outward)
+          const outwardDirection = Math.cos(source.angle) > 0 ? 1 : -1;
+          this.vx = outwardDirection * speed * (0.8 + Math.random() * 0.8);
+          this.vy = -0.3 - Math.random() * 0.8;
+
+          this.life = 1;
+          this.decay = 0.004 + Math.random() * 0.006;
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          this.vy += 0.008;
+          this.vx *= 0.995;
+          this.vy *= 0.998;
+          this.life -= this.decay;
+          this.size *= 0.998;
+
+          return this.life > 0;
+        }
+
+        draw() {
+          ctx.save();
+
+          if (this.blur > 0) {
+            ctx.filter = `blur(${this.blur + (1 - this.life) * 3}px)`;
+          }
+
+          const alpha = this.alpha * this.life;
+
+          // Glow
+          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+          gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`);
+          gradient.addColorStop(0.4, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.3})`);
+          gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+
+          ctx.restore();
+        }
+      }
+
+      function init() {
+        resize();
+        particles = [];
+        escapingParticles = [];
+
+        // Create particles
+        const particleCount = Math.min(100, Math.floor(width * height / 2500));
+        for (let i = 0; i < particleCount; i++) {
+          const p = new Particle();
+          // Distribute initially across the funnel
+          p.y = height * 0.08 + Math.random() * height * 0.75;
+          p.radius = p.getFunnelRadius(p.y) * (0.3 + Math.random() * 0.6);
+          particles.push(p);
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Update and draw particles
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+
+        // Update and draw escaping particles
+        escapingParticles = escapingParticles.filter(p => {
+          const alive = p.update();
+          if (alive) p.draw();
+          return alive;
+        });
+
+        if (isRunning) {
+          animationId = requestAnimationFrame(animate);
+        }
+      }
+
+      function start() {
+        if (!isRunning) {
+          isRunning = true;
+          init();
+          animate();
+        }
+      }
+
+      function stop() {
+        isRunning = false;
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      }
+
+      // Handle resize
+      window.addEventListener('resize', () => {
+        if (isRunning) {
+          resize();
+        }
+      });
+
+      // Start when visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            start();
+          } else {
+            stop();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(container);
     })();
   </script>
 

@@ -502,7 +502,7 @@
 
 /* Gradient Border Wrapper */
 .card-border-gradient {
-  padding: 2px;
+  padding: 1px;
   border-radius: var(--radius-xl);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -514,15 +514,15 @@
 
 /* Gradient border color variants - using conic-gradient with transparency for subtle effect */
 .gradient-border-red-orange {
-  background: conic-gradient(from 0deg, rgba(239, 68, 68, 0.3), rgba(249, 115, 22, 0.3), rgba(239, 68, 68, 0.3), rgba(249, 115, 22, 0.3), rgba(239, 68, 68, 0.3));
+  background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044));
 }
 
 .gradient-border-yellow-orange {
-  background: conic-gradient(from 0deg, rgba(251, 191, 36, 0.3), rgba(249, 115, 22, 0.3), rgba(251, 191, 36, 0.3), rgba(249, 115, 22, 0.3), rgba(251, 191, 36, 0.3));
+  background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044));
 }
 
 .gradient-border-purple-pink {
-  background: conic-gradient(from 0deg, rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3), rgba(236, 72, 153, 0.3), rgba(168, 85, 247, 0.3));
+  background: conic-gradient(from 0deg, rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044), rgba(255, 255, 255, 0.044));
 }
 
 /* Inner Card - Wider aspect ratio */
@@ -603,6 +603,21 @@
 .placeholder-icon {
   font-size: 80px;
   opacity: 0.2;
+}
+
+/* ===== Particle Funnel Animation (Card 2) ===== */
+.particle-funnel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(15, 15, 22, 0.95) 0%, rgba(10, 10, 15, 1) 100%);
+  overflow: hidden;
+}
+
+#particle-funnel-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* Problem Text - below card on regular background */
