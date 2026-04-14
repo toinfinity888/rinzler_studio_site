@@ -137,22 +137,24 @@
   height: 100%;
 }
 
-/* Hero Layout - Two columns */
+/* Hero Layout - Two equal halves of the viewport */
 .hero-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
   align-items: center;
   width: 100%;
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
   position: relative;
   z-index: 2;
 }
 
 .hero-content {
   text-align: left;
+  padding-left: 25%;
+  padding-right: var(--space-lg);
+  max-width: 100%;
 }
 
 .hero-tagline {
@@ -178,7 +180,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
+  padding: 0 var(--space-lg);
 }
 
 .workflow-panel {
@@ -401,16 +404,20 @@
   .hero-layout {
     grid-template-columns: 1fr;
     gap: var(--space-lg);
+    padding: 0 var(--space-md);
   }
 
   .hero-content {
-    text-align: center;
     order: 1;
+    max-width: 100%;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+    text-align: center;
   }
 
   .hero-workflow {
     order: 2;
-    justify-content: center;
+    padding: 0;
   }
 
   .workflow-panel {
@@ -461,6 +468,8 @@
 
   .hero-content {
     text-align: center;
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
   }
 }
 

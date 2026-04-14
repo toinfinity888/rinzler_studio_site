@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-jThh4L00.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-B47ClYae.css">
+  <script type="module" crossorigin src="./assets/index-DA18U1Tm.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-mk8SI-Y2.css">
 </head>
 <body>
 
@@ -75,46 +75,46 @@
           <div class="workflow-container">
             <!-- SVG Connections -->
             <svg class="workflow-connections" viewBox="0 0 480 576" preserveAspectRatio="xMidYMid meet">
-              <!-- Email to Preprocess -->
-              <path class="connection-line" d="M240,72 L240,120" />
+              <!-- Email to Preprocess (bottom of Email icon to top of Preprocess) -->
+              <path class="connection-line branch-line" d="M240,80 L240,120" />
               <!-- Preprocess to AI Classification -->
-              <path class="connection-line" d="M240,168 L240,216" />
+              <path class="connection-line branch-line" d="M240,176 L240,216" />
               <!-- AI Classification to branches -->
-              <path class="connection-line branch-line" d="M240,264 L240,312 L84,312 L84,360" />
-              <path class="connection-line branch-line" d="M240,264 L240,360" />
-              <path class="connection-line branch-line" d="M240,264 L240,312 L396,312 L396,360" />
-              <!-- Branch to actions -->
-              <path class="connection-line" d="M84,408 L84,456" />
-              <path class="connection-line" d="M240,408 L240,456" />
-              <path class="connection-line" d="M396,408 L396,456" />
+              <path class="connection-line branch-line" d="M240,272 L240,316 L84,316 L84,360" />
+              <path class="connection-line branch-line" d="M240,272 L240,360" />
+              <path class="connection-line branch-line" d="M240,272 L240,316 L396,316 L396,360" />
+              <!-- Decision to Action nodes -->
+              <path class="connection-line branch-line" d="M84,412 L84,456" />
+              <path class="connection-line branch-line" d="M240,412 L240,456" />
+              <path class="connection-line branch-line" d="M396,412 L396,456" />
 
               <!-- Animated dots -->
-              <circle class="flow-dot dot-1" r="5">
-                <animateMotion dur="3s" repeatCount="indefinite" begin="0s">
+              <circle class="flow-dot dot-1" r="4">
+                <animateMotion dur="4s" repeatCount="indefinite" begin="0s">
                   <mpath href="#path1" />
                 </animateMotion>
               </circle>
-              <circle class="flow-dot dot-2" r="5">
-                <animateMotion dur="3s" repeatCount="indefinite" begin="1s">
+              <circle class="flow-dot dot-2" r="4">
+                <animateMotion dur="4s" repeatCount="indefinite" begin="1.3s">
                   <mpath href="#path2" />
                 </animateMotion>
               </circle>
-              <circle class="flow-dot dot-3" r="5">
-                <animateMotion dur="3s" repeatCount="indefinite" begin="2s">
+              <circle class="flow-dot dot-3" r="4">
+                <animateMotion dur="4s" repeatCount="indefinite" begin="2.6s">
                   <mpath href="#path3" />
                 </animateMotion>
               </circle>
 
-              <!-- Motion paths -->
+              <!-- Motion paths (follow the exact connection lines) -->
               <defs>
-                <path id="path1" d="M240,72 L240,216 L240,312 L84,312 L84,456" fill="none" />
-                <path id="path2" d="M240,72 L240,216 L240,456" fill="none" />
-                <path id="path3" d="M240,72 L240,216 L240,312 L396,312 L396,456" fill="none" />
+                <path id="path1" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,316 L84,316 L84,360 L84,412 L84,508" fill="none" />
+                <path id="path2" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,360 L240,412 L240,508" fill="none" />
+                <path id="path3" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,316 L396,316 L396,360 L396,412 L396,508" fill="none" />
               </defs>
             </svg>
 
-            <!-- Nodes -->
-            <div class="workflow-node node-trigger" style="top: 24px; left: 50%; transform: translateX(-50%);">
+            <!-- Nodes (positions as percentages of 480x576 viewBox) -->
+            <div class="workflow-node node-trigger" style="top: 4.17%; left: 50%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
@@ -124,7 +124,7 @@
               <span class="node-label">Email</span>
             </div>
 
-            <div class="workflow-node node-process" style="top: 120px; left: 50%; transform: translateX(-50%);">
+            <div class="workflow-node node-process" style="top: 20.83%; left: 50%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polygon points="12 2 2 7 12 12 22 7 12 2"/>
@@ -135,7 +135,7 @@
               <span class="node-label">Preprocess</span>
             </div>
 
-            <div class="workflow-node node-ai" style="top: 216px; left: 50%; transform: translateX(-50%);">
+            <div class="workflow-node node-ai" style="top: 37.5%; left: 50%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
@@ -149,7 +149,7 @@
             </div>
 
             <!-- Decision branches -->
-            <div class="workflow-node node-decision node-spam" style="top: 360px; left: 84px; transform: translateX(-50%);">
+            <div class="workflow-node node-decision node-spam" style="top: 62.5%; left: 17.5%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"/>
@@ -160,7 +160,7 @@
               <span class="node-label">Spam</span>
             </div>
 
-            <div class="workflow-node node-decision node-simple" style="top: 360px; left: 50%; transform: translateX(-50%);">
+            <div class="workflow-node node-decision node-simple" style="top: 62.5%; left: 50%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -170,7 +170,7 @@
               <span class="node-label">Simple</span>
             </div>
 
-            <div class="workflow-node node-decision node-complex" style="top: 360px; left: calc(100% - 84px); transform: translateX(-50%);">
+            <div class="workflow-node node-decision node-complex" style="top: 62.5%; left: 82.5%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="3"/>
@@ -181,7 +181,7 @@
             </div>
 
             <!-- Action nodes -->
-            <div class="workflow-node node-action node-ignore" style="top: 456px; left: 84px; transform: translateX(-50%);">
+            <div class="workflow-node node-action node-ignore" style="top: 79.17%; left: 17.5%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="3 6 5 6 21 6"/>
@@ -191,7 +191,7 @@
               <span class="node-label">Ignore</span>
             </div>
 
-            <div class="workflow-node node-action node-reply" style="top: 456px; left: 50%; transform: translateX(-50%);">
+            <div class="workflow-node node-action node-reply" style="top: 79.17%; left: 50%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -201,7 +201,7 @@
               <span class="node-badge">Auto</span>
             </div>
 
-            <div class="workflow-node node-action node-human" style="top: 456px; left: calc(100% - 84px); transform: translateX(-50%);">
+            <div class="workflow-node node-action node-human" style="top: 79.17%; left: 82.5%;">
               <div class="node-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
