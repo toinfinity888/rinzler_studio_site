@@ -87,6 +87,9 @@ docs/site/
 .pybuilder/
 target/
 
+#node_modules
+node_modules/
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
@@ -141,6 +144,7 @@ celerybeat.pid
 
 # Environments
 .env
+.env.example
 .venv
 env/
 venv/
