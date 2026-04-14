@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-BOC1DRnD.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-jTuc1iOc.css">
+  <script type="module" crossorigin src="./assets/index-DYJF85Cr.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CtdO3x0s.css">
 </head>
 <body>
 
@@ -260,20 +260,20 @@
           </div>
         </div>
 
-        <!-- Card 3: Placeholder for future animation -->
+        <!-- Card 3: Chaos Lines Animation -->
         <div class="problem-item">
           <div class="card-border-gradient gradient-border-purple-pink">
             <div class="problem-card-animated">
-              <div class="card-animation-placeholder">
-                <span class="placeholder-icon">🔒</span>
+              <div class="chaos-lines-container" id="chaos-lines">
+                <canvas id="chaos-lines-canvas"></canvas>
               </div>
             </div>
           </div>
           <div class="problem-text">
-            <h3 class="problem-title gradient-purple-pink">Données hors de contrôle</h3>
+            <h3 class="problem-title gradient-purple-pink">Chaos système incontrôlable</h3>
             <p class="problem-description">
-              Vos informations logistiques hébergées à l'étranger = risques RGPD,
-              perte de souveraineté, et impossibilité de contrôle sur vos données métier.
+              Processus fragmentés, données dispersées, erreurs en cascade.
+              Le désordre empêche toute croissance et génère des coûts cachés.
             </p>
           </div>
         </div>
@@ -429,10 +429,11 @@
       const canvas = document.getElementById('particle-funnel-canvas');
       if (!container || !canvas) return;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { alpha: false });
       let width, height, centerX, centerY;
       let particles = [];
       let escapingParticles = [];
+      let successFlashes = [];
       let animationId;
       let isRunning = false;
 
@@ -445,14 +446,18 @@
         { r: 234, g: 88, b: 12 },    // Deep orange
       ];
 
+      // Limit pixel ratio for performance
+      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+
       function resize() {
         width = container.offsetWidth;
         height = container.offsetHeight;
-        canvas.width = width * window.devicePixelRatio;
-        canvas.height = height * window.devicePixelRatio;
+        canvas.width = width * pixelRatio;
+        canvas.height = height * pixelRatio;
         canvas.style.width = width + 'px';
         canvas.style.height = height + 'px';
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(pixelRatio, pixelRatio);
         centerX = width / 2;
         centerY = height / 2;
       }
@@ -473,8 +478,8 @@
           this.size = 2 + Math.random() * 6;
           this.baseSize = this.size;
           this.color = colors[Math.floor(Math.random() * colors.length)];
-          this.alpha = 0.4 + Math.random() * 0.6;
-          this.blur = Math.random() > 0.6 ? 1 + Math.random() * 3 : 0;
+          this.alpha = 0.5 + Math.random() * 0.5;
+          this.brightness = 1;
 
           // Movement - smooth and soft
           this.baseSpinSpeed = 0.006 + Math.random() * 0.012;
@@ -546,14 +551,19 @@
 
           // Gentle slowdown near bottom (calculated fresh each frame, not cumulative)
           if (this.y > height * 0.75) {
-            const bottomProgress = (this.y - height * 0.75) / (height * 0.17);
-            this.fallSpeed = this.baseFallSpeed * (1 - bottomProgress * 0.5);
+            const bottomProgress = (this.y - height * 0.75) / (height * 0.15);
+            this.fallSpeed = this.baseFallSpeed * (1 - bottomProgress * 0.6);
+            // Brighten as approaching bottom
+            this.brightness = 1 + bottomProgress * 1.5;
           } else {
             this.fallSpeed = this.baseFallSpeed;
+            this.brightness = 1;
           }
 
-          // Reset if reached bottom
-          if (this.y > height * 0.90) {
+          // Create flash and reset when reached bottom
+          if (this.y > height * 0.88) {
+            const x = centerX + Math.cos(this.angle) * this.radius;
+            successFlashes.push(new SuccessFlash(x, this.y, this.color, this.size));
             this.reset();
           }
         }
@@ -564,33 +574,60 @@
 
           const x = centerX + Math.cos(this.angle) * this.radius + wobbleX;
           const y = this.y + wobbleY;
-          const depthFade = 1 - (this.y / height);
-          const finalAlpha = this.alpha * depthFade;
 
-          ctx.save();
+          // Skip if too faint
+          if (this.alpha < 0.05) return;
 
-          if (this.blur > 0) {
-            ctx.filter = `blur(${this.blur}px)`;
-          }
+          const glowSize = this.size * 2;
+          const alpha = Math.min(this.alpha * this.brightness, 1);
 
-          // Glow effect
-          const gradient = ctx.createRadialGradient(x, y, 0, x, y, this.size * 2);
-          gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`);
-          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha * 0.5})`);
+          // Brighten color when approaching bottom
+          const r = Math.min(255, Math.round(this.color.r * this.brightness));
+          const g = Math.min(255, Math.round(this.color.g * this.brightness));
+          const b = Math.min(255, Math.round(this.color.b * this.brightness));
+
+          // Simplified glow - single gradient
+          const gradient = ctx.createRadialGradient(x, y, 0, x, y, glowSize);
+          gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
+          gradient.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`);
+          gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(x, y, glowSize, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+        }
+      }
+
+      // Flash effect when particle completes the funnel - bright then fade
+      class SuccessFlash {
+        constructor(x, y, color, size) {
+          this.x = x;
+          this.y = y;
+          this.color = color;
+          this.size = size * 2 || 10;
+          this.life = 1;
+        }
+
+        update() {
+          this.life -= 0.05;
+          return this.life > 0;
+        }
+
+        draw() {
+          if (this.life < 0.05) return;
+
+          // Bright white core that fades to color then disappears
+          const alpha = this.life;
+          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+          gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.6})`);
           gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
 
           ctx.beginPath();
-          ctx.arc(x, y, this.size * 2, 0, Math.PI * 2);
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
           ctx.fillStyle = gradient;
           ctx.fill();
-
-          // Core
-          ctx.beginPath();
-          ctx.arc(x, y, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
-          ctx.fill();
-
-          ctx.restore();
         }
       }
 
@@ -601,7 +638,6 @@
           this.size = source.size;
           this.color = source.color;
           this.alpha = source.alpha;
-          this.blur = source.blur;
 
           // Escape velocity - drift outward from funnel center
           const speed = 0.8 + Math.random() * 1.2;
@@ -627,26 +663,23 @@
         }
 
         draw() {
-          ctx.save();
-
-          if (this.blur > 0) {
-            ctx.filter = `blur(${this.blur + (1 - this.life) * 3}px)`;
-          }
-
           const alpha = this.alpha * this.life;
 
-          // Glow
-          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 3);
+          // Skip if too faint
+          if (alpha < 0.03) return;
+
+          const glowSize = this.size * 3;
+
+          // Simplified glow - no blur filter
+          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
           gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`);
-          gradient.addColorStop(0.4, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.3})`);
+          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.3})`);
           gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
 
           ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+          ctx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
           ctx.fillStyle = gradient;
           ctx.fill();
-
-          ctx.restore();
         }
       }
 
@@ -654,9 +687,10 @@
         resize();
         particles = [];
         escapingParticles = [];
+        successFlashes = [];
 
-        // Create particles
-        const particleCount = Math.min(100, Math.floor(width * height / 2500));
+        // Create particles - optimized count
+        const particleCount = Math.min(60, Math.floor(width * height / 4000));
         for (let i = 0; i < particleCount; i++) {
           const p = new Particle();
           // Distribute initially across the funnel
@@ -667,7 +701,9 @@
       }
 
       function animate() {
-        ctx.clearRect(0, 0, width, height);
+        // Fill with background color instead of clear (faster with alpha:false)
+        ctx.fillStyle = 'rgb(12, 12, 18)';
+        ctx.fillRect(0, 0, width, height);
 
         // Update and draw particles
         particles.forEach(p => {
@@ -679,6 +715,13 @@
         escapingParticles = escapingParticles.filter(p => {
           const alive = p.update();
           if (alive) p.draw();
+          return alive;
+        });
+
+        // Update and draw success flashes
+        successFlashes = successFlashes.filter(f => {
+          const alive = f.update();
+          if (alive) f.draw();
           return alive;
         });
 
@@ -702,10 +745,274 @@
         }
       }
 
-      // Handle resize
+      // Handle resize with debounce
+      let resizeTimeout;
       window.addEventListener('resize', () => {
         if (isRunning) {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(resize, 150);
+        }
+      });
+
+      // Start when visible
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            start();
+          } else {
+            stop();
+          }
+        });
+      }, { threshold: 0.1 });
+
+      observer.observe(container);
+    })();
+  </script>
+
+  <!-- Chaos Lines Animation Script -->
+  <script>
+    (function() {
+      const container = document.getElementById('chaos-lines');
+      const canvas = document.getElementById('chaos-lines-canvas');
+      if (!container || !canvas) return;
+
+      const ctx = canvas.getContext('2d', { alpha: false });
+      let width, height;
+      let lines = [];
+      let animationId;
+      let isRunning = false;
+      let totalSegments = 0;
+      const MAX_SEGMENTS = 800;
+      const RESET_PAUSE = 1500;
+
+      // Purple-pink gradient colors
+      const colors = [
+        { r: 168, g: 85, b: 247 },   // Purple
+        { r: 192, g: 132, b: 252 },  // Light purple
+        { r: 236, g: 72, b: 153 },   // Pink
+        { r: 244, g: 114, b: 182 },  // Light pink
+        { r: 139, g: 92, b: 246 },   // Violet
+      ];
+
+      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
+
+      function resize() {
+        width = container.offsetWidth;
+        height = container.offsetHeight;
+        canvas.width = width * pixelRatio;
+        canvas.height = height * pixelRatio;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(pixelRatio, pixelRatio);
+      }
+
+      // Direction vectors: right, down, left, up
+      const directions = [
+        { dx: 1, dy: 0 },
+        { dx: 0, dy: 1 },
+        { dx: -1, dy: 0 },
+        { dx: 0, dy: -1 }
+      ];
+
+      class Line {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          // Start from a random edge
+          const edge = Math.floor(Math.random() * 4);
+          const color = colors[Math.floor(Math.random() * colors.length)];
+
+          this.color = color;
+          this.alpha = 0.4 + Math.random() * 0.4;
+          this.lineWidth = 1 + Math.random() * 2;
+          this.speed = 1.5 + Math.random() * 2;
+          this.segmentLength = 15 + Math.random() * 30;
+          this.turnChance = 0.02 + Math.random() * 0.03;
+          this.segments = [];
+          this.currentLength = 0;
+          this.alive = true;
+
+          // Set starting position and direction based on edge
+          switch(edge) {
+            case 0: // Top
+              this.x = Math.random() * width;
+              this.y = 0;
+              this.dirIndex = 1; // Down
+              break;
+            case 1: // Right
+              this.x = width;
+              this.y = Math.random() * height;
+              this.dirIndex = 2; // Left
+              break;
+            case 2: // Bottom
+              this.x = Math.random() * width;
+              this.y = height;
+              this.dirIndex = 3; // Up
+              break;
+            case 3: // Left
+              this.x = 0;
+              this.y = Math.random() * height;
+              this.dirIndex = 0; // Right
+              break;
+          }
+
+          this.startX = this.x;
+          this.startY = this.y;
+        }
+
+        turn() {
+          // Turn left or right (90 degrees)
+          const turnDir = Math.random() > 0.5 ? 1 : -1;
+          this.dirIndex = (this.dirIndex + turnDir + 4) % 4;
+
+          // Save segment
+          this.segments.push({
+            x1: this.startX,
+            y1: this.startY,
+            x2: this.x,
+            y2: this.y
+          });
+          totalSegments++;
+
+          this.startX = this.x;
+          this.startY = this.y;
+          this.currentLength = 0;
+        }
+
+        update() {
+          if (!this.alive) return;
+
+          const dir = directions[this.dirIndex];
+          this.x += dir.dx * this.speed;
+          this.y += dir.dy * this.speed;
+          this.currentLength += this.speed;
+
+          // Random turn
+          if (this.currentLength > this.segmentLength && Math.random() < this.turnChance) {
+            this.turn();
+            this.segmentLength = 15 + Math.random() * 30;
+          }
+
+          // Force turn at minimum segment length
+          if (this.currentLength > this.segmentLength * 2) {
+            this.turn();
+            this.segmentLength = 15 + Math.random() * 30;
+          }
+
+          // Check bounds - die if out of canvas
+          if (this.x < -10 || this.x > width + 10 || this.y < -10 || this.y > height + 10) {
+            // Save final segment
+            this.segments.push({
+              x1: this.startX,
+              y1: this.startY,
+              x2: this.x,
+              y2: this.y
+            });
+            totalSegments++;
+            this.alive = false;
+          }
+        }
+
+        draw() {
+          ctx.strokeStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
+          ctx.lineWidth = this.lineWidth;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+
+          // Draw completed segments
+          for (const seg of this.segments) {
+            ctx.beginPath();
+            ctx.moveTo(seg.x1, seg.y1);
+            ctx.lineTo(seg.x2, seg.y2);
+            ctx.stroke();
+          }
+
+          // Draw current segment
+          if (this.alive) {
+            ctx.beginPath();
+            ctx.moveTo(this.startX, this.startY);
+            ctx.lineTo(this.x, this.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      function spawnLine() {
+        if (lines.length < 12 && totalSegments < MAX_SEGMENTS) {
+          lines.push(new Line());
+        }
+      }
+
+      function resetAnimation() {
+        lines = [];
+        totalSegments = 0;
+        ctx.fillStyle = 'rgb(12, 12, 18)';
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      function animate() {
+        // Clear with slight fade for trail effect
+        ctx.fillStyle = 'rgba(12, 12, 18, 0.03)';
+        ctx.fillRect(0, 0, width, height);
+
+        // Update and draw lines
+        lines.forEach(line => {
+          line.update();
+          line.draw();
+        });
+
+        // Remove dead lines and spawn new ones
+        lines = lines.filter(l => l.alive);
+
+        // Spawn new lines periodically
+        if (Math.random() < 0.08) {
+          spawnLine();
+        }
+
+        // Check if we need to reset
+        if (totalSegments >= MAX_SEGMENTS) {
+          setTimeout(() => {
+            if (isRunning) resetAnimation();
+          }, RESET_PAUSE);
+        }
+
+        if (isRunning) {
+          animationId = requestAnimationFrame(animate);
+        }
+      }
+
+      function start() {
+        if (!isRunning) {
+          isRunning = true;
           resize();
+          resetAnimation();
+          // Spawn initial lines
+          for (let i = 0; i < 5; i++) {
+            spawnLine();
+          }
+          animate();
+        }
+      }
+
+      function stop() {
+        isRunning = false;
+        if (animationId) {
+          cancelAnimationFrame(animationId);
+        }
+      }
+
+      // Handle resize with debounce
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        if (isRunning) {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            resize();
+            resetAnimation();
+          }, 150);
         }
       });
 
