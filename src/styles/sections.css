@@ -184,13 +184,13 @@
 .workflow-panel {
   position: relative;
   width: 100%;
-  max-width: 504px;
+  max-width: 528px;
   background: rgba(20, 20, 26, 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
-  padding: var(--space-lg);
+  padding: 24px;
   box-shadow:
     0 0 60px rgba(0, 217, 255, 0.1),
     0 0 100px rgba(179, 102, 255, 0.05),
@@ -199,8 +199,9 @@
 
 .workflow-container {
   position: relative;
-  width: 100%;
-  height: 552px;
+  width: 480px;
+  height: 576px;
+  margin: 0 auto;
 }
 
 /* SVG Connections */
@@ -248,7 +249,9 @@
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  transform: translateX(-50%);
   animation: nodeFloat 3s ease-in-out infinite;
+  animation-play-state: running;
 }
 
 .workflow-node:nth-child(odd) {
@@ -257,7 +260,7 @@
 
 @keyframes nodeFloat {
   0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(-4px); }
+  50% { transform: translateX(-50%) translateY(-3px); }
 }
 
 .node-icon {
@@ -366,6 +369,34 @@
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+  .workflow-panel {
+    max-width: 460px;
+    padding: 20px;
+  }
+
+  .workflow-container {
+    width: 420px;
+    height: 504px;
+  }
+
+  .node-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .node-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .node-decision .node-icon,
+  .node-action .node-icon {
+    width: 46px;
+    height: 46px;
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-layout {
     grid-template-columns: 1fr;
@@ -379,10 +410,42 @@
 
   .hero-workflow {
     order: 2;
+    justify-content: center;
   }
 
   .workflow-panel {
-    max-width: 360px;
+    max-width: 400px;
+    padding: 16px;
+  }
+
+  .workflow-container {
+    width: 368px;
+    height: 442px;
+  }
+
+  .node-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .node-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .node-decision .node-icon,
+  .node-action .node-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .node-label {
+    font-size: 10px;
+  }
+
+  .node-badge {
+    font-size: 8px;
+    padding: 1px 4px;
   }
 }
 
