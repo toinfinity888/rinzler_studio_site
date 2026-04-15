@@ -544,9 +544,9 @@
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.2) 50%,
-    rgba(0, 0, 0, 0.5) 100%
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.3) 100%
   );
   pointer-events: none;
   z-index: 10;
@@ -567,21 +567,16 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* Exact size for 5x4 grid: 5*70 + 4*8 = 382px wide, 4*70 + 3*8 = 304px tall */
-  width: 382px;
-  height: 304px;
+  /* Size set dynamically by JavaScript */
 }
 
 .tetris-icon {
   position: absolute;
-  width: 70px;
-  height: 70px;
-  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  /* Size, font-size, border-radius set dynamically by JavaScript */
   transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
               bottom 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
               opacity 0.3s ease;
@@ -703,18 +698,6 @@
     gap: 2rem;
   }
 
-  .tetris-icon {
-    width: 62px;
-    height: 62px;
-    font-size: 30px;
-    border-radius: 12px;
-  }
-
-  .tetris-icons {
-    /* 5*62 + 4*8 = 342px, 4*62 + 3*8 = 272px */
-    width: 342px;
-    height: 272px;
-  }
 }
 
 @media (max-width: 1200px) {
@@ -731,18 +714,6 @@
     margin: 0 auto;
   }
 
-  .tetris-icon {
-    width: 54px;
-    height: 54px;
-    font-size: 26px;
-    border-radius: 11px;
-  }
-
-  .tetris-icons {
-    /* 5*54 + 4*8 = 302px, 4*54 + 3*8 = 240px */
-    width: 302px;
-    height: 240px;
-  }
 }
 
 @media (max-width: 768px) {
