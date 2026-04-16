@@ -5,9 +5,9 @@
 
 :root {
   /* Colors */
-  --color-bg-primary: #0a0a0f;
-  --color-bg-secondary: #14141a;
-  --color-bg-tertiary: #1e1e28;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #000000;
+  --color-bg-tertiary: #0a0a0f;
   --color-text-primary: #e8e8f0;
   --color-text-secondary: #b8b8c5;
   --color-text-muted: #808090;

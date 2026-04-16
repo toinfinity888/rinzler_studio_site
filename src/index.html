@@ -44,19 +44,22 @@
 
   <!-- Hero Section -->
   <section class="hero" data-section="hero">
-    <!-- Three.js Canvas Container -->
-    <div id="hero-canvas-container"></div>
+    <!-- Video Background -->
+    <div class="hero-video-container">
+      <video id="hero-video" class="hero-video" autoplay muted playsinline>
+        <source src="./assets/video/video_hero.mp4" type="video/mp4">
+      </video>
+    </div>
 
-    <div class="hero-layout">
-      <!-- Left: Content -->
-      <div class="hero-content">
-        <h1 class="hero-tagline">
-          Débloquez la Rentabilité :
-          <span class="text-gradient-cyan-purple">Réduction de 20% des Coûts</span>
+    <div class="hero-layout hero-layout-centered">
+      <!-- Centered Content -->
+      <div class="hero-content hero-content-centered">
+        <h1 class="hero-tagline hero-tagline-white">
+          Réduction de 20% des Coûts
           via l'Automatisation
         </h1>
         <p class="hero-subtitle">
-          Réduisez les coûts opérationnels de 20% grâce à l'automatisation intelligente
+          L'automatisation intelligente
           et l'IA française (Mistral AI). Infrastructure 100% souveraine, conformité RGPD garantie.
         </p>
         <div class="hero-cta">
@@ -71,26 +74,19 @@
         </div>
       </div>
 
-      <!-- Right: Workflow Demo -->
+      <!-- COMMENTED OUT: Workflow Demo Widget
       <div class="hero-workflow">
         <div class="workflow-panel">
           <div class="workflow-container">
-            <!-- SVG Connections -->
             <svg class="workflow-connections" viewBox="0 0 480 576" preserveAspectRatio="xMidYMid meet">
-              <!-- Email to Preprocess (bottom of Email icon to top of Preprocess) -->
               <path class="connection-line branch-line" d="M240,80 L240,120" />
-              <!-- Preprocess to AI Classification -->
               <path class="connection-line branch-line" d="M240,176 L240,216" />
-              <!-- AI Classification to branches -->
               <path class="connection-line branch-line" d="M240,272 L240,316 L84,316 L84,360" />
               <path class="connection-line branch-line" d="M240,272 L240,360" />
               <path class="connection-line branch-line" d="M240,272 L240,316 L396,316 L396,360" />
-              <!-- Decision to Action nodes -->
               <path class="connection-line branch-line" d="M84,412 L84,456" />
               <path class="connection-line branch-line" d="M240,412 L240,456" />
               <path class="connection-line branch-line" d="M396,412 L396,456" />
-
-              <!-- Animated dots -->
               <circle class="flow-dot dot-1" r="4">
                 <animateMotion dur="4s" repeatCount="indefinite" begin="0s">
                   <mpath href="#path1" />
@@ -106,137 +102,54 @@
                   <mpath href="#path3" />
                 </animateMotion>
               </circle>
-
-              <!-- Motion paths (follow the exact connection lines) -->
               <defs>
                 <path id="path1" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,316 L84,316 L84,360 L84,412 L84,508" fill="none" />
                 <path id="path2" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,360 L240,412 L240,508" fill="none" />
                 <path id="path3" d="M240,80 L240,120 L240,176 L240,216 L240,272 L240,316 L396,316 L396,360 L396,412 L396,508" fill="none" />
               </defs>
             </svg>
-
-            <!-- Nodes (positions as percentages of 480x576 viewBox) -->
-            <div class="workflow-node node-trigger" style="top: 4.17%; left: 50%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-              </div>
-              <span class="node-label">Email</span>
-            </div>
-
-            <div class="workflow-node node-process" style="top: 20.83%; left: 50%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                  <polyline points="2 17 12 22 22 17"/>
-                  <polyline points="2 12 12 17 22 12"/>
-                </svg>
-              </div>
-              <span class="node-label">Preprocess</span>
-            </div>
-
-            <div class="workflow-node node-ai" style="top: 37.5%; left: 50%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
-                  <path d="M16 14v2a4 4 0 0 1-8 0v-2"/>
-                  <line x1="12" y1="18" x2="12" y2="22"/>
-                  <line x1="8" y1="22" x2="16" y2="22"/>
-                </svg>
-              </div>
-              <span class="node-label">AI Classification</span>
-              <span class="node-badge">Mistral AI</span>
-            </div>
-
-            <!-- Decision branches -->
-            <div class="workflow-node node-decision node-spam" style="top: 62.5%; left: 17.5%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="15" y1="9" x2="9" y2="15"/>
-                  <line x1="9" y1="9" x2="15" y2="15"/>
-                </svg>
-              </div>
-              <span class="node-label">Spam</span>
-            </div>
-
-            <div class="workflow-node node-decision node-simple" style="top: 62.5%; left: 50%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                  <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-              </div>
-              <span class="node-label">Simple</span>
-            </div>
-
-            <div class="workflow-node node-decision node-complex" style="top: 62.5%; left: 82.5%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="3"/>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                </svg>
-              </div>
-              <span class="node-label">Complex</span>
-            </div>
-
-            <!-- Action nodes -->
-            <div class="workflow-node node-action node-ignore" style="top: 79.17%; left: 17.5%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="3 6 5 6 21 6"/>
-                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                </svg>
-              </div>
-              <span class="node-label">Ignore</span>
-            </div>
-
-            <div class="workflow-node node-action node-reply" style="top: 79.17%; left: 50%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-              </div>
-              <span class="node-label">AI Reply</span>
-              <span class="node-badge">Auto</span>
-            </div>
-
-            <div class="workflow-node node-action node-human" style="top: 79.17%; left: 82.5%;">
-              <div class="node-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                </svg>
-              </div>
-              <span class="node-label">Human + AI</span>
-              <span class="node-badge">Review</span>
-            </div>
+            ... workflow nodes ...
           </div>
         </div>
       </div>
+      END COMMENTED OUT -->
     </div>
   </section>
 
   <!-- Pain Bridge Section -->
   <section class="pain-bridge" data-section="pain">
-    <h2 class="pain-bridge-headline">Les Coûts Cachés de la Logistique Manuelle</h2>
+    <h2 class="pain-bridge-headline">Les coûts cachés de vos opérations manuelles</h2>
 
     <div class="problems-grid">
-        <!-- Card 1: Task Overload Animation -->
+        <!-- Card 1: Clock Icon - Time Wasted -->
         <div class="problem-item">
-          <div class="card-border-gradient gradient-border-red-orange">
-            <div class="problem-card-animated">
-              <div class="tetris-container" id="tetris-animation">
-                <div class="tetris-icons"></div>
-              </div>
-            </div>
+          <div class="pain-icon-wrapper">
+            <svg class="pain-icon pain-icon-clock" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad-red-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ef4444"/>
+                  <stop offset="100%" stop-color="#f97316"/>
+                </linearGradient>
+              </defs>
+              <!-- Clock face background -->
+              <circle cx="60" cy="60" r="48" stroke="url(#grad-red-orange)" stroke-width="4" fill="none" opacity="0.2"/>
+              <!-- Clock face outline -->
+              <circle cx="60" cy="60" r="48" stroke="url(#grad-red-orange)" stroke-width="4" fill="none" class="clock-circle"/>
+              <!-- Hour marks at 12, 3, 6, 9 -->
+              <line x1="60" y1="16" x2="60" y2="26" stroke="url(#grad-red-orange)" stroke-width="3" stroke-linecap="round"/>
+              <line x1="60" y1="94" x2="60" y2="104" stroke="url(#grad-red-orange)" stroke-width="3" stroke-linecap="round"/>
+              <line x1="16" y1="60" x2="26" y2="60" stroke="url(#grad-red-orange)" stroke-width="3" stroke-linecap="round"/>
+              <line x1="94" y1="60" x2="104" y2="60" stroke="url(#grad-red-orange)" stroke-width="3" stroke-linecap="round"/>
+              <!-- Hour hand (short, thick) pointing to ~10 o'clock -->
+              <line x1="60" y1="60" x2="42" y2="38" stroke="#ef4444" stroke-width="5" stroke-linecap="round" class="clock-hand-hour"/>
+              <!-- Minute hand (long, thinner) pointing to ~2 o'clock -->
+              <line x1="60" y1="60" x2="78" y2="35" stroke="#f97316" stroke-width="4" stroke-linecap="round" class="clock-hand-minute"/>
+              <!-- Center dot -->
+              <circle cx="60" cy="60" r="6" fill="url(#grad-red-orange)"/>
+            </svg>
           </div>
           <div class="problem-text">
-            <h3 class="problem-title gradient-red-orange">10 heures perdues par semaine</h3>
+            <h3 class="problem-title gradient-red-orange">Inefficacité opérationnelle</h3>
             <p class="problem-description">
               Saisie manuelle des données, documents perdus, conflits de planning...
               Vos équipes passent plus de temps à gérer la paperasse qu'à optimiser les tournées.
@@ -244,14 +157,40 @@
           </div>
         </div>
 
-        <!-- Card 2: Particle Funnel Animation - Losing Leads -->
+        <!-- Card 2: Person Leaving Icon - Lost Leads -->
         <div class="problem-item">
-          <div class="card-border-gradient gradient-border-yellow-orange">
-            <div class="problem-card-animated">
-              <div class="particle-funnel-container" id="particle-funnel">
-                <canvas id="particle-funnel-canvas"></canvas>
-              </div>
-            </div>
+          <div class="pain-icon-wrapper">
+            <svg class="pain-icon pain-icon-exit" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad-yellow-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fbbf24"/>
+                  <stop offset="100%" stop-color="#f97316"/>
+                </linearGradient>
+              </defs>
+              <!-- Door frame (bright) -->
+              <rect x="55" y="20" width="40" height="80" rx="2" stroke="url(#grad-yellow-orange)" stroke-width="3" fill="none" opacity="0.35"/>
+              <!-- Open door with handle (hinged on left side of frame) -->
+              <g class="door-panel">
+                <path d="M57 23 L57 97 L74 92 L74 28 Z" stroke="url(#grad-yellow-orange)" stroke-width="3" fill="none"/>
+                <!-- Door handle -->
+                <circle cx="72" cy="60" r="3" fill="url(#grad-yellow-orange)"/>
+              </g>
+              <!-- Person walking into door -->
+              <g class="person-exiting">
+                <!-- Head -->
+                <circle cx="35" cy="45" r="8" stroke="url(#grad-yellow-orange)" stroke-width="3" fill="none"/>
+                <!-- Body -->
+                <line x1="35" y1="53" x2="35" y2="75" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round"/>
+                <!-- Arms (reaching toward door) -->
+                <line x1="35" y1="60" x2="45" y2="70" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round"/>
+                <line x1="35" y1="60" x2="25" y2="55" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round"/>
+                <!-- Legs (walking toward door) -->
+                <line x1="35" y1="75" x2="43" y2="95" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round"/>
+                <line x1="35" y1="75" x2="27" y2="95" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <!-- Arrow pointing toward door -->
+              <path d="M6 60 L16 60 M12 55 L18 60 L12 65" stroke="url(#grad-yellow-orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="exit-arrow"/>
+            </svg>
           </div>
           <div class="problem-text">
             <h3 class="problem-title gradient-yellow-orange">Leads et revenus perdus</h3>
@@ -262,14 +201,38 @@
           </div>
         </div>
 
-        <!-- Card 3: Chaos Lines Animation -->
+        <!-- Card 3: Chaos Icon -->
         <div class="problem-item">
-          <div class="card-border-gradient gradient-border-purple-pink">
-            <div class="problem-card-animated">
-              <div class="chaos-lines-container" id="chaos-lines">
-                <canvas id="chaos-lines-canvas"></canvas>
-              </div>
-            </div>
+          <div class="pain-icon-wrapper">
+            <svg class="pain-icon pain-icon-chaos" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad-purple-pink" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#a855f7"/>
+                  <stop offset="100%" stop-color="#ec4899"/>
+                </linearGradient>
+              </defs>
+              <!-- Chaotic scattered lines -->
+              <line x1="60" y1="60" x2="95" y2="25" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c1"/>
+              <line x1="60" y1="60" x2="100" y2="55" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c2"/>
+              <line x1="60" y1="60" x2="90" y2="90" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c3"/>
+              <line x1="60" y1="60" x2="55" y2="100" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c4"/>
+              <line x1="60" y1="60" x2="20" y2="85" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c5"/>
+              <line x1="60" y1="60" x2="15" y2="50" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c6"/>
+              <line x1="60" y1="60" x2="25" y2="20" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c7"/>
+              <line x1="60" y1="60" x2="60" y2="15" stroke="url(#grad-purple-pink)" stroke-width="3" stroke-linecap="round" class="chaos-line c8"/>
+              <!-- Scattered dots -->
+              <circle cx="98" cy="22" r="4" fill="url(#grad-purple-pink)" class="chaos-dot d1"/>
+              <circle cx="105" cy="55" r="3" fill="url(#grad-purple-pink)" class="chaos-dot d2"/>
+              <circle cx="93" cy="95" r="5" fill="url(#grad-purple-pink)" class="chaos-dot d3"/>
+              <circle cx="52" cy="105" r="3" fill="url(#grad-purple-pink)" class="chaos-dot d4"/>
+              <circle cx="15" cy="88" r="4" fill="url(#grad-purple-pink)" class="chaos-dot d5"/>
+              <circle cx="10" cy="48" r="3" fill="url(#grad-purple-pink)" class="chaos-dot d6"/>
+              <circle cx="22" cy="15" r="5" fill="url(#grad-purple-pink)" class="chaos-dot d7"/>
+              <circle cx="60" cy="10" r="4" fill="url(#grad-purple-pink)" class="chaos-dot d8"/>
+              <!-- Center explosion -->
+              <circle cx="60" cy="60" r="12" stroke="url(#grad-purple-pink)" stroke-width="3" fill="none" opacity="0.5" class="chaos-center"/>
+              <circle cx="60" cy="60" r="6" fill="url(#grad-purple-pink)" class="chaos-core"/>
+            </svg>
           </div>
           <div class="problem-text">
             <h3 class="problem-title gradient-purple-pink">Chaos système incontrôlable</h3>
@@ -282,884 +245,416 @@
       </div>
   </section>
 
-  <!-- Tetris Animation Script -->
+  <!-- Three Steps to Result Section -->
+  <section class="transformation-journey" data-section="transformation">
+    <!-- Section Title -->
+    <div class="journey-section-header">
+      <span class="journey-section-tag">Notre Méthode</span>
+      <h2 class="journey-section-title">Trois étapes vers le <span class="gradient-text">résultat</span></h2>
+    </div>
+
+    <div class="journey-sticky-container">
+      <!-- Phase Indicator -->
+      <div class="phase-indicator">
+        <div class="phase-dot active" data-phase="1"></div>
+        <div class="phase-dot" data-phase="2"></div>
+        <div class="phase-dot" data-phase="3"></div>
+      </div>
+
+      <!-- Phase 1: Deep Diagnosis - Dashboard Style -->
+      <div class="journey-phase phase-1 active" data-phase="1">
+        <!-- Ambient Glows -->
+        <div class="diag-glow diag-glow--blue"></div>
+        <div class="diag-glow diag-glow--purple"></div>
+        <div class="diag-glow diag-glow--orange"></div>
+
+        <div class="diagnosis-canvas">
+          <!-- Left: Text Column -->
+          <div class="diagnosis-text-col">
+            <span class="diag-tag">Étape 1 — Diagnostic Approfondi</span>
+            <h2 class="diag-headline">Vos coûts<br>cachés <span class="diag-gradient">révélés.</span></h2>
+            <p class="diag-body">Temps perdu, erreurs manuelles, opportunités manquées — chaque jour sans automatisation vous coûte de l'argent.</p>
+            <div class="diag-stats-row">
+              <div class="diag-stat">
+                <div class="diag-stat-num blue" data-target="37" data-suffix="%">0%</div>
+                <div class="diag-stat-label">Temps perdu</div>
+              </div>
+              <div class="diag-stat">
+                <div class="diag-stat-num purple" data-target="23" data-suffix="%">0%</div>
+                <div class="diag-stat-label">Erreurs</div>
+              </div>
+              <div class="diag-stat">
+                <div class="diag-stat-num orange" data-target="52" data-suffix="K€">0</div>
+                <div class="diag-stat-label">Pertes/an</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Charts Column -->
+          <div class="diagnosis-charts-col">
+            <!-- Line Chart (spans 2 columns) -->
+            <div class="diag-chart-card diag-chart-wide">
+              <div class="diag-chart-title">Tendance des Coûts Opérationnels</div>
+              <div class="diag-chart-area">
+                <svg class="diag-line-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="diagLineGrad" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#4A7CFF"/>
+                      <stop offset="50%" stop-color="#A855F7"/>
+                      <stop offset="100%" stop-color="#FF6B2B"/>
+                    </linearGradient>
+                    <linearGradient id="diagAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.2"/>
+                      <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <line class="diag-grid-line" x1="0" y1="50" x2="600" y2="50"/>
+                  <line class="diag-grid-line" x1="0" y1="100" x2="600" y2="100"/>
+                  <line class="diag-grid-line" x1="0" y1="150" x2="600" y2="150"/>
+                  <path class="diag-area-fill" d="M0,180 C60,175 100,160 150,150 C200,140 230,120 300,100 C370,80 420,85 480,60 C520,45 560,30 600,20 L600,200 L0,200 Z" fill="url(#diagAreaGrad)"/>
+                  <path class="diag-line-path" d="M0,180 C60,175 100,160 150,150 C200,140 230,120 300,100 C370,80 420,85 480,60 C520,45 560,30 600,20" stroke="url(#diagLineGrad)"/>
+                  <circle class="diag-dot" cx="0" cy="180" r="4" fill="#4A7CFF" style="animation-delay:2.6s"/>
+                  <circle class="diag-dot" cx="150" cy="150" r="4" fill="#7A6AFF" style="animation-delay:2.8s"/>
+                  <circle class="diag-dot" cx="300" cy="100" r="4" fill="#A855F7" style="animation-delay:3.0s"/>
+                  <circle class="diag-dot" cx="480" cy="60" r="4" fill="#D46030" style="animation-delay:3.2s"/>
+                  <circle class="diag-dot" cx="600" cy="20" r="4" fill="#FF6B2B" style="animation-delay:3.4s"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Donut Chart -->
+            <div class="diag-chart-card">
+              <div class="diag-chart-title">Répartition des Pertes</div>
+              <div class="diag-chart-area">
+                <svg class="diag-donut-svg" viewBox="0 0 160 160">
+                  <defs>
+                    <linearGradient id="diagGradBlue" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#4A7CFF"/>
+                      <stop offset="100%" stop-color="#6C5CE7"/>
+                    </linearGradient>
+                    <linearGradient id="diagGradPurple" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#A855F7"/>
+                      <stop offset="100%" stop-color="#C77DFF"/>
+                    </linearGradient>
+                    <linearGradient id="diagGradOrange" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#FF6B2B"/>
+                      <stop offset="100%" stop-color="#FF9A5C"/>
+                    </linearGradient>
+                  </defs>
+                  <circle class="diag-donut-ring r1" cx="80" cy="80" r="56"/>
+                  <circle class="diag-donut-ring r2" cx="80" cy="80" r="56"/>
+                  <circle class="diag-donut-ring r3" cx="80" cy="80" r="56"/>
+                  <text class="diag-donut-val" x="80" y="76">68%</text>
+                  <text class="diag-donut-label" x="80" y="96">ÉVITABLE</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bar Chart -->
+            <div class="diag-chart-card">
+              <div class="diag-chart-title">Par Département</div>
+              <div class="diag-chart-area">
+                <svg class="diag-bar-svg" viewBox="0 0 160 140" preserveAspectRatio="xMidYMax meet">
+                  <defs>
+                    <linearGradient id="diagBGrad1" x1="0" y1="1" x2="0" y2="0">
+                      <stop offset="0%" stop-color="#4A7CFF" stop-opacity="0.6"/>
+                      <stop offset="100%" stop-color="#4A7CFF"/>
+                    </linearGradient>
+                    <linearGradient id="diagBGrad2" x1="0" y1="1" x2="0" y2="0">
+                      <stop offset="0%" stop-color="#A855F7" stop-opacity="0.6"/>
+                      <stop offset="100%" stop-color="#A855F7"/>
+                    </linearGradient>
+                    <linearGradient id="diagBGrad3" x1="0" y1="1" x2="0" y2="0">
+                      <stop offset="0%" stop-color="#FF6B2B" stop-opacity="0.5"/>
+                      <stop offset="100%" stop-color="#FF6B2B"/>
+                    </linearGradient>
+                    <linearGradient id="diagBGrad4" x1="0" y1="1" x2="0" y2="0">
+                      <stop offset="0%" stop-color="#4A7CFF" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#A855F7"/>
+                    </linearGradient>
+                  </defs>
+                  <rect class="diag-bar-rect" x="10" y="40" width="26" height="80" fill="url(#diagBGrad1)" style="animation-delay:1.8s"/>
+                  <rect class="diag-bar-rect" x="48" y="55" width="26" height="65" fill="url(#diagBGrad2)" style="animation-delay:2.0s"/>
+                  <rect class="diag-bar-rect" x="86" y="25" width="26" height="95" fill="url(#diagBGrad3)" style="animation-delay:2.2s"/>
+                  <rect class="diag-bar-rect" x="124" y="45" width="26" height="75" fill="url(#diagBGrad4)" style="animation-delay:2.4s"/>
+                  <text class="diag-bar-label" x="23" y="135" style="animation-delay:2.6s">LOG</text>
+                  <text class="diag-bar-label" x="61" y="135" style="animation-delay:2.8s">ADM</text>
+                  <text class="diag-bar-label" x="99" y="135" style="animation-delay:3.0s">OPS</text>
+                  <text class="diag-bar-label" x="137" y="135" style="animation-delay:3.2s">FIN</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: Logic Engine -->
+      <div class="journey-phase phase-2" data-phase="2">
+        <div class="phase-visual">
+          <div class="workflow-engine">
+            <!-- n8n-style workflow nodes -->
+            <svg class="workflow-paths" viewBox="0 0 600 400">
+              <path class="flow-path path-1" d="M50,200 C150,200 150,100 250,100" />
+              <path class="flow-path path-2" d="M50,200 C150,200 150,200 250,200" />
+              <path class="flow-path path-3" d="M50,200 C150,200 150,300 250,300" />
+              <path class="flow-path path-4" d="M250,100 C350,100 350,200 450,200" />
+              <path class="flow-path path-5" d="M250,200 C350,200 350,200 450,200" />
+              <path class="flow-path path-6" d="M250,300 C350,300 350,200 450,200" />
+              <path class="flow-path path-7" d="M450,200 L550,200" />
+            </svg>
+            <div class="engine-node node-input" style="left: 20px; top: 50%;">
+              <div class="node-glow"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <div class="engine-node node-process" style="left: 230px; top: 15%;">
+              <div class="node-glow"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+              </svg>
+            </div>
+            <div class="engine-node node-ai" style="left: 230px; top: 50%;">
+              <div class="node-glow pulse"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a4 4 0 0 1 4 4v2a4 4 0 0 1-8 0V6a4 4 0 0 1 4-4z"/>
+                <path d="M16 14v2a4 4 0 0 1-8 0v-2"/>
+                <line x1="12" y1="18" x2="12" y2="22"/>
+              </svg>
+              <span class="node-badge-small">Mistral AI</span>
+            </div>
+            <div class="engine-node node-process" style="left: 230px; top: 85%;">
+              <div class="node-glow"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+            <div class="engine-node node-hub" style="left: 430px; top: 50%;">
+              <div class="node-glow pulse"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v6m0 6v10"/>
+                <path d="M1 12h6m6 0h10"/>
+              </svg>
+            </div>
+            <div class="engine-node node-output" style="left: 540px; top: 50%;">
+              <div class="node-glow success"></div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: Profit Outcome -->
+      <div class="journey-phase phase-3" data-phase="3">
+        <div class="phase-visual">
+          <div class="profit-dashboard">
+            <div class="profit-card main-metric">
+              <div class="profit-icon">📈</div>
+              <div class="profit-value">
+                <span class="ticker" data-target="20" data-suffix="%">0%</span>
+              </div>
+              <div class="profit-label">Réduction des coûts</div>
+            </div>
+            <div class="profit-grid">
+              <div class="profit-card">
+                <div class="profit-value small">
+                  <span class="ticker" data-target="4.2" data-suffix="h" data-decimals="1">0h</span>
+                </div>
+                <div class="profit-label">Économisées/jour</div>
+              </div>
+              <div class="profit-card">
+                <div class="profit-value small">
+                  <span class="ticker" data-target="98" data-suffix="%">0%</span>
+                </div>
+                <div class="profit-label">Précision</div>
+              </div>
+              <div class="profit-card">
+                <div class="profit-value small">
+                  <span class="ticker" data-target="35" data-suffix="%">0%</span>
+                </div>
+                <div class="profit-label">Leads récupérés</div>
+              </div>
+              <div class="profit-card">
+                <div class="profit-value small">
+                  <span class="ticker" data-target="24" data-suffix="/7">0/7</span>
+                </div>
+                <div class="profit-label">Disponibilité</div>
+              </div>
+            </div>
+            <div class="roi-summary">
+              <span class="roi-text">ROI moyen constaté:</span>
+              <span class="roi-value ticker" data-target="340" data-suffix="%">0%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scrollytelling Transformation Script -->
   <script>
     (function() {
-      const icons = [
-        { icon: '📧', gradient: 'linear-gradient(135deg, #4a9eff, #0066cc)' },
-        { icon: '📊', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)' },
-        { icon: '📋', gradient: 'linear-gradient(135deg, #f59e0b, #d97706)' },
-        { icon: '📞', gradient: 'linear-gradient(135deg, #8b5cf6, #7c3aed)' },
-        { icon: '📁', gradient: 'linear-gradient(135deg, #ec4899, #db2777)' },
-        { icon: '🗓️', gradient: 'linear-gradient(135deg, #06b6d4, #0891b2)' },
-        { icon: '📝', gradient: 'linear-gradient(135deg, #ef4444, #dc2626)' },
-        { icon: '💼', gradient: 'linear-gradient(135deg, #f97316, #ea580c)' },
-      ];
+      const section = document.querySelector('.transformation-journey');
+      const stickyContainer = document.querySelector('.journey-sticky-container');
+      const phases = document.querySelectorAll('.journey-phase');
+      const phaseDots = document.querySelectorAll('.phase-dot');
+      const tickers = document.querySelectorAll('.ticker');
 
-      const container = document.querySelector('#tetris-animation .tetris-icons');
-      const tetrisContainer = document.querySelector('#tetris-animation');
-      if (!container || !tetrisContainer) return;
+      if (!section || !stickyContainer) return;
 
-      const COLS = 5;
-      const ROWS = 4;
-      const GAP = 6;
-      const DROP_INTERVAL = 350;
-      const PAUSE_BEFORE_DROP = 2000;
-      const DROP_AMOUNT = 0.5;
+      // Scroll handling
+      let currentPhase = 1;
+      let tickersAnimated = false;
 
-      let grid = [];
-      let currentCol = 0;
-      let dropTimeout;
-      let iconSize = 70;
-
-      function calculateSizes() {
-        const containerWidth = tetrisContainer.offsetWidth;
-        const containerHeight = tetrisContainer.offsetHeight;
-
-        // Calculate icon size to fit within container with some padding
-        const maxWidthForIcons = containerWidth * 0.9;
-        const maxHeightForIcons = containerHeight * 0.85;
-
-        const iconByWidth = (maxWidthForIcons - GAP * (COLS - 1)) / COLS;
-        const iconByHeight = (maxHeightForIcons - GAP * (ROWS - 1)) / ROWS;
-
-        iconSize = Math.floor(Math.min(iconByWidth, iconByHeight, 70));
-        iconSize = Math.max(iconSize, 30); // Minimum size
-
-        // Update container size
-        const gridWidth = COLS * iconSize + (COLS - 1) * GAP;
-        const gridHeight = ROWS * iconSize + (ROWS - 1) * GAP;
-        container.style.width = gridWidth + 'px';
-        container.style.height = gridHeight + 'px';
+      function getScrollProgress() {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = -rect.top;
+        const sectionHeight = section.offsetHeight - window.innerHeight;
+        return Math.max(0, Math.min(1, sectionTop / sectionHeight));
       }
 
-      function createIconElement(iconData) {
-        const el = document.createElement('div');
-        el.className = 'tetris-icon';
-        el.style.background = iconData.gradient;
-        el.style.width = iconSize + 'px';
-        el.style.height = iconSize + 'px';
-        el.style.fontSize = Math.floor(iconSize * 0.45) + 'px';
-        el.style.borderRadius = Math.floor(iconSize * 0.2) + 'px';
-        el.innerHTML = `<span>${iconData.icon}</span>`;
-        return el;
-      }
-
-      function getRandomIcon() {
-        return icons[Math.floor(Math.random() * icons.length)];
-      }
-
-      function findNextColumn() {
-        // Find column with least icons (more natural filling)
-        let minHeight = Infinity;
-        let candidates = [];
-
-        for (let i = 0; i < COLS; i++) {
-          if (grid[i].length < ROWS) {
-            if (grid[i].length < minHeight) {
-              minHeight = grid[i].length;
-              candidates = [i];
-            } else if (grid[i].length === minHeight) {
-              candidates.push(i);
-            }
-          }
+      function updatePhase(progress) {
+        let newPhase;
+        if (progress < 0.30) {
+          newPhase = 1;
+        } else if (progress < 0.65) {
+          newPhase = 2;
+        } else {
+          newPhase = 3;
         }
 
-        return candidates.length > 0
-          ? candidates[Math.floor(Math.random() * candidates.length)]
-          : -1;
-      }
+        if (newPhase !== currentPhase) {
+          currentPhase = newPhase;
 
-      function dropIcon() {
-        const col = findNextColumn();
-
-        if (col === -1) {
-          // Grid is full, wait then drop
-          setTimeout(dropDown, PAUSE_BEFORE_DROP);
-          return;
-        }
-
-        const row = grid[col].length;
-        const iconData = getRandomIcon();
-        const el = createIconElement(iconData);
-
-        const x = col * (iconSize + GAP);
-        const targetY = row * (iconSize + GAP);
-
-        el.style.left = x + 'px';
-        el.style.bottom = targetY + 'px';
-
-        container.appendChild(el);
-        grid[col].push(el);
-
-        // Trigger the landing animation
-        requestAnimationFrame(() => {
-          el.classList.add('landing');
-        });
-
-        currentCol++;
-        dropTimeout = setTimeout(dropIcon, DROP_INTERVAL);
-      }
-
-      function dropDown() {
-        const removeCount = Math.floor(ROWS * DROP_AMOUNT);
-
-        grid.forEach(col => {
-          col.forEach((el, i) => {
-            if (i < removeCount) {
-              // Falling out animation
-              el.style.transition = 'transform 0.4s cubic-bezier(0.55, 0, 1, 0.45), opacity 0.4s ease';
-              el.style.transform = 'translateY(150px)';
-              el.style.opacity = '0';
-              setTimeout(() => el.remove(), 400);
+          // Update phases
+          phases.forEach(phase => {
+            const phaseNum = parseInt(phase.dataset.phase);
+            if (phaseNum === currentPhase) {
+              phase.classList.add('active');
             } else {
-              // Remaining icons settle down smoothly
-              el.classList.remove('landing');
-              el.style.transition = 'bottom 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
-              const newY = (i - removeCount) * (iconSize + GAP);
-              el.style.bottom = newY + 'px';
+              phase.classList.remove('active');
             }
           });
-          col.splice(0, removeCount);
-        });
 
-        setTimeout(() => {
-          currentCol = 0;
-          dropIcon();
-        }, 600);
-      }
-
-      function init() {
-        calculateSizes();
-        grid = Array.from({ length: COLS }, () => []);
-        container.innerHTML = '';
-        currentCol = 0;
-        dropIcon();
-      }
-
-      // Start when visible
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            init();
-            observer.disconnect();
-          }
-        });
-      }, { threshold: 0.3 });
-
-      observer.observe(container.parentElement);
-    })();
-  </script>
-
-  <!-- Particle Funnel Animation Script -->
-  <script>
-    (function() {
-      const container = document.getElementById('particle-funnel');
-      const canvas = document.getElementById('particle-funnel-canvas');
-      if (!container || !canvas) return;
-
-      const ctx = canvas.getContext('2d', { alpha: false });
-      let width, height, centerX, centerY;
-      let particles = [];
-      let escapingParticles = [];
-      let successFlashes = [];
-      let animationId;
-      let isRunning = false;
-
-
-      // Color palette (golden/orange gradient)
-      const colors = [
-        { r: 251, g: 191, b: 36 },   // Yellow
-        { r: 249, g: 115, b: 22 },   // Orange
-        { r: 245, g: 158, b: 11 },   // Amber
-        { r: 252, g: 211, b: 77 },   // Light yellow
-        { r: 234, g: 88, b: 12 },    // Deep orange
-      ];
-
-      // Limit pixel ratio for performance
-      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
-
-      function resize() {
-        width = container.offsetWidth;
-        height = container.offsetHeight;
-        canvas.width = width * pixelRatio;
-        canvas.height = height * pixelRatio;
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(pixelRatio, pixelRatio);
-        centerX = width / 2;
-        centerY = height / 2;
-      }
-
-      class Particle {
-        constructor() {
-          this.reset();
-        }
-
-        reset() {
-          // Start at random position in the funnel area - wide at top
-          this.angle = Math.random() * Math.PI * 2;
-          const topRadius = width * 0.42; // Almost full width at top
-          this.radius = topRadius * (0.3 + Math.random() * 0.7);
-          this.y = height * 0.08 + Math.random() * height * 0.15;
-
-          // Particle properties
-          this.size = 2 + Math.random() * 6;
-          this.baseSize = this.size;
-          this.color = colors[Math.floor(Math.random() * colors.length)];
-          this.alpha = 0.5 + Math.random() * 0.5;
-          this.brightness = 1;
-
-          // Movement - smooth and soft
-          this.baseSpinSpeed = 0.006 + Math.random() * 0.012;
-          this.spinSpeed = this.baseSpinSpeed;
-          this.baseFallSpeed = 0.15 + Math.random() * 0.25;
-          this.fallSpeed = this.baseFallSpeed;
-
-          // Wobble - gentle
-          this.wobbleAngle = Math.random() * Math.PI * 2;
-          this.wobbleSpeed = 0.02 + Math.random() * 0.04;
-          this.wobbleAmount = 1.5 + Math.random() * 3;
-
-          this.escaped = false;
-        }
-
-        getFunnelRadius(yPos) {
-          const topY = height * 0.08;
-          const bottomY = height * 0.92;
-
-          const topRadius = width * 0.48;   // шире сверху
-          const bottomRadius = width * 0.015; // уже снизу
-
-          const progress = Math.max(0, Math.min(1, (yPos - topY) / (bottomY - topY)));
-
-          // более резкое сужение (экспонента)
-          const eased = Math.pow(progress, 1.8);
-
-          return topRadius - (topRadius - bottomRadius) * eased;
-}
-
-        update() {
-          // Spiral movement - smooth acceleration
-          this.y += this.fallSpeed;
-
-          // Gentle spin boost as particles descend
-          const spinBoost = 1 + (this.y / height) * 0.8;
-          this.angle += this.spinSpeed * spinBoost;
-
-          // Wobble effect
-          this.wobbleAngle += this.wobbleSpeed;
-
-          // Size pulsing
-          this.size = this.baseSize * (0.8 + Math.sin(this.wobbleAngle) * 0.2);
-
-          // Calculate funnel bounds at current y
-          const maxRadius = this.getFunnelRadius(this.y);
-
-          // Gradually pull particles toward funnel center as they descend
-          const pullStrength = 0.015;
-          if (this.radius > maxRadius) {
-            this.radius -= (this.radius - maxRadius) * pullStrength * 2;
-          } else {
-            this.radius -= (this.radius - maxRadius * 0.6) * pullStrength * 0.5;
-          }
-
-          // Check if particle should escape - can happen anywhere in the funnel
-          // Higher chance near the edges, but possible throughout
-          const edgeProximity = this.radius / maxRadius; // 0 to 1, higher = closer to edge
-          const escapeChance = 0.002 + edgeProximity * 0.006; // Base chance + edge bonus
-
-          if (!this.escaped && Math.random() < escapeChance) {
-            this.escaped = true;
-            escapingParticles.push(new EscapingParticle(this));
-          }
-
-          // Constrain to funnel
-          this.radius = Math.min(this.radius, maxRadius);
-          this.radius = Math.max(this.radius, 3);
-
-          // Gentle slowdown near bottom (calculated fresh each frame, not cumulative)
-          if (this.y > height * 0.75) {
-            const bottomProgress = (this.y - height * 0.75) / (height * 0.15);
-            this.fallSpeed = this.baseFallSpeed * (1 - bottomProgress * 0.6);
-            // Brighten as approaching bottom
-            this.brightness = 1 + bottomProgress * 1.5;
-          } else {
-            this.fallSpeed = this.baseFallSpeed;
-            this.brightness = 1;
-          }
-
-          // Create flash and reset when reached bottom
-          if (this.y > height * 0.88) {
-            const x = centerX + Math.cos(this.angle) * this.radius;
-            successFlashes.push(new SuccessFlash(x, this.y, this.color, this.size));
-            this.reset();
-          }
-        }
-
-        draw() {
-          const wobbleX = Math.sin(this.wobbleAngle) * this.wobbleAmount;
-          const wobbleY = Math.cos(this.wobbleAngle * 0.7) * this.wobbleAmount * 0.5;
-
-          const x = centerX + Math.cos(this.angle) * this.radius + wobbleX;
-          const y = this.y + wobbleY;
-
-          // Skip if too faint
-          if (this.alpha < 0.05) return;
-
-          const glowSize = this.size * 2;
-          const alpha = Math.min(this.alpha * this.brightness, 1);
-
-          // Brighten color when approaching bottom
-          const r = Math.min(255, Math.round(this.color.r * this.brightness));
-          const g = Math.min(255, Math.round(this.color.g * this.brightness));
-          const b = Math.min(255, Math.round(this.color.b * this.brightness));
-
-          // Simplified glow - single gradient
-          const gradient = ctx.createRadialGradient(x, y, 0, x, y, glowSize);
-          gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha})`);
-          gradient.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${alpha * 0.4})`);
-          gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
-
-          ctx.beginPath();
-          ctx.arc(x, y, glowSize, 0, Math.PI * 2);
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        }
-      }
-
-      // Flash effect when particle completes the funnel - bright then fade
-      class SuccessFlash {
-        constructor(x, y, color, size) {
-          this.x = x;
-          this.y = y;
-          this.color = color;
-          this.size = size * 2 || 10;
-          this.life = 1;
-        }
-
-        update() {
-          this.life -= 0.05;
-          return this.life > 0;
-        }
-
-        draw() {
-          if (this.life < 0.05) return;
-
-          // Bright white core that fades to color then disappears
-          const alpha = this.life;
-          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-          gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
-          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.6})`);
-          gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
-
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        }
-      }
-
-      class EscapingParticle {
-        constructor(source) {
-          this.x = centerX + Math.cos(source.angle) * source.radius;
-          this.y = source.y;
-          this.size = source.size;
-          this.color = source.color;
-          this.alpha = source.alpha;
-
-          // Escape velocity - drift outward from funnel center
-          const speed = 0.8 + Math.random() * 1.2;
-          // Use particle's current angle to determine escape direction (outward)
-          const outwardDirection = Math.cos(source.angle) > 0 ? 1 : -1;
-          this.vx = outwardDirection * speed * (0.8 + Math.random() * 0.8);
-          this.vy = -0.3 - Math.random() * 0.8;
-
-          this.life = 1;
-          this.decay = 0.004 + Math.random() * 0.006;
-        }
-
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-          this.vy += 0.008;
-          this.vx *= 0.995;
-          this.vy *= 0.998;
-          this.life -= this.decay;
-          this.size *= 0.998;
-
-          return this.life > 0;
-        }
-
-        draw() {
-          const alpha = this.alpha * this.life;
-
-          // Skip if too faint
-          if (alpha < 0.03) return;
-
-          const glowSize = this.size * 3;
-
-          // Simplified glow - no blur filter
-          const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, glowSize);
-          gradient.addColorStop(0, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha})`);
-          gradient.addColorStop(0.5, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${alpha * 0.3})`);
-          gradient.addColorStop(1, `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, 0)`);
-
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, glowSize, 0, Math.PI * 2);
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        }
-      }
-
-      function init() {
-        resize();
-        particles = [];
-        escapingParticles = [];
-        successFlashes = [];
-
-        // Create particles - optimized count
-        const particleCount = Math.min(60, Math.floor(width * height / 4000));
-        for (let i = 0; i < particleCount; i++) {
-          const p = new Particle();
-          // Distribute initially across the funnel
-          p.y = height * 0.08 + Math.random() * height * 0.75;
-          p.radius = p.getFunnelRadius(p.y) * (0.3 + Math.random() * 0.6);
-          particles.push(p);
-        }
-      }
-
-      function animate() {
-        // Fill with background color instead of clear (faster with alpha:false)
-        ctx.fillStyle = 'rgb(12, 12, 18)';
-        ctx.fillRect(0, 0, width, height);
-
-        // Update and draw particles
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-
-        // Update and draw escaping particles
-        escapingParticles = escapingParticles.filter(p => {
-          const alive = p.update();
-          if (alive) p.draw();
-          return alive;
-        });
-
-        // Update and draw success flashes
-        successFlashes = successFlashes.filter(f => {
-          const alive = f.update();
-          if (alive) f.draw();
-          return alive;
-        });
-
-        if (isRunning) {
-          animationId = requestAnimationFrame(animate);
-        }
-      }
-
-      function start() {
-        if (!isRunning) {
-          isRunning = true;
-          init();
-          animate();
-        }
-      }
-
-      function stop() {
-        isRunning = false;
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      }
-
-      // Handle resize with debounce
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        if (isRunning) {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(resize, 150);
-        }
-      });
-
-      // Start when visible
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            start();
-          } else {
-            stop();
-          }
-        });
-      }, { threshold: 0.1 });
-
-      observer.observe(container);
-    })();
-  </script>
-
-  <!-- Chaos Lines Animation Script -->
-  <script>
-    (function() {
-      const container = document.getElementById('chaos-lines');
-      const canvas = document.getElementById('chaos-lines-canvas');
-      if (!container || !canvas) return;
-
-      const ctx = canvas.getContext('2d', { alpha: false });
-      let width, height;
-      let lines = [];
-      let animationId;
-      let isRunning = false;
-      let totalSegments = 0;
-      const MAX_SEGMENTS = 800;
-      const RESET_PAUSE = 1500;
-
-      // Purple-pink gradient colors
-      const colors = [
-        { r: 168, g: 85, b: 247 },   // Purple
-        { r: 192, g: 132, b: 252 },  // Light purple
-        { r: 236, g: 72, b: 153 },   // Pink
-        { r: 244, g: 114, b: 182 },  // Light pink
-        { r: 139, g: 92, b: 246 },   // Violet
-      ];
-
-      const pixelRatio = Math.min(window.devicePixelRatio, 1.5);
-
-      function resize() {
-        width = container.offsetWidth;
-        height = container.offsetHeight;
-        canvas.width = width * pixelRatio;
-        canvas.height = height * pixelRatio;
-        canvas.style.width = width + 'px';
-        canvas.style.height = height + 'px';
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.scale(pixelRatio, pixelRatio);
-      }
-
-      // Direction vectors: right, down, left, up
-      const directions = [
-        { dx: 1, dy: 0 },
-        { dx: 0, dy: 1 },
-        { dx: -1, dy: 0 },
-        { dx: 0, dy: -1 }
-      ];
-
-      class Line {
-        constructor() {
-          this.reset();
-        }
-
-        reset() {
-          // Start from a random edge
-          const edge = Math.floor(Math.random() * 4);
-          const color = colors[Math.floor(Math.random() * colors.length)];
-
-          this.color = color;
-          this.alpha = 0.4 + Math.random() * 0.4;
-          this.lineWidth = 1 + Math.random() * 2;
-          this.speed = 1.5 + Math.random() * 2;
-          this.segmentLength = 15 + Math.random() * 30;
-          this.turnChance = 0.02 + Math.random() * 0.03;
-          this.segments = [];
-          this.currentLength = 0;
-          this.alive = true;
-
-          // Set starting position and direction based on edge
-          switch(edge) {
-            case 0: // Top
-              this.x = Math.random() * width;
-              this.y = 0;
-              this.dirIndex = 1; // Down
-              break;
-            case 1: // Right
-              this.x = width;
-              this.y = Math.random() * height;
-              this.dirIndex = 2; // Left
-              break;
-            case 2: // Bottom
-              this.x = Math.random() * width;
-              this.y = height;
-              this.dirIndex = 3; // Up
-              break;
-            case 3: // Left
-              this.x = 0;
-              this.y = Math.random() * height;
-              this.dirIndex = 0; // Right
-              break;
-          }
-
-          this.startX = this.x;
-          this.startY = this.y;
-        }
-
-        turn() {
-          // Turn left or right (90 degrees)
-          const turnDir = Math.random() > 0.5 ? 1 : -1;
-          this.dirIndex = (this.dirIndex + turnDir + 4) % 4;
-
-          // Save segment
-          this.segments.push({
-            x1: this.startX,
-            y1: this.startY,
-            x2: this.x,
-            y2: this.y
+          // Update dots
+          phaseDots.forEach(dot => {
+            const dotPhase = parseInt(dot.dataset.phase);
+            if (dotPhase === currentPhase) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
           });
-          totalSegments++;
 
-          this.startX = this.x;
-          this.startY = this.y;
-          this.currentLength = 0;
-        }
-
-        update() {
-          if (!this.alive) return;
-
-          const dir = directions[this.dirIndex];
-          this.x += dir.dx * this.speed;
-          this.y += dir.dy * this.speed;
-          this.currentLength += this.speed;
-
-          // Random turn
-          if (this.currentLength > this.segmentLength && Math.random() < this.turnChance) {
-            this.turn();
-            this.segmentLength = 15 + Math.random() * 30;
-          }
-
-          // Force turn at minimum segment length
-          if (this.currentLength > this.segmentLength * 2) {
-            this.turn();
-            this.segmentLength = 15 + Math.random() * 30;
-          }
-
-          // Check bounds - die if out of canvas
-          if (this.x < -10 || this.x > width + 10 || this.y < -10 || this.y > height + 10) {
-            // Save final segment
-            this.segments.push({
-              x1: this.startX,
-              y1: this.startY,
-              x2: this.x,
-              y2: this.y
-            });
-            totalSegments++;
-            this.alive = false;
-          }
-        }
-
-        draw() {
-          ctx.strokeStyle = `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.alpha})`;
-          ctx.lineWidth = this.lineWidth;
-          ctx.lineCap = 'round';
-          ctx.lineJoin = 'round';
-
-          // Draw completed segments
-          for (const seg of this.segments) {
-            ctx.beginPath();
-            ctx.moveTo(seg.x1, seg.y1);
-            ctx.lineTo(seg.x2, seg.y2);
-            ctx.stroke();
-          }
-
-          // Draw current segment
-          if (this.alive) {
-            ctx.beginPath();
-            ctx.moveTo(this.startX, this.startY);
-            ctx.lineTo(this.x, this.y);
-            ctx.stroke();
+          // Animate tickers when reaching phase 3
+          if (currentPhase === 3 && !tickersAnimated) {
+            animateTickers();
+            tickersAnimated = true;
           }
         }
       }
 
-      function spawnLine() {
-        if (lines.length < 12 && totalSegments < MAX_SEGMENTS) {
-          lines.push(new Line());
-        }
-      }
+      // Number ticker animation
+      function animateTickers() {
+        tickers.forEach(ticker => {
+          const target = parseFloat(ticker.dataset.target);
+          const suffix = ticker.dataset.suffix || '';
+          const decimals = parseInt(ticker.dataset.decimals) || 0;
+          const duration = 2000;
+          const start = performance.now();
 
-      function resetAnimation() {
-        lines = [];
-        totalSegments = 0;
-        ctx.fillStyle = 'rgb(12, 12, 18)';
-        ctx.fillRect(0, 0, width, height);
-      }
+          function update(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
 
-      function animate() {
-        // Clear with slight fade for trail effect
-        ctx.fillStyle = 'rgba(12, 12, 18, 0.03)';
-        ctx.fillRect(0, 0, width, height);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = target * eased;
 
-        // Update and draw lines
-        lines.forEach(line => {
-          line.update();
-          line.draw();
+            ticker.textContent = current.toFixed(decimals) + suffix;
+
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            }
+          }
+
+          requestAnimationFrame(update);
         });
-
-        // Remove dead lines and spawn new ones
-        lines = lines.filter(l => l.alive);
-
-        // Spawn new lines periodically
-        if (Math.random() < 0.08) {
-          spawnLine();
-        }
-
-        // Check if we need to reset
-        if (totalSegments >= MAX_SEGMENTS) {
-          setTimeout(() => {
-            if (isRunning) resetAnimation();
-          }, RESET_PAUSE);
-        }
-
-        if (isRunning) {
-          animationId = requestAnimationFrame(animate);
-        }
       }
 
-      function start() {
-        if (!isRunning) {
-          isRunning = true;
-          resize();
-          resetAnimation();
-          // Spawn initial lines
-          for (let i = 0; i < 5; i++) {
-            spawnLine();
+      function onScroll() {
+        const progress = getScrollProgress();
+        updatePhase(progress);
+      }
+
+      // Phase dot click handlers
+      phaseDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const targetPhase = parseInt(dot.dataset.phase);
+          let targetProgress;
+
+          switch (targetPhase) {
+            case 1: targetProgress = 0.1; break;
+            case 2: targetProgress = 0.45; break;
+            case 3: targetProgress = 0.8; break;
           }
-          animate();
-        }
-      }
 
-      function stop() {
-        isRunning = false;
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-        }
-      }
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight - window.innerHeight;
+          const scrollTarget = sectionTop + (sectionHeight * targetProgress);
 
-      // Handle resize with debounce
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        if (isRunning) {
-          clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            resize();
-            resetAnimation();
-          }, 150);
-        }
+          window.scrollTo({
+            top: scrollTarget,
+            behavior: 'smooth'
+          });
+        });
       });
 
-      // Start when visible
+      // Initialize
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            start();
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll(); // Initial update
           } else {
-            stop();
+            window.removeEventListener('scroll', onScroll);
           }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.05 });
 
-      observer.observe(container);
+      observer.observe(section);
     })();
   </script>
 
   <!-- Main JavaScript -->
   <script type="module" src="./scripts/main.js"></script>
 
-  <!-- Three.js Hero Animation -->
+  <!-- Hero Video Control Script -->
+  <script>
+    (function() {
+      const video = document.getElementById('hero-video');
+      if (!video) return;
+
+      // Normal playback speed
+      video.playbackRate = 1.0;
+    })();
+  </script>
+
+  <!-- COMMENTED OUT: Three.js Hero Animation
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js';
-
-    const container = document.getElementById('hero-canvas-container');
-    if (container) {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, container.offsetWidth / container.offsetHeight, 1, 5000);
-      camera.position.set(0, 200, 600);
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      container.appendChild(renderer.domElement);
-
-      const AMOUNTX = 150;
-      const AMOUNTY = 80;
-      const SEPARATION = 20;
-
-      let count = 0;
-      let mouseX = 0;
-      let mouseY = 0;
-
-      const geometry = new THREE.BufferGeometry();
-      const positions = [];
-      const colors = [];
-
-      for (let x = 0; x < AMOUNTX; x++) {
-        for (let y = 0; y < AMOUNTY; y++) {
-          const px = x * SEPARATION - (AMOUNTX * SEPARATION) / 2;
-          const py = 0;
-          const pz = y * SEPARATION - (AMOUNTY * SEPARATION) / 2;
-
-          positions.push(px, py, pz);
-
-          const intensity = y / AMOUNTY;
-          colors.push(0.2, 0.6 * intensity, 1.0);
-        }
-      }
-
-      geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-
-      const material = new THREE.PointsMaterial({
-        size: 2.5,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.9,
-        blending: THREE.AdditiveBlending
-      });
-
-      const points = new THREE.Points(geometry, material);
-      scene.add(points);
-
-      window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX - window.innerWidth / 2;
-        mouseY = e.clientY - window.innerHeight / 2;
-      });
-
-      function animate() {
-        requestAnimationFrame(animate);
-
-        const positionsArray = geometry.attributes.position.array;
-        let i = 0;
-
-        for (let x = 0; x < AMOUNTX; x++) {
-          for (let y = 0; y < AMOUNTY; y++) {
-            const wave1 = Math.sin((x + count) * 0.3) * 20;
-            const wave2 = Math.sin((y + count) * 0.5) * 20;
-            const wave3 = Math.sin((x + y + count) * 0.2) * 15;
-
-            positionsArray[i + 1] = wave1 + wave2 + wave3;
-            i += 3;
-          }
-        }
-
-        geometry.attributes.position.needsUpdate = true;
-
-        camera.position.x += (mouseX * 0.05 - camera.position.x) * 0.03;
-        camera.position.y += (-mouseY * 0.05 + 200 - camera.position.y) * 0.03;
-
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
-
-        count += 0.05;
-      }
-
-      animate();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = container.offsetWidth / container.offsetHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.offsetWidth, container.offsetHeight);
-      });
-    }
+    // ... Three.js wave animation code ...
   </script>
+  END COMMENTED OUT -->
 
 </body>
 </html>

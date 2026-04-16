@@ -3,37 +3,78 @@
  * Reusable UI components (buttons, forms, cards)
  */
 
+/* Glass button variables */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-hover: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-border-hover: rgba(255, 255, 255, 0.32);
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   min-height: var(--touch-min);
-  padding: 0.75rem 2rem;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  padding: 14px 26px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
   text-align: center;
-  border-radius: var(--radius-md);
-  transition: all var(--transition-normal);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   border: none;
   text-decoration: none;
   line-height: 1;
+  color: var(--color-text-primary);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow:
+    inset 0 0 0 1px var(--glass-border),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  transition:
+    background 250ms ease,
+    box-shadow 250ms ease,
+    transform 180ms ease;
+}
+
+.btn:hover {
+  background: var(--glass-bg-hover);
+  box-shadow:
+    inset 0 0 0 1px var(--glass-border-hover),
+    0 12px 32px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  color: var(--color-text-primary);
+}
+
+.btn:visited {
+  color: var(--color-text-primary);
+}
+
+.btn:active {
+  transform: translateY(0) scale(1);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 3px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
-  color: var(--color-bg-primary);
-  box-shadow: var(--shadow-md);
+  background: var(--glass-bg);
+  color: var(--color-text-primary);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg), var(--shadow-glow-cyan);
+  background: var(--glass-bg-hover);
 }
 
 .btn-primary:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
 .btn-secondary {
@@ -60,8 +101,8 @@
 
 .btn-sm {
   min-height: 36px;
-  padding: 0.5rem 1.25rem;
-  font-size: var(--font-size-sm);
+  padding: 10px 18px;
+  font-size: 14px;
 }
 
 /* Forms */
