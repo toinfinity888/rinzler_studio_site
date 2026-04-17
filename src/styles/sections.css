@@ -523,383 +523,271 @@
   }
 }
 
-/* Pain Bridge Section */
-.pain-bridge {
+/* ===== Pain Bridge Section V2 - Scroll-locked Multi-phase ===== */
+.pain-bridge-v2 {
+  position: relative;
+  height: 300vh;
   background: var(--color-bg-primary);
-  padding: var(--space-xl) 0;
 }
 
-.pain-bridge-headline {
-  text-align: center;
-  margin-bottom: var(--space-xl);
-  font-size: var(--font-size-h2);
-}
-
-.problems-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  max-width: 1800px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-/* Problem Item (icon + text below) */
-.problem-item {
+.pain-sticky-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* Pain Icon Wrapper */
-.pain-icon-wrapper {
-  width: 160px;
-  height: 160px;
+/* Graphics Canvas - holds all three graphics */
+.pain-graphics-canvas {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
-  transition: transform 0.4s ease;
+  z-index: 1;
 }
 
-.problem-item:hover .pain-icon-wrapper {
-  transform: scale(1.08);
+/* Individual Graphic Containers - Glass style */
+.pain-graphic {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 24px;
+  /* Glass effect - no color, just transparency */
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+  /* Emergence from blur */
+  filter: blur(20px);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: filter 1s ease-out,
+              opacity 1s ease-out,
+              transform 1s ease-out;
+  overflow: hidden;
 }
 
-/* Pain Icons Base Styles */
-.pain-icon {
+.pain-graphic.visible {
+  filter: blur(0);
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Iridescent color patches beneath each glass panel */
+.pain-graphic::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -30%;
+  width: 160%;
+  height: 160%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(25px);
+}
+
+/* Clock - cyan/blue dominant */
+.pain-graphic--clock::before {
+  background:
+    radial-gradient(ellipse 60% 50% at 25% 35%, rgba(60, 203, 255, 0.35) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 75% 65%, rgba(255, 80, 80, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 45% at 60% 25%, rgba(138, 80, 255, 0.3) 0%, transparent 50%);
+}
+
+/* Chart - red dominant */
+.pain-graphic--chart::before {
+  background:
+    radial-gradient(ellipse 55% 50% at 30% 70%, rgba(255, 80, 80, 0.38) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 55% at 70% 30%, rgba(60, 203, 255, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 45% 50% at 50% 50%, rgba(138, 80, 255, 0.28) 0%, transparent 50%);
+}
+
+/* Barometer - purple dominant */
+.pain-graphic--barometer::before {
+  background:
+    radial-gradient(ellipse 55% 55% at 70% 40%, rgba(138, 80, 255, 0.38) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 25% 60%, rgba(60, 203, 255, 0.28) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 45% at 55% 75%, rgba(255, 80, 80, 0.25) 0%, transparent 50%);
+}
+
+.pain-graphic--clock {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) scale(0.85);
+}
+
+.pain-graphic--clock.visible {
+  transform: translateX(-50%) scale(1);
+}
+
+.pain-graphic--chart {
+  top: 60px;
+  left: calc(50% - 240px);
+  transition-delay: 0.1s;
+}
+
+.pain-graphic--barometer {
+  top: 60px;
+  right: calc(50% - 240px);
+  left: auto;
+  transition-delay: 0.1s;
+}
+
+.pain-svg {
   width: 100%;
   height: 100%;
+  padding: 24px;
+  box-sizing: border-box;
 }
 
-/* Clock Icon Animation */
-.pain-icon-clock .clock-circle {
-  stroke-dasharray: 302;
-  stroke-dashoffset: 302;
-  animation: clockDraw 1.5s ease forwards;
+/* Text Container */
+.pain-text-container {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  padding: 0 var(--space-lg);
+  margin-top: var(--space-lg);
+  z-index: 1;
+  min-height: 140px;
 }
 
-.pain-icon-clock .clock-hand-hour {
-  transform-origin: 60px 60px;
-  animation: hourHand 3s ease-in-out infinite;
-}
-
-.pain-icon-clock .clock-hand-minute {
-  transform-origin: 60px 60px;
-  animation: minuteHand 1.5s ease-in-out infinite;
-}
-
-@keyframes clockDraw {
-  to { stroke-dashoffset: 0; }
-}
-
-@keyframes hourHand {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(15deg); }
-}
-
-@keyframes minuteHand {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(30deg); }
-}
-
-/* Exit Icon Animation */
-.pain-icon-exit .person-exiting {
-  animation: personWalk 2s ease-in-out infinite;
-}
-
-.pain-icon-exit .exit-arrow {
-  animation: arrowPulse 1.5s ease-in-out infinite;
-}
-
-.pain-icon-exit .door-panel {
-  transform-origin: 57px 60px;
-  animation: doorSwing 2.5s ease-in-out infinite;
-}
-
-@keyframes personWalk {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(5px); }
-}
-
-@keyframes arrowPulse {
-  0%, 100% { opacity: 1; transform: translateX(0); }
-  50% { opacity: 0.5; transform: translateX(4px); }
-}
-
-@keyframes doorSwing {
-  0%, 100% { transform: perspective(100px) rotateY(0deg); }
-  50% { transform: perspective(100px) rotateY(10deg); }
-}
-
-/* Chaos Icon Animation */
-.pain-icon-chaos .chaos-line {
-  transform-origin: 60px 60px;
-  animation: chaosRotate 8s linear infinite;
-}
-
-.pain-icon-chaos .chaos-line.c1 { animation-delay: 0s; }
-.pain-icon-chaos .chaos-line.c2 { animation-delay: -1s; }
-.pain-icon-chaos .chaos-line.c3 { animation-delay: -2s; }
-.pain-icon-chaos .chaos-line.c4 { animation-delay: -3s; }
-.pain-icon-chaos .chaos-line.c5 { animation-delay: -4s; }
-.pain-icon-chaos .chaos-line.c6 { animation-delay: -5s; }
-.pain-icon-chaos .chaos-line.c7 { animation-delay: -6s; }
-.pain-icon-chaos .chaos-line.c8 { animation-delay: -7s; }
-
-.pain-icon-chaos .chaos-dot {
-  animation: chaosPulse 2s ease-in-out infinite;
-}
-
-.pain-icon-chaos .chaos-dot.d1 { animation-delay: 0s; }
-.pain-icon-chaos .chaos-dot.d2 { animation-delay: 0.25s; }
-.pain-icon-chaos .chaos-dot.d3 { animation-delay: 0.5s; }
-.pain-icon-chaos .chaos-dot.d4 { animation-delay: 0.75s; }
-.pain-icon-chaos .chaos-dot.d5 { animation-delay: 1s; }
-.pain-icon-chaos .chaos-dot.d6 { animation-delay: 1.25s; }
-.pain-icon-chaos .chaos-dot.d7 { animation-delay: 1.5s; }
-.pain-icon-chaos .chaos-dot.d8 { animation-delay: 1.75s; }
-
-.pain-icon-chaos .chaos-center {
-  animation: chaosExpand 2s ease-in-out infinite;
-}
-
-.pain-icon-chaos .chaos-core {
-  animation: coreGlow 1.5s ease-in-out infinite;
-}
-
-@keyframes chaosRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes chaosPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
-
-@keyframes chaosExpand {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.2); opacity: 0.3; }
-}
-
-@keyframes coreGlow {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-/* Dark overlay for premium look */
-.problem-card-animated::after {
-  content: '';
+.pain-text {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 50%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  pointer-events: none;
-  z-index: 10;
-  border-radius: inherit;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  padding: 0 var(--space-lg);
 }
 
-/* Tetris Animation Container - fills entire card */
-.tetris-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 1) 100%);
-  overflow: hidden;
+.pain-text.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.tetris-icons {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  /* Size set dynamically by JavaScript */
-}
-
-.tetris-icon {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  /* Size, font-size, border-radius set dynamically by JavaScript */
-  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1),
-              bottom 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
-              opacity 0.3s ease;
-}
-
-.tetris-icon.landing {
-  animation: gentleLand 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-}
-
-@keyframes gentleLand {
-  0% {
-    transform: translateY(-320px) scale(1);
-  }
-  70% {
-    transform: translateY(6px) scale(1);
-  }
-  85% {
-    transform: translateY(-4px) scale(1.02);
-  }
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-.tetris-icon span {
-  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
-}
-
-/* Placeholder for other cards */
-.card-animation-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 1) 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.placeholder-icon {
-  font-size: 80px;
-  opacity: 0.2;
-}
-
-/* ===== Particle Funnel Animation (Card 2) ===== */
-.particle-funnel-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: var(--color-bg-primary);
-  overflow: hidden;
-}
-
-#particle-funnel-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* ===== Chaos Lines Animation (Card 3) ===== */
-.chaos-lines-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: var(--color-bg-primary);
-  overflow: hidden;
-}
-
-#chaos-lines-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Problem Text - below icon */
-.problem-text {
-  padding: 0 var(--space-sm);
-  text-align: center;
-  max-width: 380px;
-}
-
-.problem-title {
-  font-size: var(--font-size-h4);
+.pain-text-headline {
+  font-size: var(--font-size-h2);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-sm);
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
 }
 
-/* Gradient text styles for headings */
-.gradient-red-orange {
-  background: linear-gradient(135deg, #ef4444, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-yellow-orange {
-  background: linear-gradient(135deg, #fbbf24, #f97316);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.gradient-purple-pink {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.problem-description {
+.pain-text-description {
+  font-size: var(--font-size-base);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  font-size: var(--font-size-sm);
+  max-width: 550px;
+  margin: 0 auto;
 }
 
-/* Responsive - Pain Bridge */
-@media (max-width: 1200px) {
-  .problems-grid {
-    gap: 3rem;
-    padding: 0 2rem;
+/* Responsive - Pain Bridge V2 */
+@media (max-width: 1024px) {
+  .pain-graphics-canvas {
+    max-width: 700px;
+    height: 280px;
   }
 
-  .pain-icon-wrapper {
+  .pain-graphic {
+    width: 160px;
+    height: 160px;
+  }
+
+  .pain-graphic--chart {
+    left: calc(50% - 190px);
+  }
+
+  .pain-graphic--barometer {
+    right: calc(50% - 190px);
+  }
+
+  .pain-glow--1 { width: 320px; height: 320px; }
+  .pain-glow--2 { width: 280px; height: 280px; }
+  .pain-glow--3 { width: 300px; height: 300px; }
+}
+
+@media (max-width: 768px) {
+  .pain-bridge-v2 {
+    height: 350vh;
+  }
+
+  .pain-graphics-canvas {
+    flex-direction: column;
+    height: auto;
+    gap: var(--space-md);
+    padding: var(--space-md);
+  }
+
+  .pain-graphic {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
     width: 140px;
     height: 140px;
   }
+
+  .pain-graphic--clock {
+    transform: scale(0.7);
+  }
+
+  .pain-graphic--clock.visible {
+    transform: scale(1);
+  }
+
+  .pain-graphic--chart,
+  .pain-graphic--barometer {
+    transform: scale(0.7);
+  }
+
+  .pain-graphic--chart.visible,
+  .pain-graphic--barometer.visible {
+    transform: scale(1);
+  }
+
+  .pain-text-container {
+    min-height: 160px;
+    padding: 0 var(--space-md);
+  }
+
+  .pain-text {
+    padding: 0 var(--space-sm);
+  }
+
+  .pain-text-headline {
+    font-size: var(--font-size-h3);
+  }
+
+  .pain-glow--1 { width: 250px; height: 250px; }
+  .pain-glow--2 { width: 200px; height: 200px; left: 5%; }
+  .pain-glow--3 { width: 220px; height: 220px; right: 5%; }
 }
 
-@media (max-width: 900px) {
-  .problems-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
-    max-width: 700px;
-  }
-
-  .problems-grid .problem-item:last-child {
-    grid-column: span 2;
-    max-width: 380px;
-    margin: 0 auto;
-  }
-
-  .pain-icon-wrapper {
+@media (max-width: 480px) {
+  .pain-graphic {
     width: 120px;
     height: 120px;
-    margin-bottom: 1.5rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .problems-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    padding: 0 1.5rem;
-    max-width: 400px;
   }
 
-  .problems-grid .problem-item:last-child {
-    grid-column: span 1;
-    max-width: 100%;
+  .pain-text-headline {
+    font-size: var(--font-size-h4);
   }
 
-  .pain-icon-wrapper {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 1.25rem;
-  }
-
-  .problem-title {
-    font-size: var(--font-size-base);
+  .pain-text-description {
+    font-size: var(--font-size-sm);
   }
 }
 
