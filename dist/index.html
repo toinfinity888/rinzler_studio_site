@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-DeBbCY4q.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-ChAfFzPX.css">
+  <script type="module" crossorigin src="./assets/index-JY413vTC.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-D7VqYc7K.css">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
         <div class="hero-cta">
           <a
             href="#audit-booking"
-            class="btn btn-primary"
+            class="btn btn-primary btn-hero-cta"
             data-cta
             data-cta-id="hero-cta"
             data-section="hero">
@@ -643,6 +643,19 @@
 
       // Normal playback speed
       video.playbackRate = 1.0;
+    })();
+  </script>
+
+  <!-- Hero CTA Button Animation - starts after 2 seconds -->
+  <script>
+    (function() {
+      const heroCtaBtn = document.querySelector('.btn-hero-cta');
+      if (!heroCtaBtn) return;
+
+      // Start animation after 2 seconds with gradual fade-in
+      setTimeout(function() {
+        heroCtaBtn.classList.add('animate-glow');
+      }, 2000);
     })();
   </script>
 

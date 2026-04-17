@@ -77,6 +77,53 @@
   transform: translateY(0) scale(1);
 }
 
+/* Hero CTA Button - Animated iridescent gradient */
+.btn-hero-cta {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.btn-hero-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: -1;
+  opacity: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 40%, rgba(255, 61, 61, 0) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 75% 30%, rgba(60, 203, 255, 0.28) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 70% at 50% 80%, rgba(255, 60, 60, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 85% 70%, rgba(88, 62, 255, 0.363) 0%, transparent 50%);
+  filter: blur(15px);
+  transition: opacity 1.5s ease-in-out;
+  animation: iridescent-flow 12s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+.btn-hero-cta.animate-glow::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes iridescent-flow {
+  0%, 100% {
+    transform: translate(0%, 0%) rotate(0deg);
+  }
+  25% {
+    transform: translate(10%, -5%) rotate(3deg);
+  }
+  50% {
+    transform: translate(-5%, 10%) rotate(-2deg);
+  }
+  75% {
+    transform: translate(-10%, -8%) rotate(4deg);
+  }
+}
+
 .btn-secondary {
   background: transparent;
   color: var(--color-accent-cyan);
