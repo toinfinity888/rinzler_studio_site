@@ -704,6 +704,7 @@
   .pain-graphic {
     width: 160px;
     height: 160px;
+    border-radius: 20px;
   }
 
   .pain-graphic--chart {
@@ -714,9 +715,9 @@
     right: calc(50% - 190px);
   }
 
-  .pain-glow--1 { width: 320px; height: 320px; }
-  .pain-glow--2 { width: 280px; height: 280px; }
-  .pain-glow--3 { width: 300px; height: 300px; }
+  .pain-svg {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -738,10 +739,11 @@
     right: auto;
     width: 140px;
     height: 140px;
+    border-radius: 18px;
   }
 
   .pain-graphic--clock {
-    transform: scale(0.7);
+    transform: scale(0.85);
   }
 
   .pain-graphic--clock.visible {
@@ -750,7 +752,7 @@
 
   .pain-graphic--chart,
   .pain-graphic--barometer {
-    transform: scale(0.7);
+    transform: scale(0.85);
   }
 
   .pain-graphic--chart.visible,
@@ -771,15 +773,16 @@
     font-size: var(--font-size-h3);
   }
 
-  .pain-glow--1 { width: 250px; height: 250px; }
-  .pain-glow--2 { width: 200px; height: 200px; left: 5%; }
-  .pain-glow--3 { width: 220px; height: 220px; right: 5%; }
+  .pain-svg {
+    padding: 18px;
+  }
 }
 
 @media (max-width: 480px) {
   .pain-graphic {
     width: 120px;
     height: 120px;
+    border-radius: 16px;
   }
 
   .pain-text-headline {
@@ -788,6 +791,10 @@
 
   .pain-text-description {
     font-size: var(--font-size-sm);
+  }
+
+  .pain-svg {
+    padding: 14px;
   }
 }
 
