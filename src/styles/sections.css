@@ -534,8 +534,8 @@
   background: var(--color-bg-primary);
 }
 
-/* Graphics Column - Sticky, centered vertically */
-.pain-graphics-column {
+/* Subheadings Column - Sticky on right */
+.pain-subheadings-column {
   position: sticky;
   top: 0;
   height: 100vh;
@@ -543,127 +543,42 @@
   align-items: center;
   justify-content: center;
   order: 2;
-  pointer-events: none;
 }
 
-/* Wrapper to stack graphics on top of each other */
-.pain-graphics-wrapper {
+.pain-subheadings-wrapper {
   position: relative;
-  width: 450px;
-  height: 450px;
-  pointer-events: auto;
-  /* Position controlled by JS - starts offset, moves to center */
-}
-
-/* Individual Graphic Containers - Glass style */
-.pain-graphic {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 450px;
-  height: 450px;
-  border-radius: 40px;
-  /* Glass effect - no color, just transparency */
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 16px 48px rgba(0, 0, 0, 0.3);
-  /* Hidden by default */
-  opacity: 0;
-  transform: scale(0.95);
-  overflow: hidden;
-  pointer-events: none;
-  /* Smooth fade transition for switching */
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.pain-graphic.active {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-  z-index: 10;
-}
-
-/* Iridescent color patches beneath each glass panel */
-.pain-graphic::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: -30%;
-  width: 160%;
-  height: 160%;
-  z-index: -1;
-  pointer-events: none;
-  filter: blur(35px);
-}
-
-/* Clock - cyan/blue dominant */
-.pain-graphic--clock::before {
-  background:
-    radial-gradient(ellipse 60% 50% at 25% 35%, rgba(60, 203, 255, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 60% at 75% 65%, rgba(255, 80, 80, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse 55% 45% at 60% 25%, rgba(138, 80, 255, 0.3) 0%, transparent 50%);
-}
-
-/* Chart - red dominant */
-.pain-graphic--chart::before {
-  background:
-    radial-gradient(ellipse 55% 50% at 30% 70%, rgba(255, 80, 80, 0.38) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 55% at 70% 30%, rgba(60, 203, 255, 0.25) 0%, transparent 50%),
-    radial-gradient(ellipse 45% 50% at 50% 50%, rgba(138, 80, 255, 0.28) 0%, transparent 50%);
-}
-
-/* Warning triangle - purple dominant */
-.pain-graphic--warning::before {
-  background:
-    radial-gradient(ellipse 55% 55% at 70% 40%, rgba(138, 80, 255, 0.38) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 50% at 25% 60%, rgba(60, 203, 255, 0.28) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 45% at 55% 75%, rgba(255, 80, 80, 0.25) 0%, transparent 50%);
-}
-
-.pain-svg {
   width: 100%;
-  height: 100%;
-  padding: 48px;
-  box-sizing: border-box;
+  min-height: 200px;
 }
 
-/* Text Column - Scrolls naturally on left */
-.pain-text-column {
-  display: flex;
-  flex-direction: column;
-  order: 1;
-  /* Start below the fold so text enters from bottom */
-  padding-top: 30vh;
-  padding-bottom: 50vh;
-}
-
-.pain-text-block {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: var(--space-xl) var(--space-lg) var(--space-xl) 0;
-}
-
-.pain-text-headline {
-  position: relative;
-  display: inline-block;
-  font-size: clamp(2.5rem, 6vw, 4rem);
+/* Subheading - Glass text style with iridescent patches */
+.pain-subheading {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-md);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  /* Colors clipped to text shape */
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  padding: 0;
+  /* Glass text effect */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  /* Hidden by default */
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-/* Phase 1 - Clock theme: cyan dominant */
-.pain-text-block[data-phase="1"] .pain-text-headline {
+.pain-subheading.active {
+  opacity: 1;
+}
+
+/* Phase 1 - cyan dominant */
+.pain-subheading[data-phase="1"] {
   background-image:
     radial-gradient(ellipse 120% 100% at 0% 30%, rgba(60, 203, 255, 0.7) 0%, rgba(60, 203, 255, 0) 45%),
     radial-gradient(ellipse 100% 80% at 100% 15%, rgba(138, 80, 255, 0.55) 0%, rgba(138, 80, 255, 0) 40%),
@@ -671,8 +586,8 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
 }
 
-/* Phase 2 - Chart theme: red dominant */
-.pain-text-block[data-phase="2"] .pain-text-headline {
+/* Phase 2 - red dominant */
+.pain-subheading[data-phase="2"] {
   background-image:
     radial-gradient(ellipse 110% 90% at 5% 80%, rgba(255, 100, 100, 0.65) 0%, rgba(255, 100, 100, 0) 45%),
     radial-gradient(ellipse 100% 75% at 95% 15%, rgba(60, 203, 255, 0.5) 0%, rgba(60, 203, 255, 0) 40%),
@@ -680,8 +595,8 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
 }
 
-/* Phase 3 - Warning theme: purple dominant */
-.pain-text-block[data-phase="3"] .pain-text-headline {
+/* Phase 3 - purple dominant */
+.pain-subheading[data-phase="3"] {
   background-image:
     radial-gradient(ellipse 110% 90% at 90% 20%, rgba(138, 80, 255, 0.7) 0%, rgba(138, 80, 255, 0) 45%),
     radial-gradient(ellipse 100% 75% at 0% 60%, rgba(60, 203, 255, 0.55) 0%, rgba(60, 203, 255, 0) 40%),
@@ -689,47 +604,103 @@
     linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
 }
 
-.pain-text-description {
-  font-size: var(--font-size-h4);
+/* Phase 4 - green/cyan dominant */
+.pain-subheading[data-phase="4"] {
+  background-image:
+    radial-gradient(ellipse 115% 95% at 15% 40%, rgba(0, 230, 118, 0.5) 0%, rgba(0, 230, 118, 0) 45%),
+    radial-gradient(ellipse 100% 80% at 85% 25%, rgba(60, 203, 255, 0.55) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 90% 70% at 50% 90%, rgba(138, 80, 255, 0.4) 0%, rgba(138, 80, 255, 0) 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
+}
+
+/* Content Column - Scrolls naturally on left */
+.pain-content-column {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  padding-top: 30vh;
+  padding-bottom: 20vh;
+}
+
+.pain-content-block {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-lg) var(--space-xl) 0;
+}
+
+.pain-content-headline {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-md);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  max-width: 600px;
+}
+
+.pain-content-text {
+  font-size: var(--font-size-base);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  max-width: 500px;
+  margin-bottom: var(--space-lg);
+  max-width: 550px;
+}
+
+/* Stats - Large numbers with captions */
+.pain-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-lg);
+}
+
+.pain-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.pain-stat-number {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  /* Glass text effect */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image:
+    radial-gradient(ellipse 150% 120% at 0% 50%, rgba(60, 203, 255, 0.65) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 120% 100% at 100% 30%, rgba(138, 80, 255, 0.5) 0%, rgba(138, 80, 255, 0) 35%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(255, 100, 100, 0.4) 0%, rgba(255, 100, 100, 0) 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.18) 100%);
+}
+
+.pain-stat-caption {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  max-width: 180px;
+}
+
+/* Final CTA */
+.pain-cta-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2xl) 0;
+  grid-column: 1 / -1;
 }
 
 /* Responsive - Pain Bridge V2 */
-@media (max-width: 1400px) {
-  .pain-graphics-wrapper,
-  .pain-graphic {
-    width: 380px;
-    height: 380px;
-  }
-
-  .pain-graphic {
-    border-radius: 36px;
-  }
-
-  .pain-svg {
-    padding: 40px;
-  }
-}
-
 @media (max-width: 1200px) {
   .pain-bridge-v2 {
     padding: 0 var(--space-lg);
   }
 
-  .pain-graphics-wrapper,
-  .pain-graphic {
-    width: 320px;
-    height: 320px;
-  }
-
-  .pain-graphic {
-    border-radius: 32px;
-  }
-
-  .pain-svg {
-    padding: 36px;
+  .pain-subheading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
   }
 }
 
@@ -738,22 +709,16 @@
     gap: var(--space-md);
   }
 
-  .pain-graphics-wrapper,
-  .pain-graphic {
-    width: 280px;
-    height: 280px;
+  .pain-subheading {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
   }
 
-  .pain-graphic {
-    border-radius: 28px;
+  .pain-content-headline {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
   }
 
-  .pain-svg {
-    padding: 32px;
-  }
-
-  .pain-text-headline {
-    font-size: clamp(2rem, 5vw, 2.5rem);
+  .pain-stat-number {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
   }
 }
 
@@ -763,79 +728,80 @@
     padding: 0 var(--space-md);
   }
 
-  .pain-graphics-column {
+  .pain-subheadings-column {
     position: fixed;
-    top: 50%;
-    right: var(--space-md);
-    left: auto;
-    width: auto;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height: auto;
-    transform: translateY(-50%);
+    padding: var(--space-md);
+    background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.8) 80%, transparent 100%);
     z-index: 100;
   }
 
-  .pain-text-column {
-    padding-top: 80vh;
-    padding-bottom: 40vh;
+  .pain-subheadings-wrapper {
+    min-height: auto;
   }
 
-  .pain-text-block {
-    min-height: 80vh;
-    padding-right: calc(180px + var(--space-md));
+  .pain-subheading {
+    position: relative;
+    top: auto;
+    transform: none;
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    text-align: center;
   }
 
-  .pain-graphics-wrapper,
-  .pain-graphic {
-    width: 150px;
-    height: 150px;
+  .pain-content-column {
+    padding-top: 20vh;
+    padding-bottom: 120px;
   }
 
-  .pain-graphic {
-    border-radius: 20px;
+  .pain-content-block {
+    min-height: auto;
+    padding: var(--space-lg) 0;
   }
 
-  .pain-text-headline {
-    font-size: clamp(1.75rem, 5vw, 2.25rem);
+  .pain-content-headline {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
   }
 
-  .pain-text-description {
-    font-size: var(--font-size-base);
+  .pain-content-text {
+    font-size: var(--font-size-sm);
   }
 
-  .pain-svg {
-    padding: 20px;
+  .pain-stats {
+    gap: var(--space-md);
+  }
+
+  .pain-stat-number {
+    font-size: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .pain-stat-caption {
+    font-size: var(--font-size-xs);
   }
 }
 
 @media (max-width: 480px) {
-  .pain-graphics-column {
-    right: var(--space-sm);
+  .pain-subheadings-column {
+    padding: var(--space-sm);
   }
 
-  .pain-text-block {
-    padding-right: calc(130px + var(--space-sm));
+  .pain-subheading {
+    font-size: var(--font-size-base);
   }
 
-  .pain-graphics-wrapper,
-  .pain-graphic {
-    width: 110px;
-    height: 110px;
+  .pain-content-headline {
+    font-size: clamp(1rem, 4vw, 1.25rem);
   }
 
-  .pain-graphic {
-    border-radius: 16px;
+  .pain-stat-number {
+    font-size: clamp(1.125rem, 4vw, 1.5rem);
   }
 
-  .pain-text-headline {
-    font-size: clamp(1.5rem, 4vw, 1.75rem);
-  }
-
-  .pain-text-description {
+  .pain-stat {
     font-size: var(--font-size-sm);
-  }
-
-  .pain-svg {
-    padding: 14px;
   }
 }
 
