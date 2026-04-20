@@ -649,11 +649,44 @@
 }
 
 .pain-text-headline {
-  font-size: var(--font-size-h2);
+  position: relative;
+  display: inline-block;
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-md);
-  color: var(--color-text-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  /* Colors clipped to text shape */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Phase 1 - Clock theme: cyan dominant */
+.pain-text-block[data-phase="1"] .pain-text-headline {
+  background-image:
+    radial-gradient(ellipse 120% 100% at 0% 30%, rgba(60, 203, 255, 0.7) 0%, rgba(60, 203, 255, 0) 45%),
+    radial-gradient(ellipse 100% 80% at 100% 15%, rgba(138, 80, 255, 0.55) 0%, rgba(138, 80, 255, 0) 40%),
+    radial-gradient(ellipse 90% 70% at 50% 100%, rgba(255, 100, 100, 0.4) 0%, rgba(255, 100, 100, 0) 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
+}
+
+/* Phase 2 - Chart theme: red dominant */
+.pain-text-block[data-phase="2"] .pain-text-headline {
+  background-image:
+    radial-gradient(ellipse 110% 90% at 5% 80%, rgba(255, 100, 100, 0.65) 0%, rgba(255, 100, 100, 0) 45%),
+    radial-gradient(ellipse 100% 75% at 95% 15%, rgba(60, 203, 255, 0.5) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 85% 65% at 55% 50%, rgba(138, 80, 255, 0.5) 0%, rgba(138, 80, 255, 0) 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
+}
+
+/* Phase 3 - Warning theme: purple dominant */
+.pain-text-block[data-phase="3"] .pain-text-headline {
+  background-image:
+    radial-gradient(ellipse 110% 90% at 90% 20%, rgba(138, 80, 255, 0.7) 0%, rgba(138, 80, 255, 0) 45%),
+    radial-gradient(ellipse 100% 75% at 0% 60%, rgba(60, 203, 255, 0.55) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 85% 65% at 60% 95%, rgba(255, 100, 100, 0.45) 0%, rgba(255, 100, 100, 0) 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.12) 100%);
 }
 
 .pain-text-description {
@@ -720,7 +753,7 @@
   }
 
   .pain-text-headline {
-    font-size: var(--font-size-h3);
+    font-size: clamp(2rem, 5vw, 2.5rem);
   }
 }
 
@@ -762,7 +795,7 @@
   }
 
   .pain-text-headline {
-    font-size: var(--font-size-h3);
+    font-size: clamp(1.75rem, 5vw, 2.25rem);
   }
 
   .pain-text-description {
@@ -794,7 +827,7 @@
   }
 
   .pain-text-headline {
-    font-size: var(--font-size-h4);
+    font-size: clamp(1.5rem, 4vw, 1.75rem);
   }
 
   .pain-text-description {
