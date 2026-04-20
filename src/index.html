@@ -116,92 +116,80 @@
     </div>
   </section>
 
-  <!-- Pain Bridge Section - Scroll-locked Multi-phase -->
+  <!-- Pain Bridge Section - Scrolling Layout -->
   <section class="pain-bridge-v2" data-section="pain">
-    <div class="pain-sticky-container">
-      <!-- Graphics Canvas -->
-      <div class="pain-graphics-canvas">
-        <!-- Clock Graphic (Phase 1) - Top Center -->
+    <!-- Graphics Column (sticky on right) -->
+    <div class="pain-graphics-column">
+      <div class="pain-graphics-wrapper">
+        <!-- Clock Graphic (Phase 1) -->
         <div class="pain-graphic pain-graphic--clock" data-phase="1">
           <svg class="pain-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Outer ring -->
-            <circle cx="100" cy="100" r="85" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none"/>
-            <!-- Clock face -->
-            <circle cx="100" cy="100" r="70" stroke="rgba(255,255,255,0.35)" stroke-width="2" fill="none"/>
+            <!-- Single clock face circle - thick stroke -->
+            <circle cx="100" cy="100" r="72" stroke="rgba(255,255,255,0.5)" stroke-width="12" fill="none"/>
             <!-- Hour marks -->
-            <line x1="100" y1="35" x2="100" y2="45" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="100" y1="155" x2="100" y2="165" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="35" y1="100" x2="45" y2="100" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="155" y1="100" x2="165" y2="100" stroke="rgba(255,255,255,0.5)" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="100" y1="35" x2="100" y2="50" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="150" x2="100" y2="165" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="35" y1="100" x2="50" y2="100" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="150" y1="100" x2="165" y2="100" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linecap="round"/>
             <!-- Hour hand -->
-            <line x1="100" y1="100" x2="72" y2="68" stroke="rgba(255,255,255,0.85)" stroke-width="4" stroke-linecap="round"/>
+            <line x1="100" y1="100" x2="68" y2="62" stroke="rgba(255,255,255,0.9)" stroke-width="6" stroke-linecap="round"/>
             <!-- Minute hand -->
-            <line x1="100" y1="100" x2="128" y2="58" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="100" y1="100" x2="135" y2="52" stroke="rgba(255,255,255,0.7)" stroke-width="4" stroke-linecap="round"/>
             <!-- Center dot -->
-            <circle cx="100" cy="100" r="6" fill="rgba(255,255,255,0.7)"/>
+            <circle cx="100" cy="100" r="8" fill="rgba(255,255,255,0.8)"/>
           </svg>
         </div>
 
-        <!-- Chart Graphic (Phase 2) - Left of Clock -->
+        <!-- Chart Graphic (Phase 2) -->
         <div class="pain-graphic pain-graphic--chart" data-phase="2">
           <svg class="pain-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Declining bars - white only, no gradients -->
-            <rect x="15" y="35" width="26" height="145" rx="4" fill="rgba(255,255,255,0.7)"/>
-            <rect x="51" y="65" width="26" height="115" rx="4" fill="rgba(255,255,255,0.55)"/>
-            <rect x="87" y="95" width="26" height="85" rx="4" fill="rgba(255,255,255,0.42)"/>
-            <rect x="123" y="125" width="26" height="55" rx="4" fill="rgba(255,255,255,0.3)"/>
-            <rect x="159" y="150" width="26" height="30" rx="4" fill="rgba(255,255,255,0.18)"/>
-            <!-- Trend line -->
-            <path d="M28 40 L64 70 L100 100 L136 130 L172 155" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-dasharray="5 4" fill="none" stroke-linecap="round"/>
+            <!-- Declining bars - white only -->
+            <rect x="12" y="30" width="28" height="150" rx="4" fill="rgba(255,255,255,0.7)"/>
+            <rect x="50" y="60" width="28" height="120" rx="4" fill="rgba(255,255,255,0.55)"/>
+            <rect x="88" y="92" width="28" height="88" rx="4" fill="rgba(255,255,255,0.42)"/>
+            <rect x="126" y="124" width="28" height="56" rx="4" fill="rgba(255,255,255,0.3)"/>
+            <rect x="164" y="150" width="28" height="30" rx="4" fill="rgba(255,255,255,0.18)"/>
           </svg>
         </div>
 
-        <!-- Barometer Graphic (Phase 3) - Right of Clock -->
-        <div class="pain-graphic pain-graphic--barometer" data-phase="3">
+        <!-- Warning Triangle Graphic (Phase 3) -->
+        <div class="pain-graphic pain-graphic--warning" data-phase="3">
           <svg class="pain-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Gauge arc background -->
-            <path d="M30 140 A70 70 0 0 1 170 140" stroke="rgba(255,255,255,0.1)" stroke-width="18" fill="none" stroke-linecap="round"/>
-            <!-- Gauge arc - white only -->
-            <path d="M30 140 A70 70 0 0 1 170 140" stroke="rgba(255,255,255,0.4)" stroke-width="14" fill="none" stroke-linecap="round"/>
-            <!-- Tick marks -->
-            <line x1="38" y1="132" x2="48" y2="122" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="58" y1="92" x2="68" y2="98" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="100" y1="70" x2="100" y2="82" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="142" y1="92" x2="132" y2="98" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="162" y1="132" x2="152" y2="122" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-linecap="round"/>
-            <!-- Needle pointing to high pressure -->
-            <line x1="100" y1="140" x2="152" y2="102" stroke="rgba(255,255,255,0.8)" stroke-width="3" stroke-linecap="round"/>
-            <!-- Needle center -->
-            <circle cx="100" cy="140" r="8" fill="rgba(255,255,255,0.65)"/>
-            <!-- Warning dot -->
-            <circle cx="158" cy="108" r="5" fill="rgba(255,255,255,0.5)"/>
+            <!-- Triangle - thick stroke -->
+            <path d="M100 20 L185 175 L15 175 Z" stroke="rgba(255,255,255,0.5)" stroke-width="12" fill="none" stroke-linejoin="round"/>
+            <!-- Exclamation mark - line -->
+            <line x1="100" y1="75" x2="100" y2="115" stroke="rgba(255,255,255,0.85)" stroke-width="10" stroke-linecap="round"/>
+            <!-- Exclamation mark - dot -->
+            <circle cx="100" cy="145" r="8" fill="rgba(255,255,255,0.85)"/>
           </svg>
         </div>
       </div>
+    </div>
 
-      <!-- Text Content (changes per phase) -->
-      <div class="pain-text-container">
-        <div class="pain-text pain-text--1 active" data-phase="1">
-          <h2 class="pain-text-headline">Temps perdu chaque jour</h2>
-          <p class="pain-text-description">
-            Saisie manuelle, recherche de documents, corrections d'erreurs...
-            Vos équipes perdent des heures précieuses sur des tâches répétitives.
-          </p>
-        </div>
-        <div class="pain-text pain-text--2" data-phase="2">
-          <h2 class="pain-text-headline">Revenus en chute libre</h2>
-          <p class="pain-text-description">
-            Sans suivi automatisé, 35% des opportunités disparaissent.
-            Chaque lead perdu = revenu envolé pour toujours.
-          </p>
-        </div>
-        <div class="pain-text pain-text--3" data-phase="3">
-          <h2 class="pain-text-headline">Pression maximale</h2>
-          <p class="pain-text-description">
-            Vos équipes sont au bord de la saturation.
-            Le stress monte, les erreurs se multiplient, la qualité baisse.
-          </p>
-        </div>
+    <!-- Text Column (scrolls naturally) -->
+    <div class="pain-text-column">
+      <div class="pain-text-block" data-phase="1">
+        <h2 class="pain-text-headline">Temps perdu chaque jour</h2>
+        <p class="pain-text-description">
+          Saisie manuelle, recherche de documents, corrections d'erreurs...
+          Vos équipes perdent des heures précieuses sur des tâches répétitives.
+        </p>
+      </div>
+
+      <div class="pain-text-block" data-phase="2">
+        <h2 class="pain-text-headline">Revenus en chute libre</h2>
+        <p class="pain-text-description">
+          Sans suivi automatisé, 35% des opportunités disparaissent.
+          Chaque lead perdu = revenu envolé pour toujours.
+        </p>
+      </div>
+
+      <div class="pain-text-block" data-phase="3">
+        <h2 class="pain-text-headline">Pression maximale</h2>
+        <p class="pain-text-description">
+          Vos équipes sont au bord de la saturation.
+          Le stress monte, les erreurs se multiplient, la qualité baisse.
+        </p>
       </div>
     </div>
   </section>
@@ -212,66 +200,144 @@
       const section = document.querySelector('.pain-bridge-v2');
       if (!section) return;
 
+      const graphicsWrapper = document.querySelector('.pain-graphics-wrapper');
       const graphics = document.querySelectorAll('.pain-graphic');
-      const texts = document.querySelectorAll('.pain-text');
+      const textBlocks = document.querySelectorAll('.pain-text-block');
+      const firstTextBlock = textBlocks[0];
+      const lastTextBlock = textBlocks[textBlocks.length - 1];
 
       let currentPhase = 0;
+      let isEntryComplete = false;
 
-      function getScrollProgress() {
-        const rect = section.getBoundingClientRect();
-        const sectionHeight = section.offsetHeight - window.innerHeight;
-        return Math.max(0, Math.min(1, -rect.top / sectionHeight));
+      function hideAllGraphics() {
+        graphics.forEach(g => {
+          g.classList.remove('active');
+          g.style.opacity = '';
+          g.style.transform = '';
+        });
       }
 
-      function updatePhase(progress) {
-        let newPhase;
-        if (progress < 0.33) newPhase = 1;
-        else if (progress < 0.66) newPhase = 2;
-        else newPhase = 3;
+      function showOnlyGraphic(phaseToShow) {
+        graphics.forEach((g, i) => {
+          const phase = i + 1;
+          if (phase === phaseToShow) {
+            g.classList.add('active');
+            g.style.opacity = '';
+            g.style.transform = '';
+          } else {
+            g.classList.remove('active');
+            g.style.opacity = '';
+            g.style.transform = '';
+          }
+        });
+      }
 
-        if (newPhase !== currentPhase) {
-          currentPhase = newPhase;
+      function updateGraphics() {
+        const viewportCenter = window.innerHeight / 2;
+        const firstRect = firstTextBlock.getBoundingClientRect();
+        const lastRect = lastTextBlock.getBoundingClientRect();
+        const firstGraphic = graphics[0];
 
-          // Update graphics visibility (cumulative - each phase adds a graphic)
-          graphics.forEach(g => {
-            const phase = parseInt(g.dataset.phase);
-            if (phase <= currentPhase) {
-              g.classList.add('visible');
+        // Reset when section is above viewport (scrolled past)
+        if (lastRect.bottom < 0) {
+          hideAllGraphics();
+          isEntryComplete = false;
+          currentPhase = 0;
+          return;
+        }
+
+        // Reset when section is below viewport (before section)
+        if (firstRect.top > window.innerHeight) {
+          hideAllGraphics();
+          isEntryComplete = false;
+          currentPhase = 0;
+          return;
+        }
+
+        // Calculate where first text center is
+        const firstTextCenter = firstRect.top + firstRect.height / 2;
+
+        // Entry phase: graphic moves in sync with text
+        if (firstTextCenter > viewportCenter && !isEntryComplete) {
+          // Hide all except first
+          graphics.forEach((g, i) => {
+            if (i === 0) {
+              g.classList.add('active');
             } else {
-              g.classList.remove('visible');
+              g.classList.remove('active');
+              g.style.opacity = '';
+              g.style.transform = '';
             }
           });
 
-          // Update text visibility (only current phase text shows)
-          texts.forEach(t => {
-            const phase = parseInt(t.dataset.phase);
-            if (phase === currentPhase) {
-              t.classList.add('active');
-            } else {
-              t.classList.remove('active');
+          const distanceFromCenter = firstTextCenter - viewportCenter;
+          const totalDistance = window.innerHeight - viewportCenter;
+          const progress = 1 - (distanceFromCenter / totalDistance);
+          const clampedProgress = Math.max(0, Math.min(1, progress));
+
+          // Graphic offset matches text movement
+          const yOffset = distanceFromCenter;
+          graphicsWrapper.style.transform = `translateY(${yOffset}px)`;
+
+          // Opacity and scale based on progress
+          const opacity = 0.3 + (0.7 * clampedProgress);
+          const scale = 0.95 + (0.05 * clampedProgress);
+
+          firstGraphic.style.opacity = opacity;
+          firstGraphic.style.transform = `scale(${scale})`;
+
+          currentPhase = 1;
+        } else if (firstTextCenter <= viewportCenter) {
+          // Entry complete - keep wrapper at center
+          isEntryComplete = true;
+          graphicsWrapper.style.transform = 'translateY(0)';
+
+          // Find which text is closest to center
+          let closestPhase = 1;
+          let closestDistance = Infinity;
+
+          textBlocks.forEach((block, index) => {
+            const rect = block.getBoundingClientRect();
+            const blockCenter = rect.top + rect.height / 2;
+            const distance = Math.abs(blockCenter - viewportCenter);
+            const phase = index + 1;
+
+            if (distance < closestDistance && rect.top < window.innerHeight && rect.bottom > 0) {
+              closestDistance = distance;
+              closestPhase = phase;
             }
           });
+
+          // Switch graphics if phase changed
+          if (closestPhase !== currentPhase) {
+            currentPhase = closestPhase;
+            showOnlyGraphic(currentPhase);
+          }
+
+          // Exit phase: last text carries graphic away
+          const lastTextCenter = lastRect.top + lastRect.height / 2;
+          if (lastTextCenter < viewportCenter && currentPhase === 3) {
+            const exitOffset = viewportCenter - lastTextCenter;
+            graphicsWrapper.style.transform = `translateY(-${exitOffset}px)`;
+          }
         }
       }
 
+      // Throttle scroll updates
+      let ticking = false;
       function onScroll() {
-        const progress = getScrollProgress();
-        updatePhase(progress);
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateGraphics();
+            ticking = false;
+          });
+          ticking = true;
+        }
       }
 
-      // Initialize observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            window.addEventListener('scroll', onScroll, { passive: true });
-            onScroll(); // Initial update
-          } else {
-            window.removeEventListener('scroll', onScroll);
-          }
-        });
-      }, { threshold: 0.05 });
-
-      observer.observe(section);
+      // Initialize
+      window.addEventListener('scroll', onScroll, { passive: true });
+      updateGraphics();
     })();
   </script>
 

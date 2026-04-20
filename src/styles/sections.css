@@ -523,64 +523,67 @@
   }
 }
 
-/* ===== Pain Bridge Section V2 - Scroll-locked Multi-phase ===== */
+/* ===== Pain Bridge Section V2 - Scrolling Layout ===== */
 .pain-bridge-v2 {
   position: relative;
-  height: 300vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
   background: var(--color-bg-primary);
 }
 
-.pain-sticky-container {
+/* Graphics Column - Sticky, centered vertically */
+.pain-graphics-column {
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  order: 2;
+  pointer-events: none;
 }
 
-/* Graphics Canvas - holds all three graphics */
-.pain-graphics-canvas {
+/* Wrapper to stack graphics on top of each other */
+.pain-graphics-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 900px;
-  height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
+  width: 450px;
+  height: 450px;
+  pointer-events: auto;
+  /* Position controlled by JS - starts offset, moves to center */
 }
 
 /* Individual Graphic Containers - Glass style */
 .pain-graphic {
   position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 24px;
+  top: 0;
+  left: 0;
+  width: 450px;
+  height: 450px;
+  border-radius: 40px;
   /* Glass effect - no color, just transparency */
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(16px) saturate(150%);
   -webkit-backdrop-filter: blur(16px) saturate(150%);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.12),
-    0 8px 32px rgba(0, 0, 0, 0.3);
-  /* Emergence from blur */
-  filter: blur(20px);
+    0 16px 48px rgba(0, 0, 0, 0.3);
+  /* Hidden by default */
   opacity: 0;
-  transform: scale(0.85);
-  transition: filter 1s ease-out,
-              opacity 1s ease-out,
-              transform 1s ease-out;
+  transform: scale(0.95);
   overflow: hidden;
+  pointer-events: none;
+  /* Smooth fade transition for switching */
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.pain-graphic.visible {
-  filter: blur(0);
+.pain-graphic.active {
   opacity: 1;
   transform: scale(1);
+  pointer-events: auto;
+  z-index: 10;
 }
 
 /* Iridescent color patches beneath each glass panel */
@@ -593,7 +596,7 @@
   height: 160%;
   z-index: -1;
   pointer-events: none;
-  filter: blur(25px);
+  filter: blur(35px);
 }
 
 /* Clock - cyan/blue dominant */
@@ -612,107 +615,158 @@
     radial-gradient(ellipse 45% 50% at 50% 50%, rgba(138, 80, 255, 0.28) 0%, transparent 50%);
 }
 
-/* Barometer - purple dominant */
-.pain-graphic--barometer::before {
+/* Warning triangle - purple dominant */
+.pain-graphic--warning::before {
   background:
     radial-gradient(ellipse 55% 55% at 70% 40%, rgba(138, 80, 255, 0.38) 0%, transparent 55%),
     radial-gradient(ellipse 50% 50% at 25% 60%, rgba(60, 203, 255, 0.28) 0%, transparent 50%),
     radial-gradient(ellipse 50% 45% at 55% 75%, rgba(255, 80, 80, 0.25) 0%, transparent 50%);
 }
 
-.pain-graphic--clock {
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%) scale(0.85);
-}
-
-.pain-graphic--clock.visible {
-  transform: translateX(-50%) scale(1);
-}
-
-.pain-graphic--chart {
-  top: 60px;
-  left: calc(50% - 240px);
-  transition-delay: 0.1s;
-}
-
-.pain-graphic--barometer {
-  top: 60px;
-  right: calc(50% - 240px);
-  left: auto;
-  transition-delay: 0.1s;
-}
-
 .pain-svg {
   width: 100%;
   height: 100%;
-  padding: 24px;
+  padding: 48px;
   box-sizing: border-box;
 }
 
-/* Text Container */
-.pain-text-container {
-  position: relative;
-  width: 100%;
-  max-width: 700px;
-  text-align: center;
-  padding: 0 var(--space-lg);
-  margin-top: var(--space-lg);
-  z-index: 1;
-  min-height: 140px;
+/* Text Column - Scrolls naturally on left */
+.pain-text-column {
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  /* Start below the fold so text enters from bottom */
+  padding-top: 30vh;
+  padding-bottom: 50vh;
 }
 
-.pain-text {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  padding: 0 var(--space-lg);
-}
-
-.pain-text.active {
-  opacity: 1;
-  transform: translateY(0);
+.pain-text-block {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-xl) var(--space-lg) var(--space-xl) 0;
 }
 
 .pain-text-headline {
   font-size: var(--font-size-h2);
   font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
   color: var(--color-text-primary);
   letter-spacing: -0.02em;
 }
 
 .pain-text-description {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-h4);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
-  max-width: 550px;
-  margin: 0 auto;
+  max-width: 500px;
 }
 
 /* Responsive - Pain Bridge V2 */
+@media (max-width: 1400px) {
+  .pain-graphics-wrapper,
+  .pain-graphic {
+    width: 380px;
+    height: 380px;
+  }
+
+  .pain-graphic {
+    border-radius: 36px;
+  }
+
+  .pain-svg {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .pain-bridge-v2 {
+    padding: 0 var(--space-lg);
+  }
+
+  .pain-graphics-wrapper,
+  .pain-graphic {
+    width: 320px;
+    height: 320px;
+  }
+
+  .pain-graphic {
+    border-radius: 32px;
+  }
+
+  .pain-svg {
+    padding: 36px;
+  }
+}
+
 @media (max-width: 1024px) {
-  .pain-graphics-canvas {
-    max-width: 700px;
+  .pain-bridge-v2 {
+    gap: var(--space-md);
+  }
+
+  .pain-graphics-wrapper,
+  .pain-graphic {
+    width: 280px;
     height: 280px;
   }
 
   .pain-graphic {
-    width: 160px;
-    height: 160px;
+    border-radius: 28px;
+  }
+
+  .pain-svg {
+    padding: 32px;
+  }
+
+  .pain-text-headline {
+    font-size: var(--font-size-h3);
+  }
+}
+
+@media (max-width: 768px) {
+  .pain-bridge-v2 {
+    grid-template-columns: 1fr;
+    padding: 0 var(--space-md);
+  }
+
+  .pain-graphics-column {
+    position: fixed;
+    top: 50%;
+    right: var(--space-md);
+    left: auto;
+    width: auto;
+    height: auto;
+    transform: translateY(-50%);
+    z-index: 100;
+  }
+
+  .pain-text-column {
+    padding-top: 80vh;
+    padding-bottom: 40vh;
+  }
+
+  .pain-text-block {
+    min-height: 80vh;
+    padding-right: calc(180px + var(--space-md));
+  }
+
+  .pain-graphics-wrapper,
+  .pain-graphic {
+    width: 150px;
+    height: 150px;
+  }
+
+  .pain-graphic {
     border-radius: 20px;
   }
 
-  .pain-graphic--chart {
-    left: calc(50% - 190px);
+  .pain-text-headline {
+    font-size: var(--font-size-h3);
   }
 
-  .pain-graphic--barometer {
-    right: calc(50% - 190px);
+  .pain-text-description {
+    font-size: var(--font-size-base);
   }
 
   .pain-svg {
@@ -720,68 +774,22 @@
   }
 }
 
-@media (max-width: 768px) {
-  .pain-bridge-v2 {
-    height: 350vh;
-  }
-
-  .pain-graphics-canvas {
-    flex-direction: column;
-    height: auto;
-    gap: var(--space-md);
-    padding: var(--space-md);
-  }
-
-  .pain-graphic {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    width: 140px;
-    height: 140px;
-    border-radius: 18px;
-  }
-
-  .pain-graphic--clock {
-    transform: scale(0.85);
-  }
-
-  .pain-graphic--clock.visible {
-    transform: scale(1);
-  }
-
-  .pain-graphic--chart,
-  .pain-graphic--barometer {
-    transform: scale(0.85);
-  }
-
-  .pain-graphic--chart.visible,
-  .pain-graphic--barometer.visible {
-    transform: scale(1);
-  }
-
-  .pain-text-container {
-    min-height: 160px;
-    padding: 0 var(--space-md);
-  }
-
-  .pain-text {
-    padding: 0 var(--space-sm);
-  }
-
-  .pain-text-headline {
-    font-size: var(--font-size-h3);
-  }
-
-  .pain-svg {
-    padding: 18px;
-  }
-}
-
 @media (max-width: 480px) {
+  .pain-graphics-column {
+    right: var(--space-sm);
+  }
+
+  .pain-text-block {
+    padding-right: calc(130px + var(--space-sm));
+  }
+
+  .pain-graphics-wrapper,
   .pain-graphic {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
+  }
+
+  .pain-graphic {
     border-radius: 16px;
   }
 
