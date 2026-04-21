@@ -614,7 +614,7 @@
 
 .pain-card--4::before {
   background:
-    radial-gradient(ellipse 55% 45% at 25% 40%, rgba(0, 230, 118, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 55% 45% at 25% 40%, rgba(0, 230, 118, 0.35) 0%, transparent 70%),
     radial-gradient(ellipse 50% 40% at 80% 20%, rgba(60, 203, 255, 0.35) 0%, transparent 45%),
     radial-gradient(ellipse 45% 35% at 60% 85%, rgba(138, 80, 255, 0.25) 0%, transparent 40%);
 }
@@ -648,10 +648,10 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image:
-    radial-gradient(ellipse 150% 120% at 0% 50%, rgba(60, 203, 255, 0.8) 0%, rgba(60, 203, 255, 0) 40%),
-    radial-gradient(ellipse 120% 100% at 100% 30%, rgba(138, 80, 255, 0.65) 0%, rgba(138, 80, 255, 0) 35%),
-    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(255, 100, 100, 0.55) 0%, rgba(255, 100, 100, 0) 35%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.25) 100%);
+    radial-gradient(ellipse 150% 120% at 0% 50%, rgba(180, 235, 255, 0.6) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 120% 100% at 100% 30%, rgba(210, 185, 255, 0.55) 0%, rgba(138, 80, 255, 0) 35%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(255, 195, 195, 0.5) 0%, rgba(255, 100, 100, 0) 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.35) 100%);
 }
 
 /* Body text */
@@ -812,10 +812,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #4A7CFF, #A855F7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-muted);
   margin-bottom: 16px;
 }
 
@@ -824,14 +821,7 @@
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  color: var(--color-text-primary);
-}
-
-.journey-section-title .gradient-text {
-  background: linear-gradient(135deg, #4A7CFF 0%, #A855F7 50%, #FF6B2B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .journey-sticky-container {
@@ -915,65 +905,47 @@
   overflow: hidden;
 }
 
-/* Ambient Glow Effects */
+/* Background glows hidden - kept only inside graphic elements */
 .diag-glow {
+  display: none;
+}
+
+/* Phase 1 Card Wrapper */
+.phase-1-card {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(40px, 5vw, 60px);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* Background image with lens flare effect */
+.phase-1-card::before {
+  content: '';
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0;
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
-}
-
-.diag-glow--blue {
-  width: 45vw;
-  height: 45vw;
-  background: #4A7CFF;
-  top: -10%;
-  left: -10%;
-}
-
-.diag-glow--purple {
-  width: 35vw;
-  height: 35vw;
-  background: #A855F7;
-  bottom: -5%;
-  left: 30%;
-}
-
-.diag-glow--orange {
-  width: 30vw;
-  height: 30vw;
-  background: #FF6B2B;
-  top: 20%;
-  right: -8%;
-}
-
-/* Glow animations - triggered when visible */
-.phase-1.animate .diag-glow {
-  animation: diagGlowIn 3s ease-out forwards;
-}
-
-.phase-1.animate .diag-glow--blue { animation-delay: 0.5s; }
-.phase-1.animate .diag-glow--purple { animation-delay: 1s; }
-.phase-1.animate .diag-glow--orange { animation-delay: 1.5s; }
-
-@keyframes diagGlowIn {
-  to { opacity: 0.08; }
+  pointer-events: none;
+  background-image: url('../assets/images/phase1-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8;
 }
 
 /* Canvas Layout */
 .diagnosis-canvas {
   position: relative;
-  z-index: 1;
   display: grid;
   grid-template-columns: minmax(280px, 0.45fr) 1fr;
   gap: clamp(32px, 5vw, 80px);
   width: 100%;
-  max-width: 1600px;
-  height: 100%;
-  margin: 0 auto;
-  padding: clamp(100px, 12vh, 160px) clamp(40px, 6vw, 100px) clamp(40px, 5vw, 72px);
   align-items: center;
 }
 
@@ -990,10 +962,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  background: linear-gradient(135deg, #4A7CFF, #A855F7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-muted);
   opacity: 0;
   transform: translateY(16px);
 }
@@ -1017,10 +986,7 @@
 }
 
 .diag-gradient {
-  background: linear-gradient(135deg, #4A7CFF 0%, #A855F7 50%, #FF6B2B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
 }
 
 .diag-body {
@@ -1052,11 +1018,17 @@
   font-size: clamp(22px, 2.4vw, 36px);
   font-weight: 700;
   letter-spacing: -0.02em;
+  /* Glass-like semi-transparent text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image:
+    radial-gradient(ellipse 150% 120% at 0% 50%, rgba(180, 235, 255, 0.6) 0%, rgba(60, 203, 255, 0) 40%),
+    radial-gradient(ellipse 120% 100% at 100% 30%, rgba(210, 185, 255, 0.55) 0%, rgba(138, 80, 255, 0) 35%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(255, 195, 195, 0.5) 0%, rgba(255, 100, 100, 0) 35%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.35) 100%);
 }
 
-.diag-stat-num.blue { color: #4A7CFF; }
-.diag-stat-num.purple { color: #A855F7; }
-.diag-stat-num.orange { color: #FF6B2B; }
 
 .diag-stat-label {
   font-size: clamp(10px, 0.9vw, 12px);
@@ -1084,8 +1056,10 @@
 
 /* Chart Cards */
 .diag-chart-card {
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(40px) saturate(140%);
+  -webkit-backdrop-filter: blur(40px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding: clamp(16px, 2vw, 28px);
   display: flex;
@@ -1098,6 +1072,9 @@
 
 .diag-chart-card.diag-chart-wide {
   grid-column: 1 / 3;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(60px) saturate(160%);
+  -webkit-backdrop-filter: blur(60px) saturate(160%);
 }
 
 /* Animations triggered when visible */
@@ -1194,7 +1171,7 @@
 .diag-donut-val {
   font-size: 22px;
   font-weight: 700;
-  fill: #fff;
+  fill: rgba(255, 255, 255, 0.5);
   text-anchor: middle;
   dominant-baseline: central;
   opacity: 0;
@@ -1470,12 +1447,16 @@
 
 /* Phase 1 Dashboard Responsive */
 @media (max-width: 860px) {
+  .phase-1-card {
+    padding: clamp(24px, 4vw, 40px);
+    border-radius: 24px;
+  }
+
   .diagnosis-canvas {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     height: auto;
     min-height: 100%;
-    padding: clamp(100px, 14vh, 140px) clamp(24px, 6vw, 48px) clamp(24px, 4vw, 40px);
     gap: 40px;
   }
 
@@ -1506,6 +1487,11 @@
 }
 
 @media (max-width: 420px) {
+  .phase-1-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
   .diag-chart-card {
     min-height: 180px;
     padding: 16px;
