@@ -22,8 +22,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/index-BTV3bm--.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-PuVT29ML.css">
+  <script type="module" crossorigin src="./assets/index-GifpqhLx.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-B66KTRD9.css">
 </head>
 <body>
 
@@ -219,9 +219,7 @@
 
       <!-- Phase 1: Deep Diagnosis - Dashboard Style -->
       <div class="journey-phase phase-1 active" data-phase="1">
-        <!-- Large Card Wrapper -->
-        <div class="phase-1-card">
-          <div class="diagnosis-canvas">
+        <div class="diagnosis-canvas">
           <!-- Left: Text Column -->
           <div class="diagnosis-text-col">
             <span class="diag-tag">Étape 1 — Diagnostic Approfondi</span>
@@ -243,104 +241,16 @@
             </div>
           </div>
 
-          <!-- Right: Charts Column -->
+          <!-- Right: Minimal Bar Chart -->
           <div class="diagnosis-charts-col">
-            <div class="charts-dashboard">
-            <!-- Line Chart (spans 2 columns) -->
-            <div class="diag-chart-card diag-chart-wide">
-              <div class="diag-chart-title">Tendance des Coûts Opérationnels</div>
-              <div class="diag-chart-area">
-                <svg class="diag-line-svg" viewBox="0 0 600 200" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="diagLineGrad" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.5)"/>
-                      <stop offset="50%" stop-color="rgba(255,255,255,0.4)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.3)"/>
-                    </linearGradient>
-                    <linearGradient id="diagAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                    </linearGradient>
-                  </defs>
-                  <line class="diag-grid-line" x1="0" y1="50" x2="600" y2="50"/>
-                  <line class="diag-grid-line" x1="0" y1="100" x2="600" y2="100"/>
-                  <line class="diag-grid-line" x1="0" y1="150" x2="600" y2="150"/>
-                  <path class="diag-area-fill" d="M0,180 C60,175 100,160 150,150 C200,140 230,120 300,100 C370,80 420,85 480,60 C520,45 560,30 600,20 L600,200 L0,200 Z" fill="url(#diagAreaGrad)"/>
-                  <path class="diag-line-path" d="M0,180 C60,175 100,160 150,150 C200,140 230,120 300,100 C370,80 420,85 480,60 C520,45 560,30 600,20" stroke="url(#diagLineGrad)"/>
-                  <circle class="diag-dot" cx="0" cy="180" r="4" fill="rgba(255,255,255,0.5)" style="animation-delay:2.6s"/>
-                  <circle class="diag-dot" cx="150" cy="150" r="4" fill="rgba(255,255,255,0.45)" style="animation-delay:2.8s"/>
-                  <circle class="diag-dot" cx="300" cy="100" r="4" fill="rgba(255,255,255,0.4)" style="animation-delay:3.0s"/>
-                  <circle class="diag-dot" cx="480" cy="60" r="4" fill="rgba(255,255,255,0.35)" style="animation-delay:3.2s"/>
-                  <circle class="diag-dot" cx="600" cy="20" r="4" fill="rgba(255,255,255,0.3)" style="animation-delay:3.4s"/>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Donut Chart -->
-            <div class="diag-chart-card">
-              <div class="diag-chart-title">Répartition des Pertes</div>
-              <div class="diag-chart-area">
-                <svg class="diag-donut-svg" viewBox="0 0 160 160">
-                  <defs>
-                    <linearGradient id="diagGradBlue" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.3)"/>
-                    </linearGradient>
-                    <linearGradient id="diagGradPurple" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.35)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.25)"/>
-                    </linearGradient>
-                    <linearGradient id="diagGradOrange" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.15)"/>
-                    </linearGradient>
-                  </defs>
-                  <circle class="diag-donut-ring r1" cx="80" cy="80" r="56"/>
-                  <circle class="diag-donut-ring r2" cx="80" cy="80" r="56"/>
-                  <circle class="diag-donut-ring r3" cx="80" cy="80" r="56"/>
-                  <text class="diag-donut-val" x="80" y="76">68%</text>
-                  <text class="diag-donut-label" x="80" y="96">ÉVITABLE</text>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Bar Chart -->
-            <div class="diag-chart-card">
-              <div class="diag-chart-title">Par Département</div>
-              <div class="diag-chart-area">
-                <svg class="diag-bar-svg" viewBox="0 0 160 140" preserveAspectRatio="xMidYMax meet">
-                  <defs>
-                    <linearGradient id="diagBGrad1" x1="0" y1="1" x2="0" y2="0">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.15)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.4)"/>
-                    </linearGradient>
-                    <linearGradient id="diagBGrad2" x1="0" y1="1" x2="0" y2="0">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.35)"/>
-                    </linearGradient>
-                    <linearGradient id="diagBGrad3" x1="0" y1="1" x2="0" y2="0">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.45)"/>
-                    </linearGradient>
-                    <linearGradient id="diagBGrad4" x1="0" y1="1" x2="0" y2="0">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.1)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0.3)"/>
-                    </linearGradient>
-                  </defs>
-                  <rect class="diag-bar-rect" x="10" y="40" width="26" height="80" fill="url(#diagBGrad1)" style="animation-delay:1.8s"/>
-                  <rect class="diag-bar-rect" x="48" y="55" width="26" height="65" fill="url(#diagBGrad2)" style="animation-delay:2.0s"/>
-                  <rect class="diag-bar-rect" x="86" y="25" width="26" height="95" fill="url(#diagBGrad3)" style="animation-delay:2.2s"/>
-                  <rect class="diag-bar-rect" x="124" y="45" width="26" height="75" fill="url(#diagBGrad4)" style="animation-delay:2.4s"/>
-                  <text class="diag-bar-label" x="23" y="135" style="animation-delay:2.6s">LOG</text>
-                  <text class="diag-bar-label" x="61" y="135" style="animation-delay:2.8s">ADM</text>
-                  <text class="diag-bar-label" x="99" y="135" style="animation-delay:3.0s">OPS</text>
-                  <text class="diag-bar-label" x="137" y="135" style="animation-delay:3.2s">FIN</text>
-                </svg>
-              </div>
-            </div>
+            <div class="diag-bars-chart">
+              <div class="diag-bar" style="--bar-height: 55%"></div>
+              <div class="diag-bar" style="--bar-height: 78%"></div>
+              <div class="diag-bar" style="--bar-height: 42%"></div>
+              <div class="diag-bar" style="--bar-height: 90%"></div>
+              <div class="diag-bar" style="--bar-height: 65%"></div>
             </div>
           </div>
-        </div>
         </div>
       </div>
 

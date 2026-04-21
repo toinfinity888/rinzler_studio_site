@@ -910,35 +910,6 @@
   display: none;
 }
 
-/* Phase 1 Card Wrapper */
-.phase-1-card {
-  position: relative;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: clamp(40px, 5vw, 60px);
-  border-radius: 32px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden;
-}
-
-/* Background image with lens flare effect */
-.phase-1-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  background-image: url('../assets/images/phase1-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.8;
-}
-
 /* Canvas Layout */
 .diagnosis-canvas {
   position: relative;
@@ -946,6 +917,9 @@
   grid-template-columns: minmax(280px, 0.45fr) 1fr;
   gap: clamp(32px, 5vw, 80px);
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 48px);
   align-items: center;
 }
 
@@ -1050,210 +1024,93 @@
   width: 100%;
 }
 
-/* Dashboard Wrapper (screenshot-like container) */
-.charts-dashboard {
+/* Minimal Glass Bar Chart */
+.diag-bars-chart {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: clamp(16px, 2vw, 28px);
-  width: 100%;
-  height: 100%;
-  padding: clamp(14px, 1.6vw, 22px);
-  border-radius: 24px;
-  overflow: hidden;
-  isolation: isolate;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(30px) saturate(140%);
-  -webkit-backdrop-filter: blur(30px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.charts-dashboard::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    to top left,
-    rgba(0, 0, 0, 0.95) 0%,
-    rgba(0, 0, 0, 0.7) 35%,
-    rgba(0, 0, 0, 0.35) 70%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  z-index: 3;
-}
-
-/* Chart Cards */
-.diag-chart-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: clamp(16px, 2vw, 28px);
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.diag-bar {
   position: relative;
-  opacity: 0;
-  transform: scale(0.92);
-}
-
-.diag-chart-card.diag-chart-wide {
-  grid-column: 1 / 3;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Animations triggered when visible */
-.phase-1.animate .diag-chart-card {
-  animation: diagCardIn 1.1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-.phase-1.animate .diag-chart-card.diag-chart-wide { animation-delay: 0.9s; }
-.phase-1.animate .diag-chart-card:nth-child(2) { animation-delay: 1.2s; }
-.phase-1.animate .diag-chart-card:nth-child(3) { animation-delay: 1.5s; }
-
-@keyframes diagCardIn {
-  to { opacity: 1; transform: scale(1); }
-}
-
-.diag-chart-title {
-  font-size: clamp(10px, 0.9vw, 12px);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 12px;
-  font-weight: 400;
-}
-
-.diag-chart-area {
   flex: 1;
-  position: relative;
-  min-height: 0;
-}
-
-/* Line Chart */
-.diag-line-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.diag-grid-line {
-  stroke: rgba(255, 255, 255, 0.04);
-  stroke-width: 1;
-}
-
-.diag-area-fill {
-  opacity: 0;
-}
-
-.diag-line-path {
-  fill: none;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 1200;
-  stroke-dashoffset: 1200;
-}
-
-.diag-dot {
-  opacity: 0;
-}
-
-/* Line chart animations - triggered when visible */
-.phase-1.animate .diag-area-fill {
-  animation: diagAreaIn 2s ease 2.2s forwards;
-}
-
-.phase-1.animate .diag-line-path {
-  animation: diagDrawLine 2.4s cubic-bezier(0.4, 0, 0.2, 1) 1.6s forwards;
-}
-
-.phase-1.animate .diag-dot {
-  animation: diagDotPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes diagDrawLine { to { stroke-dashoffset: 0; } }
-@keyframes diagAreaIn { to { opacity: 1; } }
-@keyframes diagDotPop { to { opacity: 1; } }
-
-/* Donut Chart */
-.diag-donut-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.diag-donut-ring {
-  fill: none;
-  stroke-width: 22;
-  stroke-linecap: round;
-  transform-origin: center;
-  stroke-dasharray: 0 999;
-}
-
-.diag-donut-ring.r1 { stroke: url(#diagGradBlue); }
-.diag-donut-ring.r2 { stroke: url(#diagGradPurple); }
-.diag-donut-ring.r3 { stroke: url(#diagGradOrange); }
-
-.diag-donut-val {
-  font-size: 22px;
-  font-weight: 700;
-  fill: rgba(255, 255, 255, 0.5);
-  text-anchor: middle;
-  dominant-baseline: central;
-  opacity: 0;
-}
-
-.diag-donut-label {
-  font-size: 10px;
-  fill: rgba(255, 255, 255, 0.45);
-  text-anchor: middle;
-  letter-spacing: 0.1em;
-  opacity: 0;
-}
-
-/* Donut animations - triggered when visible */
-.phase-1.animate .diag-donut-val {
-  animation: diagFadeIn 0.8s ease 2.8s forwards;
-}
-
-.phase-1.animate .diag-donut-label {
-  animation: diagFadeIn 0.8s ease 3s forwards;
-}
-
-@keyframes diagFadeIn { to { opacity: 1; } }
-
-/* Bar Chart */
-.diag-bar-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.diag-bar-rect {
-  rx: 5;
-  ry: 5;
+  max-width: 96px;
+  height: var(--bar-height, 60%);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
   transform-origin: bottom;
   transform: scaleY(0);
 }
 
-/* Bar animations - triggered when visible */
-.phase-1.animate .diag-bar-rect {
+.diag-bar::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.55;
+  animation: iridescent-flow 20s ease-in-out infinite;
+}
+
+.diag-bar:nth-child(1)::before {
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 40%, rgba(131, 216, 247, 0.7) 0%, transparent 85%),
+    radial-gradient(ellipse 55% 45% at 70% 80%, rgba(185, 150, 255, 0.5) 0%, transparent 80%);
+}
+
+.diag-bar:nth-child(2)::before {
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 30%, rgba(176, 139, 250, 0.7) 0%, transparent 85%),
+    radial-gradient(ellipse 55% 45% at 30% 80%, rgba(145, 226, 255, 0.5) 0%, transparent 80%);
+}
+
+.diag-bar:nth-child(3)::before {
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 70%, rgba(255, 149, 149, 0.65) 0%, transparent 85%),
+    radial-gradient(ellipse 55% 45% at 70% 30%, rgba(185, 151, 254, 0.5) 0%, transparent 80%);
+}
+
+.diag-bar:nth-child(4)::before {
+  background:
+    radial-gradient(ellipse 70% 50% at 70% 40%, rgba(114, 218, 168, 0.55) 0%, transparent 85%),
+    radial-gradient(ellipse 55% 45% at 30% 80%, rgba(135, 223, 255, 0.55) 0%, transparent 70%);
+}
+
+.diag-bar:nth-child(5)::before {
+  background:
+    radial-gradient(ellipse 65% 50% at 50% 50%, rgba(183, 147, 255, 0.768) 0%, transparent 75%),
+    radial-gradient(ellipse 55% 45% at 80% 20%, rgba(255, 100, 100, 0.45) 0%, transparent 80%);
+}
+
+/* Bars grow in when section becomes visible */
+.phase-1.animate .diag-bar {
   animation: diagBarGrow 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
+.phase-1.animate .diag-bar:nth-child(1) { animation-delay: 0.9s; }
+.phase-1.animate .diag-bar:nth-child(2) { animation-delay: 1.05s; }
+.phase-1.animate .diag-bar:nth-child(3) { animation-delay: 1.2s; }
+.phase-1.animate .diag-bar:nth-child(4) { animation-delay: 1.35s; }
+.phase-1.animate .diag-bar:nth-child(5) { animation-delay: 1.5s; }
+
 @keyframes diagBarGrow {
-  from { transform: scaleY(0); }
   to { transform: scaleY(1); }
-}
-
-.diag-bar-label {
-  font-size: 10px;
-  fill: rgba(255, 255, 255, 0.2);
-  text-anchor: middle;
-  opacity: 0;
-}
-
-.phase-1.animate .diag-bar-label {
-  animation: diagFadeIn 0.6s ease forwards;
 }
 
 /* ===== Phase 2: Workflow Engine ===== */
@@ -1473,17 +1330,13 @@
 
 /* Phase 1 Dashboard Responsive */
 @media (max-width: 860px) {
-  .phase-1-card {
-    padding: clamp(24px, 4vw, 40px);
-    border-radius: 24px;
-  }
-
   .diagnosis-canvas {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
     height: auto;
     min-height: 100%;
     gap: 40px;
+    padding: clamp(16px, 4vw, 32px);
   }
 
   .diagnosis-text-col {
@@ -1497,37 +1350,23 @@
   }
 
   .diagnosis-charts-col {
-    height: auto;
+    height: 320px;
     max-width: 480px;
   }
 
-  .charts-dashboard {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto;
+  .diag-bars-chart {
+    gap: clamp(10px, 3vw, 18px);
   }
 
-  .diag-chart-card.diag-chart-wide {
-    grid-column: 1;
-  }
-
-  .diag-chart-card {
-    min-height: 220px;
+  .diag-bar {
+    max-width: 64px;
+    border-radius: 16px;
   }
 }
 
 @media (max-width: 420px) {
-  .phase-1-card {
+  .diagnosis-canvas {
     padding: 16px;
-    border-radius: 20px;
-  }
-
-  .diag-chart-card {
-    min-height: 180px;
-    padding: 16px;
-  }
-
-  .diag-donut-ring {
-    stroke-width: 16;
   }
 
   .diag-stat-num {
