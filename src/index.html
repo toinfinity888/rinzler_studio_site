@@ -303,16 +303,16 @@
             <div class="workflow-card">
               <svg class="wf-paths" viewBox="0 0 640 320" preserveAspectRatio="none" aria-hidden="true">
                 <!-- Hidden full-route paths used by packets -->
-                <path id="wf-route-top" class="wf-route" d="M70,160 L490,160 C550,160 550,70 620,70"/>
-                <path id="wf-route-mid" class="wf-route" d="M70,160 L620,160"/>
-                <path id="wf-route-bot" class="wf-route" d="M70,160 L490,160 C550,160 550,250 620,250"/>
+                <path id="wf-route-top" class="wf-route" d="M60,160 L450,160 C515,160 515,80 580,80"/>
+                <path id="wf-route-mid" class="wf-route" d="M60,160 L580,160"/>
+                <path id="wf-route-bot" class="wf-route" d="M60,160 L450,160 C515,160 515,240 580,240"/>
                 <!-- Visible connector segments (draw in on scroll) -->
-                <path class="wf-path wf-path-trunk-1" d="M70,160 L220,160"/>
-                <path class="wf-path wf-path-trunk-2" d="M220,160 L400,160"/>
-                <path class="wf-path wf-path-trunk-3" d="M400,160 L525,160"/>
-                <path class="wf-path wf-path-branch-1" d="M525,160 C585,160 585,70 620,70"/>
-                <path class="wf-path wf-path-branch-2" d="M525,160 L620,160"/>
-                <path class="wf-path wf-path-branch-3" d="M525,160 C585,160 585,250 620,250"/>
+                <path class="wf-path wf-path-trunk-1" d="M60,160 L180,160"/>
+                <path class="wf-path wf-path-trunk-2" d="M180,160 L330,160"/>
+                <path class="wf-path wf-path-trunk-3" d="M330,160 L450,160"/>
+                <path class="wf-path wf-path-branch-1" d="M450,160 C515,160 515,80 580,80"/>
+                <path class="wf-path wf-path-branch-2" d="M450,160 L580,160"/>
+                <path class="wf-path wf-path-branch-3" d="M450,160 C515,160 515,240 580,240"/>
                 <!-- Animated packets travelling the full routes -->
                 <circle class="wf-packet wf-packet-1" r="4">
                   <animateMotion dur="3.8s" repeatCount="indefinite" begin="2s" rotate="auto">
@@ -332,19 +332,19 @@
               </svg>
 
               <!-- Nodes positioned by % to match SVG viewBox 640×320 -->
-              <div class="wf-node wf-node-input" style="left: 10.9%; top: 50%;">
+              <div class="wf-node wf-node-input" style="left: 9.375%; top: 50%;">
                 <span class="wf-node-icon"><img src="./assets/icons/Gmail_icon.png" alt="Gmail" loading="lazy"></span>
                 <span class="wf-node-label">Gmail</span>
               </div>
-              <div class="wf-node wf-node-ai" style="left: 34.4%; top: 50%;">
+              <div class="wf-node wf-node-ai" style="left: 28.125%; top: 50%;">
                 <span class="wf-node-icon"><img src="./assets/icons/Mistral_icon.png" alt="Mistral AI" loading="lazy"></span>
                 <span class="wf-node-label">Classify</span>
               </div>
-              <div class="wf-node wf-node-process" style="left: 62.5%; top: 50%;">
+              <div class="wf-node wf-node-process" style="left: 51.5625%; top: 50%;">
                 <span class="wf-node-icon"><img src="./assets/icons/Notion-logo.png" alt="Notion" loading="lazy"></span>
                 <span class="wf-node-label">Extract</span>
               </div>
-              <div class="wf-node wf-node-router" style="left: 82.0%; top: 50%;">
+              <div class="wf-node wf-node-router" style="left: 70.3125%; top: 50%;">
                 <span class="wf-node-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="6" y1="3" x2="6" y2="15"/>
@@ -355,15 +355,15 @@
                 </span>
                 <span class="wf-node-label">Router</span>
               </div>
-              <div class="wf-node wf-node-output wf-node-crm" style="left: 96.9%; top: 21.9%;">
+              <div class="wf-node wf-node-output wf-node-crm" style="left: 90.625%; top: 25%;">
                 <span class="wf-node-icon"><img src="./assets/icons/hubspot_icon.svg" alt="HubSpot" loading="lazy"></span>
                 <span class="wf-node-label">HubSpot</span>
               </div>
-              <div class="wf-node wf-node-output wf-node-reply" style="left: 96.9%; top: 50%;">
+              <div class="wf-node wf-node-output wf-node-reply" style="left: 90.625%; top: 50%;">
                 <span class="wf-node-icon"><img src="./assets/icons/whats_app.svg" alt="WhatsApp" loading="lazy"></span>
                 <span class="wf-node-label">WhatsApp</span>
               </div>
-              <div class="wf-node wf-node-output wf-node-slack" style="left: 96.9%; top: 78.1%;">
+              <div class="wf-node wf-node-output wf-node-slack" style="left: 90.625%; top: 75%;">
                 <span class="wf-node-icon"><img src="./assets/icons/Slack_icon.png" alt="Slack" loading="lazy"></span>
                 <span class="wf-node-label">Slack</span>
               </div>
