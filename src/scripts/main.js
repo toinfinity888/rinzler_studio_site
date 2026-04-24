@@ -154,6 +154,27 @@ function initDiagnosisDashboard() {
 }
 
 /**
+ * Trigger .animate class on each journey phase when it enters the viewport.
+ * Works for phase-1, phase-2, and phase-3 independently.
+ */
+function initPhaseObservers() {
+  const phases = document.querySelectorAll('.journey-phase');
+  if (!phases.length) return;
+
+  phases.forEach(phase => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          phase.classList.add('animate');
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    observer.observe(phase);
+  });
+}
+
+/**
  * Initialize all page functionality
  */
 function init() {
@@ -163,6 +184,7 @@ function init() {
   initSmoothScroll();
   initCTATracking();
   initDiagnosisDashboard();
+  initPhaseObservers();
 
   console.log('[Main] Initialization complete');
 }
