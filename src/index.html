@@ -273,145 +273,76 @@
             <span class="wf-tag">Étape 2 — MVP d'automatisation</span>
             <h2 class="wf-headline">Un <span class="wf-gradient">MVP fonctionnel</span> avant tout.</h2>
             <p class="wf-body">Nous livrons d'abord une version minimale mais réelle de l'automatisation — connectée à vos outils, traitant vos vrais flux — pour valider la valeur sur le terrain avant d'industrialiser.</p>
-            <ul class="wf-points">
-              <li class="wf-point">
-                <span class="wf-point-marker"></span>
-                <div class="wf-point-text">
-                  <strong>Périmètre resserré, livré vite</strong>
-                  <span>Un seul cas d'usage à fort impact, déployé en production en quelques semaines.</span>
-                </div>
-              </li>
-              <li class="wf-point">
-                <span class="wf-point-marker"></span>
-                <div class="wf-point-text">
-                  <strong>Itération guidée par les données</strong>
-                  <span>Chaque cycle s'appuie sur les métriques réelles : volumes, erreurs, temps gagné.</span>
-                </div>
-              </li>
-              <li class="wf-point">
-                <span class="wf-point-marker"></span>
-                <div class="wf-point-text">
-                  <strong>Montée en charge progressive</strong>
-                  <span>On étend la couverture une fois la valeur confirmée — sans dette technique ni sur-ingénierie.</span>
-                </div>
-              </li>
-            </ul>
+            <p class="wf-cta-statement">
+              <span class="wf-glass-text">4 semaines</span> pour créer un prototype d'agent IA.
+            </p>
           </div>
 
-          <!-- Right: Workflow Card -->
+          <!-- Right: Workflow Video -->
           <div class="workflow-visual-col">
-            <div class="workflow-card">
-              <svg class="wf-paths" viewBox="0 0 640 320" preserveAspectRatio="none" aria-hidden="true">
-                <!-- Hidden full-route paths used by packets -->
-                <path id="wf-route-top" class="wf-route" d="M60,160 L450,160 C515,160 515,80 580,80"/>
-                <path id="wf-route-mid" class="wf-route" d="M60,160 L580,160"/>
-                <path id="wf-route-bot" class="wf-route" d="M60,160 L450,160 C515,160 515,240 580,240"/>
-                <!-- Visible connector segments (draw in on scroll) -->
-                <path class="wf-path wf-path-trunk-1" d="M60,160 L180,160"/>
-                <path class="wf-path wf-path-trunk-2" d="M180,160 L330,160"/>
-                <path class="wf-path wf-path-trunk-3" d="M330,160 L450,160"/>
-                <path class="wf-path wf-path-branch-1" d="M450,160 C515,160 515,80 580,80"/>
-                <path class="wf-path wf-path-branch-2" d="M450,160 L580,160"/>
-                <path class="wf-path wf-path-branch-3" d="M450,160 C515,160 515,240 580,240"/>
-                <!-- Animated packets travelling the full routes -->
-                <circle class="wf-packet wf-packet-1" r="4">
-                  <animateMotion dur="3.8s" repeatCount="indefinite" begin="2s" rotate="auto">
-                    <mpath href="#wf-route-top"/>
-                  </animateMotion>
-                </circle>
-                <circle class="wf-packet wf-packet-2" r="4">
-                  <animateMotion dur="3.8s" repeatCount="indefinite" begin="2.6s" rotate="auto">
-                    <mpath href="#wf-route-mid"/>
-                  </animateMotion>
-                </circle>
-                <circle class="wf-packet wf-packet-3" r="4">
-                  <animateMotion dur="3.8s" repeatCount="indefinite" begin="3.2s" rotate="auto">
-                    <mpath href="#wf-route-bot"/>
-                  </animateMotion>
-                </circle>
-              </svg>
-
-              <!-- Nodes positioned by % to match SVG viewBox 640×320 -->
-              <div class="wf-node wf-node-input" style="left: 9.375%; top: 50%;">
-                <span class="wf-node-icon"><img src="./assets/icons/Gmail_icon.png" alt="Gmail" loading="lazy"></span>
-                <span class="wf-node-label">Gmail</span>
-              </div>
-              <div class="wf-node wf-node-ai" style="left: 28.125%; top: 50%;">
-                <span class="wf-node-icon"><img src="./assets/icons/Mistral_icon.png" alt="Mistral AI" loading="lazy"></span>
-                <span class="wf-node-label">Classify</span>
-              </div>
-              <div class="wf-node wf-node-process" style="left: 51.5625%; top: 50%;">
-                <span class="wf-node-icon"><img src="./assets/icons/Notion-logo.png" alt="Notion" loading="lazy"></span>
-                <span class="wf-node-label">Extract</span>
-              </div>
-              <div class="wf-node wf-node-router" style="left: 70.3125%; top: 50%;">
-                <span class="wf-node-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="6" y1="3" x2="6" y2="15"/>
-                    <circle cx="18" cy="6" r="3"/>
-                    <circle cx="6" cy="18" r="3"/>
-                    <path d="M18 9a9 9 0 0 1-9 9"/>
-                  </svg>
-                </span>
-                <span class="wf-node-label">Router</span>
-              </div>
-              <div class="wf-node wf-node-output wf-node-crm" style="left: 90.625%; top: 25%;">
-                <span class="wf-node-icon"><img src="./assets/icons/hubspot_icon.svg" alt="HubSpot" loading="lazy"></span>
-                <span class="wf-node-label">HubSpot</span>
-              </div>
-              <div class="wf-node wf-node-output wf-node-reply" style="left: 90.625%; top: 50%;">
-                <span class="wf-node-icon"><img src="./assets/icons/whats_app.svg" alt="WhatsApp" loading="lazy"></span>
-                <span class="wf-node-label">WhatsApp</span>
-              </div>
-              <div class="wf-node wf-node-output wf-node-slack" style="left: 90.625%; top: 75%;">
-                <span class="wf-node-icon"><img src="./assets/icons/Slack_icon.png" alt="Slack" loading="lazy"></span>
-                <span class="wf-node-label">Slack</span>
-              </div>
+            <div class="workflow-video-frame">
+              <video class="workflow-video" autoplay muted loop playsinline>
+                <source src="./assets/video/workflow.mov" type="video/quicktime">
+                <source src="./assets/video/workflow.mp4" type="video/mp4">
+              </video>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Phase 3: Profit Outcome -->
+      <!-- Phase 3: Scaling -->
       <div class="journey-phase phase-3" data-phase="3">
-        <div class="phase-visual">
-          <div class="profit-dashboard">
-            <div class="profit-card main-metric">
-              <div class="profit-icon">📈</div>
-              <div class="profit-value">
-                <span class="ticker" data-target="20" data-suffix="%">0%</span>
-              </div>
-              <div class="profit-label">Réduction des coûts</div>
-            </div>
-            <div class="profit-grid">
-              <div class="profit-card">
-                <div class="profit-value small">
-                  <span class="ticker" data-target="4.2" data-suffix="h" data-decimals="1">0h</span>
+        <div class="scaling-canvas">
+          <!-- Left: Text Column -->
+          <div class="scaling-text-col">
+            <span class="scale-tag">Étape 3 — Passage à l'échelle</span>
+            <h2 class="scale-headline">Intégration <span class="scale-gradient">complète</span> dans vos processus.</h2>
+            <p class="scale-body">Une fois la valeur prouvée, nous déployons la solution à l'ensemble de votre organisation avec un accompagnement sur mesure.</p>
+            <ul class="scale-points">
+              <li class="scale-point">
+                <span class="scale-point-marker"></span>
+                <div class="scale-point-text">
+                  <strong>Formation des équipes</strong>
+                  <span>Vos collaborateurs maîtrisent les nouveaux outils et processus automatisés.</span>
                 </div>
-                <div class="profit-label">Économisées/jour</div>
-              </div>
-              <div class="profit-card">
-                <div class="profit-value small">
-                  <span class="ticker" data-target="98" data-suffix="%">0%</span>
+              </li>
+              <li class="scale-point">
+                <span class="scale-point-marker"></span>
+                <div class="scale-point-text">
+                  <strong>Intégration système</strong>
+                  <span>Connexion native à votre stack existant : CRM, ERP, outils métier.</span>
                 </div>
-                <div class="profit-label">Précision</div>
-              </div>
-              <div class="profit-card">
-                <div class="profit-value small">
-                  <span class="ticker" data-target="35" data-suffix="%">0%</span>
+              </li>
+              <li class="scale-point">
+                <span class="scale-point-marker"></span>
+                <div class="scale-point-text">
+                  <strong>Support continu</strong>
+                  <span>Monitoring, optimisation et évolution selon vos besoins business.</span>
                 </div>
-                <div class="profit-label">Leads récupérés</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right: Minimal Rocket -->
+          <div class="scaling-visual-col">
+            <div class="rocket-container">
+              <!-- Rocket body -->
+              <div class="rocket">
+                <div class="rocket-body"></div>
+                <div class="rocket-fin rocket-fin-left"></div>
+                <div class="rocket-fin rocket-fin-right"></div>
+                <div class="rocket-window"></div>
               </div>
-              <div class="profit-card">
-                <div class="profit-value small">
-                  <span class="ticker" data-target="24" data-suffix="/7">0/7</span>
-                </div>
-                <div class="profit-label">Disponibilité</div>
+              <!-- Exhaust flames -->
+              <div class="rocket-exhaust">
+                <div class="exhaust-flame flame-1"></div>
+                <div class="exhaust-flame flame-2"></div>
+                <div class="exhaust-flame flame-3"></div>
               </div>
-            </div>
-            <div class="roi-summary">
-              <span class="roi-text">ROI moyen constaté:</span>
-              <span class="roi-value ticker" data-target="340" data-suffix="%">0%</span>
+              <!-- Trail particles -->
+              <div class="rocket-trail">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
             </div>
           </div>
         </div>
