@@ -779,6 +779,231 @@
   }
 }
 
+/* ===== Before / After Comparison Section ===== */
+.before-after {
+  background: var(--color-bg-primary);
+  padding: clamp(80px, 12vh, 140px) clamp(24px, 5vw, 72px);
+}
+
+.ba-header {
+  text-align: center;
+  margin-bottom: clamp(48px, 8vh, 80px);
+}
+
+.ba-section-tag {
+  display: inline-block;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-accent-cyan);
+  margin-bottom: 16px;
+}
+
+.ba-section-title {
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.ba-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vw, 60px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Cards */
+.ba-card {
+  position: relative;
+  flex: 1;
+  max-width: 420px;
+  padding: clamp(28px, 4vw, 40px);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.ba-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Iridescent glow backgrounds */
+.ba-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: iridescent-flow 20s ease-in-out infinite;
+}
+
+.ba-card--before::before {
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 30%, rgba(255, 100, 100, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 70% 80%, rgba(255, 150, 80, 0.3) 0%, transparent 45%);
+}
+
+.ba-card--before {
+  border-color: rgba(255, 100, 100, 0.15);
+}
+
+.ba-card--after::before {
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 30%, rgba(33, 194, 253, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 30% 80%, rgba(138, 80, 255, 0.3) 0%, transparent 45%);
+}
+
+.ba-card--after {
+  border-color: rgba(33, 194, 253, 0.15);
+}
+
+.ba-card--after:hover {
+  box-shadow: 0 20px 60px rgba(33, 194, 253, 0.15);
+}
+
+/* Card Header */
+.ba-card-header {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ba-card-label {
+  display: block;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.ba-card-subtitle {
+  font-size: clamp(12px, 1.2vw, 14px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Items */
+.ba-card-items {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.ba-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ba-item-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ba-item--negative .ba-item-icon {
+  background: rgba(255, 100, 100, 0.15);
+  color: #ff6b6b;
+  border: 1px solid rgba(255, 100, 100, 0.3);
+}
+
+.ba-item--positive .ba-item-icon {
+  background: rgba(33, 194, 253, 0.15);
+  color: #21c2fd;
+  border: 1px solid rgba(33, 194, 253, 0.3);
+}
+
+.ba-item-text {
+  font-size: clamp(13px, 1.3vw, 15px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Metric */
+.ba-card-metric {
+  position: relative;
+  z-index: 1;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.ba-metric-value {
+  display: block;
+  font-size: clamp(32px, 4vw, 44px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.ba-card--before .ba-metric-value {
+  color: #ff6b6b;
+}
+
+.ba-card--after .ba-metric-value {
+  color: #21c2fd;
+}
+
+.ba-metric-label {
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Arrow */
+.ba-arrow {
+  flex-shrink: 0;
+  opacity: 0.8;
+  animation: arrowPulse 2s ease-in-out infinite;
+}
+
+@keyframes arrowPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(4px); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .ba-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .ba-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .ba-arrow {
+    transform: rotate(90deg);
+  }
+}
+
 /* ===== Transformation Section ===== */
 .transformation-journey {
   position: relative;
