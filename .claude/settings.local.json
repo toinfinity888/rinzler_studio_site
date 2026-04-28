@@ -6,7 +6,9 @@
       "Bash(npm run build:*)",
       "Bash(file:*)",
       "Bash(sips:*)",
-      "Bash(ffmpeg:*)"
+      "Bash(ffmpeg:*)",
+      "Bash(tree:*)",
+      "Bash(timeout 5 npm run dev:*)"
     ]
   }
 }

@@ -175,6 +175,35 @@ function initPhaseObservers() {
 }
 
 /**
+ * Initialize FAQ accordion functionality
+ */
+function initFAQ() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    if (!question) return;
+
+    question.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+
+      // Close all other items
+      faqItems.forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('active');
+          otherItem.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle current item
+      item.classList.toggle('active', !isActive);
+      question.setAttribute('aria-expanded', !isActive);
+    });
+  });
+}
+
+/**
  * Initialize all page functionality
  */
 function init() {
@@ -185,6 +214,7 @@ function init() {
   initCTATracking();
   initDiagnosisDashboard();
   initPhaseObservers();
+  initFAQ();
 
   console.log('[Main] Initialization complete');
 }
