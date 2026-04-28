@@ -1752,44 +1752,35 @@
   justify-content: center;
 }
 
-/* Minimalist Rocket */
-.rocket-container {
+/* Process Integration Image */
+.process-image-frame {
   position: relative;
-  width: 120px;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.rocket {
-  position: relative;
-  width: 60px;
-  height: 160px;
-  animation: rocketFloat 3s ease-in-out infinite;
-}
-
-@keyframes rocketFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-.rocket-body {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px 20px 8px 8px;
+  width: 100%;
+  max-width: 700px;
+  border-radius: 16px;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.rocket-body::before {
+.process-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+.process-image-frame:hover .process-image {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* Subtle glow effect on the frame */
+.process-image-frame::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -1797,102 +1788,16 @@
   width: 200%;
   height: 200%;
   background:
-    radial-gradient(ellipse 60% 40% at 30% 30%, rgba(33, 194, 253, 0.6) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 50% at 70% 70%, rgba(138, 80, 255, 0.4) 0%, transparent 50%);
-  filter: blur(20px);
-  animation: iridescent-flow 12s ease-in-out infinite;
+    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(33, 194, 253, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 35% 25% at 80% 80%, rgba(138, 80, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+  animation: processGlow 15s ease-in-out infinite;
 }
 
-.rocket-window {
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 18px;
-  height: 18px;
-  background: rgba(33, 194, 253, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  box-shadow: inset 0 0 10px rgba(33, 194, 253, 0.5);
-}
-
-.rocket-fin {
-  position: absolute;
-  bottom: 10px;
-  width: 20px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.rocket-fin-left {
-  left: -5px;
-  border-radius: 0 0 0 15px;
-  transform: skewX(15deg);
-}
-
-.rocket-fin-right {
-  right: -5px;
-  border-radius: 0 0 15px 0;
-  transform: skewX(-15deg);
-}
-
-/* Rocket Exhaust */
-.rocket-exhaust {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 4px;
-}
-
-.exhaust-flame {
-  width: 8px;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  background: linear-gradient(to bottom, rgba(251, 191, 36, 0.8), rgba(239, 68, 68, 0.6), transparent);
-  animation: flameFlicker 0.15s ease-in-out infinite alternate;
-}
-
-.flame-1 { height: 50px; animation-delay: 0s; }
-.flame-2 { height: 70px; animation-delay: 0.05s; }
-.flame-3 { height: 50px; animation-delay: 0.1s; }
-
-@keyframes flameFlicker {
-  0% { transform: scaleY(1) scaleX(1); opacity: 0.8; }
-  100% { transform: scaleY(1.1) scaleX(0.9); opacity: 1; }
-}
-
-/* Rocket Trail */
-.rocket-trail {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-}
-
-.rocket-trail span {
-  width: 6px;
-  height: 6px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-  animation: trailFade 1.5s ease-out infinite;
-}
-
-.rocket-trail span:nth-child(1) { animation-delay: 0s; }
-.rocket-trail span:nth-child(2) { animation-delay: 0.2s; width: 5px; height: 5px; }
-.rocket-trail span:nth-child(3) { animation-delay: 0.4s; width: 4px; height: 4px; }
-.rocket-trail span:nth-child(4) { animation-delay: 0.6s; width: 3px; height: 3px; }
-.rocket-trail span:nth-child(5) { animation-delay: 0.8s; width: 2px; height: 2px; }
-
-@keyframes trailFade {
-  0% { opacity: 0.6; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(30px); }
+@keyframes processGlow {
+  0%, 100% { opacity: 0.6; transform: translate(0, 0); }
+  50% { opacity: 1; transform: translate(5%, 5%); }
 }
 
 /* Phase 3 Responsive */
@@ -1914,11 +1819,12 @@
   }
 
   .scaling-visual-col {
-    height: 300px;
+    height: auto;
+    max-width: 100%;
   }
 
-  .rocket-container {
-    transform: scale(0.8);
+  .process-image-frame {
+    max-width: 100%;
   }
 }
 
