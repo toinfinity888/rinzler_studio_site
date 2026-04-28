@@ -1753,51 +1753,38 @@
 }
 
 /* Process Integration Image */
-.process-image-frame {
+.process-image-container {
   position: relative;
   width: 100%;
-  max-width: 700px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  max-width: 900px;
 }
 
-.process-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  opacity: 0.95;
-  transition: opacity 0.3s ease, transform 0.5s ease;
-}
-
-.process-image-frame:hover .process-image {
-  opacity: 1;
-  transform: scale(1.02);
-}
-
-/* Subtle glow effect on the frame */
-.process-image-frame::before {
+/* Animated color patches - visible behind image */
+.process-image-container::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background:
-    radial-gradient(ellipse 40% 30% at 20% 20%, rgba(33, 194, 253, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse 35% 25% at 80% 80%, rgba(138, 80, 255, 0.1) 0%, transparent 50%);
+    radial-gradient(600px 400px at 30% 40%, rgba(33, 194, 253, 0.6) 0%, transparent 70%),
+    radial-gradient(500px 350px at 70% 60%, rgba(138, 80, 255, 0.5) 0%, transparent 70%);
+  filter: blur(40px);
   pointer-events: none;
-  z-index: 1;
   animation: processGlow 15s ease-in-out infinite;
 }
 
+.process-image {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 @keyframes processGlow {
-  0%, 100% { opacity: 0.6; transform: translate(0, 0); }
-  50% { opacity: 1; transform: translate(5%, 5%); }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
 }
 
 /* Phase 3 Responsive */
@@ -1823,7 +1810,7 @@
     max-width: 100%;
   }
 
-  .process-image-frame {
+  .process-image-container {
     max-width: 100%;
   }
 }
