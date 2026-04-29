@@ -727,6 +727,79 @@
     </div>
   </section>
 
+  <!-- Audit Request Modal -->
+  <div class="modal-overlay" id="audit-modal">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close" aria-label="Fermer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="modal-header">
+        <span class="modal-tag">Audit Gratuit</span>
+        <h2 class="modal-title">Réservez votre diagnostic</h2>
+        <p class="modal-subtitle">Découvrez le potentiel d'automatisation de votre entreprise en 30 minutes.</p>
+      </div>
+
+      <form class="audit-form" id="audit-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-name">Nom complet *</label>
+            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" required>
+          </div>
+          <div class="form-field">
+            <label for="audit-company">Entreprise *</label>
+            <input type="text" id="audit-company" name="company" placeholder="Votre entreprise" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-email">Email *</label>
+            <input type="email" id="audit-email" name="email" placeholder="jean@entreprise.fr" required>
+          </div>
+          <div class="form-field">
+            <label for="audit-phone">Téléphone *</label>
+            <input type="tel" id="audit-phone" name="phone" placeholder="+33 6 12 34 56 78" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="audit-sector">Secteur d'activité</label>
+          <select id="audit-sector" name="sector">
+            <option value="">Sélectionnez votre secteur</option>
+            <option value="transport">Transport & Logistique</option>
+            <option value="commerce">Commerce & Distribution</option>
+            <option value="services">Services aux entreprises</option>
+            <option value="industrie">Industrie & Production</option>
+            <option value="sante">Santé & Médical</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="audit-message">Décrivez brièvement vos besoins</label>
+          <textarea id="audit-message" name="message" placeholder="Quels processus souhaitez-vous automatiser ? Quels sont vos principaux défis opérationnels ?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-hero-cta animate-glow btn-submit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          Envoyer ma demande
+        </button>
+
+        <p class="form-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Vos données sont protégées et ne seront jamais partagées.
+        </p>
+      </form>
+    </div>
+  </div>
+
   <!-- Scrollytelling Transformation Script -->
   <script>
     (function() {

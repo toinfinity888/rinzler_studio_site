@@ -204,6 +204,139 @@ function initFAQ() {
 }
 
 /**
+ * Initialize Audit Modal functionality
+ */
+function initAuditModal() {
+  const modal = document.getElementById('audit-modal');
+  const closeBtn = document.getElementById('modal-close');
+  const form = document.getElementById('audit-form');
+
+  if (!modal) return;
+
+  // Configuration - Get your Formspree ID at https://formspree.io
+  const FORMSPREE_ID = 'xqewrjzy'; // Replace with your Formspree form ID
+
+  // Open modal when clicking audit links
+  document.querySelectorAll('a[href="#audit-booking"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Close modal
+  closeBtn?.addEventListener('click', closeModal);
+
+  // Close on overlay click
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
+
+  // Form submission
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('.btn-submit');
+    const originalText = submitBtn.innerHTML;
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `
+      <svg class="spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+      </svg>
+      Envoi en cours...
+    `;
+
+    const formData = new FormData(form);
+
+    try {
+      // Send to Formspree (better deliverability than FormSubmit)
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          company: formData.get('company'),
+          email: formData.get('email'),
+          phone: formData.get('phone'),
+          sector: formData.get('sector'),
+          message: formData.get('message'),
+          _subject: `Nouvelle demande d'audit - ${formData.get('company')}`
+        })
+      });
+
+      if (response.ok) {
+        // Show success
+        showSuccess();
+
+        // Track conversion
+        if (window.plausible) {
+          window.plausible('Audit Request', {
+            props: { company: formData.get('company'), sector: formData.get('sector') }
+          });
+        }
+
+        // Reset form
+        form.reset();
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+    }
+  });
+
+  function showSuccess() {
+    const modalContent = modal.querySelector('.modal-container');
+    modalContent.innerHTML = `
+      <div class="modal-success">
+        <div class="success-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Demande envoyée !</h3>
+        <p class="success-text">Merci pour votre intérêt. Nous vous contacterons dans les 24 heures pour planifier votre audit gratuit.</p>
+        <button class="btn btn-primary" onclick="document.getElementById('audit-modal').classList.remove('active'); document.body.style.overflow = ''; location.reload();">
+          Fermer
+        </button>
+      </div>
+    `;
+  }
+
+  function openModal() {
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      form?.querySelector('input')?.focus();
+    }, 100);
+  }
+
+  function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+/**
  * Initialize all page functionality
  */
 function init() {
@@ -215,6 +348,7 @@ function init() {
   initDiagnosisDashboard();
   initPhaseObservers();
   initFAQ();
+  initAuditModal();
 
   console.log('[Main] Initialization complete');
 }
