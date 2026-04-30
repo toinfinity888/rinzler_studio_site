@@ -337,6 +337,45 @@ function initAuditModal() {
 }
 
 /**
+ * Initialize Mobile Menu functionality
+ */
+function initMobileMenu() {
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const nav = document.getElementById('header-nav');
+
+  if (!menuBtn || !nav) return;
+
+  function toggleMenu() {
+    const isActive = menuBtn.classList.contains('active');
+    menuBtn.classList.toggle('active', !isActive);
+    nav.classList.toggle('active', !isActive);
+    menuBtn.setAttribute('aria-expanded', !isActive);
+    document.body.style.overflow = isActive ? '' : 'hidden';
+  }
+
+  function closeMenu() {
+    menuBtn.classList.remove('active');
+    nav.classList.remove('active');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', toggleMenu);
+
+  // Close menu when clicking nav links
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('active')) {
+      closeMenu();
+    }
+  });
+}
+
+/**
  * Initialize all page functionality
  */
 function init() {
@@ -349,6 +388,7 @@ function init() {
   initPhaseObservers();
   initFAQ();
   initAuditModal();
+  initMobileMenu();
 
   console.log('[Main] Initialization complete');
 }

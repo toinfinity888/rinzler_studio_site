@@ -80,6 +80,44 @@
   font-size: var(--font-size-xs);
 }
 
+/* Mobile Menu Button (hidden on desktop) */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 101;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hamburger to X animation */
+.mobile-menu-btn.active .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 @media (max-width: 768px) {
   .site-header {
     padding: var(--space-sm) var(--space-md);
@@ -97,17 +135,48 @@
     height: 26px;
   }
 
+  /* Show mobile menu button */
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  /* Hide desktop nav, show as mobile dropdown */
   .header-nav {
-    gap: var(--space-sm);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-lg);
+    background: rgba(10, 10, 15, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 99;
+  }
+
+  .header-nav.active {
+    opacity: 1;
+    visibility: visible;
   }
 
   .nav-link {
-    display: none;
+    display: block;
+    font-size: 1.5rem;
+    color: var(--color-text-primary);
+    padding: var(--space-sm) var(--space-md);
   }
 
-  .header-nav .btn-sm {
-    padding: var(--space-xs) var(--space-sm);
-    font-size: var(--font-size-xs);
+  .header-nav .btn-sm,
+  .header-nav .nav-cta {
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-base);
   }
 }
 
@@ -3116,6 +3185,160 @@
     right: 16px;
     width: 36px;
     height: 36px;
+  }
+
+  /* Prevent iOS auto-zoom on input focus */
+  .audit-form .form-field input,
+  .audit-form .form-field select,
+  .audit-form .form-field textarea {
+    font-size: 16px;
+  }
+}
+
+/* Extra small modal (phones under 480px) */
+@media (max-width: 480px) {
+  .modal-container {
+    padding: 20px;
+    border-radius: 16px;
+    max-height: 95vh;
+  }
+
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .audit-form .form-field {
+    margin-bottom: 16px;
+  }
+
+  .audit-form .form-field input,
+  .audit-form .form-field textarea {
+    padding: 12px 14px;
+  }
+
+  .btn-submit {
+    padding: 14px 24px;
+  }
+}
+
+/* ===== Extra Small Screen Fixes (360px and below) ===== */
+@media (max-width: 360px) {
+  /* Hero */
+  .hero-content {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+
+  /* Pain Bridge */
+  .pain-card {
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+
+  .pain-card-title {
+    font-size: 1rem;
+  }
+
+  /* Before/After */
+  .ba-container {
+    gap: 16px;
+  }
+
+  .ba-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Journey Phases */
+  .journey-phase {
+    min-height: auto;
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  /* Diagnosis */
+  .diagnosis-charts-col {
+    height: 220px;
+  }
+
+  .diag-bar {
+    max-width: 48px;
+    border-radius: 12px;
+  }
+
+  /* Why Us */
+  .why-card {
+    padding: 24px 20px;
+  }
+
+  .why-card-title {
+    font-size: 1.125rem;
+  }
+
+  /* FAQ */
+  .faq {
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .faq-question {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .faq-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+  }
+
+  /* Security */
+  .security-grid {
+    gap: 16px;
+  }
+
+  .security-card {
+    padding: 24px 20px;
+  }
+
+  /* Final CTA */
+  .final-cta-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+}
+
+/* Minimum mobile width (320px) */
+@media (max-width: 320px) {
+  .section-eyebrow {
+    font-size: 0.7rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.25rem, 7vw, 1.75rem);
+  }
+
+  .pain-card-stat-number {
+    font-size: 1.75rem;
+  }
+
+  .hero-tagline {
+    font-size: clamp(1.5rem, 8vw, 2rem);
+  }
+
+  .btn-hero-cta {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet optimization for Why Us grid (2 columns) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .why-us-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why-card:last-child {
+    grid-column: 1 / -1;
+    max-width: 400px;
+    margin: 0 auto;
   }
 }
 
