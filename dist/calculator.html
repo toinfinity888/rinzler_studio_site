@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculez votre ROI d'automatisation - Estimez vos économies avec notre calculateur interactif de retour sur investissement">
+  <meta name="keywords" content="calculateur ROI, automatisation, économies, retour sur investissement, PME, France">
+  <meta name="theme-color" content="#0a0a0f">
+
+  <title>Calculateur ROI Automatisation | Rinzler Studio</title>
+
+  <!-- Plausible Analytics -->
+  <link rel="preconnect" href="https://plausible.io">
+  <script defer data-domain="rinzlerstudio.fr" src="https://plausible.io/js/script.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+  <!-- Stylesheets -->
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="./assets/calculator-DyJwX1ZO.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/calculator-aFsKEbWa.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <a href="./index.html" class="header-logo-link">
+      <img src="./assets/rinzler_studio_logo_white-C9JkfPs2.svg" alt="Rinzler Studio" class="header-logo">
+    </a>
+    <nav class="header-nav" id="header-nav">
+      <a href="./index.html#services" class="nav-link">Services</a>
+      <a href="./index.html#case-study" class="nav-link">Études de cas</a>
+      <a href="./calculator.html" class="nav-link" style="color: var(--color-accent-cyan);">Calculateur ROI</a>
+      <a href="./index.html#about" class="nav-link">À propos</a>
+      <a href="#audit-booking" class="btn btn-primary btn-sm nav-cta">Audit Gratuit</a>
+    </nav>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </header>
+
+  <main class="calculator-page">
+    <!-- Hero Banner -->
+    <section class="calc-hero">
+      <h1 class="calc-hero-title">Calculateur <span class="calc-gradient">ROI</span> Automatisation</h1>
+      <p class="calc-hero-subtitle">Estimez précisément vos économies et le retour sur investissement de l'automatisation de vos processus.</p>
+    </section>
+
+    <!-- Calculator Grid -->
+    <section class="calc-container">
+      <!-- Left Column: Inputs -->
+      <div class="calc-inputs">
+        <!-- Scenario Selector -->
+        <div class="calc-card calc-scenarios">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
+            </svg>
+            Scénario prédéfini
+          </h3>
+          <select id="calc-scenario" class="calc-select">
+            <option value="custom">Personnalisé</option>
+            <option value="email">Traitement emails</option>
+            <option value="leads">Gestion des leads</option>
+            <option value="invoicing">Facturation</option>
+            <option value="onboarding">Onboarding clients</option>
+            <option value="reporting">Reporting</option>
+          </select>
+        </div>
+
+        <!-- Time & Labor Costs -->
+        <div class="calc-card">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+            Temps & Coûts de main-d'œuvre
+          </h3>
+
+          <div class="calc-field">
+            <label for="calc-employees">Employés concernés</label>
+            <input type="number" id="calc-employees" min="1" max="1000" value="5">
+            <span class="calc-field-hint">Nombre de personnes exécutant cette tâche</span>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-hours-task">Heures par tâche</label>
+            <input type="number" id="calc-hours-task" min="0.25" max="40" step="0.25" value="2">
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-frequency">Fréquence par semaine</label>
+            <input type="number" id="calc-frequency" min="1" max="200" value="10">
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-hourly-rate">Coût horaire chargé (€)</label>
+            <input type="number" id="calc-hourly-rate" min="10" max="500" value="45">
+          </div>
+        </div>
+
+        <!-- Error Costs -->
+        <div class="calc-card">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            Coûts des erreurs
+          </h3>
+
+          <div class="calc-field">
+            <label for="calc-error-rate">Taux d'erreur actuel (%)</label>
+            <input type="number" id="calc-error-rate" min="0" max="50" step="0.5" value="3">
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-error-cost">Coût moyen par erreur (€)</label>
+            <input type="number" id="calc-error-cost" min="0" max="10000" value="150">
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-error-volume">Volume mensuel de transactions</label>
+            <input type="number" id="calc-error-volume" min="1" max="100000" value="500">
+          </div>
+        </div>
+
+        <!-- Lost Opportunities -->
+        <div class="calc-card">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
+            </svg>
+            Opportunités manquées
+          </h3>
+
+          <div class="calc-field">
+            <label for="calc-leads-lost">Leads perdus par mois (délai réponse)</label>
+            <input type="number" id="calc-leads-lost" min="0" max="1000" value="10">
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-lead-value">Valeur moyenne d'un lead (€)</label>
+            <input type="number" id="calc-lead-value" min="0" max="100000" value="500">
+          </div>
+        </div>
+
+        <!-- Implementation Costs (TCO) -->
+        <div class="calc-card">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+            </svg>
+            Implémentation (TCO)
+          </h3>
+
+          <div class="calc-field">
+            <label for="calc-impl-cost">Coût d'implémentation (€)</label>
+            <input type="number" id="calc-impl-cost" min="0" max="500000" value="15000">
+            <span class="calc-field-hint">Développement, intégration, formation</span>
+          </div>
+
+          <div class="calc-field">
+            <label for="calc-monthly-cost">Coût mensuel exploitation (€)</label>
+            <input type="number" id="calc-monthly-cost" min="0" max="10000" value="200">
+            <span class="calc-field-hint">Licences, hébergement, maintenance</span>
+          </div>
+        </div>
+
+        <!-- Automation Efficiency Slider -->
+        <div class="calc-card calc-efficiency">
+          <h3 class="calc-card-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+            </svg>
+            Niveau d'automatisation
+          </h3>
+
+          <div class="calc-slider-group">
+            <input type="range" id="calc-efficiency" min="30" max="95" value="70" class="calc-slider">
+            <div class="calc-slider-labels">
+              <span>30%</span>
+              <span class="calc-slider-value" id="efficiency-value">70%</span>
+              <span>95%</span>
+            </div>
+          </div>
+          <p class="calc-slider-desc">L'efficacité dépend de la complexité du processus et de la qualité des données sources.</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Results -->
+      <div class="calc-results">
+        <div class="calc-results-card">
+          <!-- Main Savings -->
+          <div class="calc-result-main">
+            <span class="calc-result-label">Économies mensuelles estimées</span>
+            <div class="calc-result-value-large">
+              <span class="calc-result-currency-large">€</span>
+              <span class="calc-result-number-large" id="result-savings">12 450</span>
+            </div>
+          </div>
+
+          <!-- Secondary Metrics -->
+          <div class="calc-result-metrics">
+            <div class="calc-metric">
+              <span class="calc-metric-value" id="result-roi">312%</span>
+              <span class="calc-metric-label">ROI annuel</span>
+            </div>
+            <div class="calc-metric">
+              <span class="calc-metric-value" id="result-payback">4.2</span>
+              <span class="calc-metric-label">Mois de payback</span>
+            </div>
+            <div class="calc-metric">
+              <span class="calc-metric-value" id="result-hours">160h</span>
+              <span class="calc-metric-label">Heures libérées/mois</span>
+            </div>
+          </div>
+
+          <!-- Before/After Mini Visualization -->
+          <div class="calc-comparison">
+            <h4 class="calc-comparison-title">Comparaison Avant / Après</h4>
+            <div class="calc-bars">
+              <div class="calc-bar-group">
+                <span class="calc-bar-label">Heures manuelles</span>
+                <div class="calc-bar calc-bar--before" style="--bar-width: 100%">
+                  <span id="bar-before-hours">200h</span>
+                </div>
+              </div>
+              <div class="calc-bar-group">
+                <span class="calc-bar-label">Heures après automation</span>
+                <div class="calc-bar calc-bar--after" style="--bar-width: 30%">
+                  <span id="bar-after-hours">60h</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soft ROI Benefits -->
+          <div class="calc-soft-roi">
+            <h4 class="calc-soft-roi-title">Bénéfices non quantifiables</h4>
+            <ul class="calc-soft-roi-list">
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Réduction du stress et de l'épuisement des équipes
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Amélioration de la satisfaction client (réponse plus rapide)
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Meilleure traçabilité et conformité réglementaire
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Capacité à scaler sans recruter
+              </li>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Redéploiement des talents sur des tâches à haute valeur
+              </li>
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <div class="calc-cta">
+            <p class="calc-cta-text">Ces chiffres sont des estimations. Obtenez une analyse personnalisée de votre situation.</p>
+            <a href="#audit-booking" class="btn btn-primary btn-hero-cta animate-glow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+              </svg>
+              Demander mon audit gratuit
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="calc-footer">
+      <p class="calc-footer-text">
+        <a href="./index.html" class="calc-footer-link">← Retour à l'accueil</a>
+        &nbsp;|&nbsp;
+        Rinzler Studio - Automatisation intelligente pour PME
+      </p>
+    </footer>
+  </main>
+
+  <!-- Audit Request Modal -->
+  <div class="modal-overlay" id="audit-modal">
+    <div class="modal-container">
+      <button class="modal-close" id="modal-close" aria-label="Fermer">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="modal-header">
+        <span class="modal-tag">Audit Gratuit</span>
+        <h2 class="modal-title">Réservez votre diagnostic</h2>
+        <p class="modal-subtitle">Découvrez le potentiel d'automatisation de votre entreprise en 30 minutes.</p>
+      </div>
+
+      <form class="audit-form" id="audit-form">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-name">Nom complet *</label>
+            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" required>
+          </div>
+          <div class="form-field">
+            <label for="audit-company">Entreprise *</label>
+            <input type="text" id="audit-company" name="company" placeholder="Votre entreprise" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-email">Email *</label>
+            <input type="email" id="audit-email" name="email" placeholder="jean@entreprise.fr" required>
+          </div>
+          <div class="form-field">
+            <label for="audit-phone">Téléphone *</label>
+            <input type="tel" id="audit-phone" name="phone" placeholder="+33 6 12 34 56 78" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="audit-sector">Secteur d'activité</label>
+          <select id="audit-sector" name="sector">
+            <option value="">Sélectionnez votre secteur</option>
+            <option value="transport">Transport & Logistique</option>
+            <option value="commerce">Commerce & Distribution</option>
+            <option value="services">Services aux entreprises</option>
+            <option value="industrie">Industrie & Production</option>
+            <option value="sante">Santé & Médical</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="audit-message">Décrivez brièvement vos besoins</label>
+          <textarea id="audit-message" name="message" placeholder="Quels processus souhaitez-vous automatiser ? Quels sont vos principaux défis opérationnels ?"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-hero-cta animate-glow btn-submit">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+          </svg>
+          Envoyer ma demande
+        </button>
+
+        <p class="form-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          Vos données sont protégées et ne seront jamais partagées.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+</body>
+</html>

@@ -80,44 +80,6 @@
   font-size: var(--font-size-xs);
 }
 
-/* Mobile Menu Button (hidden on desktop) */
-.mobile-menu-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 44px;
-  height: 44px;
-  padding: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  z-index: 101;
-}
-
-.hamburger-line {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--color-text-primary);
-  border-radius: 2px;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-/* Hamburger to X animation */
-.mobile-menu-btn.active .hamburger-line:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.mobile-menu-btn.active .hamburger-line:nth-child(2) {
-  opacity: 0;
-}
-
-.mobile-menu-btn.active .hamburger-line:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
 @media (max-width: 768px) {
   .site-header {
     padding: var(--space-sm) var(--space-md);
@@ -135,48 +97,17 @@
     height: 26px;
   }
 
-  /* Show mobile menu button */
-  .mobile-menu-btn {
-    display: flex;
-  }
-
-  /* Hide desktop nav, show as mobile dropdown */
   .header-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-lg);
-    background: rgba(10, 10, 15, 0.98);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 99;
-  }
-
-  .header-nav.active {
-    opacity: 1;
-    visibility: visible;
+    gap: var(--space-sm);
   }
 
   .nav-link {
-    display: block;
-    font-size: 1.5rem;
-    color: var(--color-text-primary);
-    padding: var(--space-sm) var(--space-md);
+    display: none;
   }
 
-  .header-nav .btn-sm,
-  .header-nav .nav-cta {
-    margin-top: var(--space-md);
-    padding: var(--space-sm) var(--space-lg);
-    font-size: var(--font-size-base);
+  .header-nav .btn-sm {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-size-xs);
   }
 }
 
@@ -2225,6 +2156,31 @@
   filter: drop-shadow(0 4px 16px rgba(34, 197, 94, 0.2));
 }
 
+/* Brand Icons Row - Direct on card */
+.sov-brand-icons {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.sov-brand-icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sov-brand-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(33, 194, 253, 0.2);
+}
+
 /* Card Content */
 .sov-card-title {
   position: relative;
@@ -2282,6 +2238,28 @@
 
 .sov-card--compliance .sov-feature-icon {
   color: #22c55e;
+}
+
+/* Brand icons (images instead of SVG) */
+.sov-feature-icon--brand {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px;
+}
+
+.sov-feature-icon--brand img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* Direct image icons (no container) */
+.sov-feature-icon-img {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
 .sov-feature-text {
@@ -2770,7 +2748,7 @@
 .final-cta-content {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: 810px;
   margin: 0 auto;
   text-align: center;
 }
@@ -2801,7 +2779,7 @@
 .final-cta-subtitle {
   font-size: clamp(16px, 1.8vw, 20px);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 3.8;
   color: rgba(255, 255, 255, 0.6);
   margin-bottom: 40px;
 }
@@ -3170,27 +3148,9 @@
 
 /* Modal Responsive */
 @media (max-width: 600px) {
-  .modal-overlay {
-    padding: 16px;
-    align-items: flex-start;
-    padding-top: 60px;
-  }
-
-  .modal-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
-
   .modal-container {
     padding: 24px;
     border-radius: 20px;
-    max-height: calc(100vh - 80px);
-    transform: none !important;
-  }
-
-  /* Disable heavy blur effect on mobile for performance */
-  .modal-container::before {
-    display: none;
   }
 
   .audit-form .form-row {

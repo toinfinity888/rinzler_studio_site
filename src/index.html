@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./styles/main.css">
   <link rel="stylesheet" href="./styles/components.css">
   <link rel="stylesheet" href="./styles/sections.css">
+  <link rel="stylesheet" href="./styles/calculator.css">
 
   <!-- Font Preload (Inter from Google Fonts) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,6 +38,7 @@
     <nav class="header-nav" id="header-nav">
       <a href="#services" class="nav-link">Services</a>
       <a href="#case-study" class="nav-link">Études de cas</a>
+      <a href="./calculator.html" class="nav-link">Calculateur ROI</a>
       <a href="#about" class="nav-link">À propos</a>
       <a href="#audit-booking" class="btn btn-primary btn-sm nav-cta">Audit Gratuit</a>
     </nav>
@@ -456,33 +458,16 @@
         <p class="sov-card-description">Vos données ne quittent jamais l'Union Européenne. Nous garantissons une souveraineté totale sur vos informations sensibles.</p>
         <ul class="sov-card-features">
           <li class="sov-feature">
-            <span class="sov-feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                <path d="M2 17l10 5 10-5"/>
-                <path d="M2 12l10 5 10-5"/>
-              </svg>
-            </span>
+            <img src="./assets/icons/Mistral_icon.png" alt="Mistral AI" class="sov-feature-icon-img">
             <span class="sov-feature-text"><strong>Mistral AI</strong> — IA française, modèles hébergés en Europe</span>
           </li>
           <li class="sov-feature">
-            <span class="sov-feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                <line x1="8" y1="21" x2="16" y2="21"/>
-                <line x1="12" y1="17" x2="12" y2="21"/>
-              </svg>
-            </span>
+            <img src="./assets/icons/n8n-icon.webp" alt="n8n" class="sov-feature-icon-img">
             <span class="sov-feature-text"><strong>n8n Self-Hosted</strong> — Workflows sur vos serveurs</span>
           </li>
           <li class="sov-feature">
-            <span class="sov-feature-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </span>
-            <span class="sov-feature-text"><strong>Scaleway Paris</strong> — Datacenters français certifiés</span>
+            <img src="./assets/icons/Logo_OVH.svg" alt="OVHcloud" class="sov-feature-icon-img">
+            <span class="sov-feature-text"><strong>OVHcloud Paris</strong> — Datacenters français certifiés</span>
           </li>
         </ul>
       </article>
@@ -603,6 +588,54 @@
     </div>
   </section>
 
+  <!-- ROI Calculator Preview Section -->
+  <section class="roi-preview" data-section="roi-preview">
+    <div class="roi-preview-header">
+      <span class="roi-preview-tag">Calculateur ROI</span>
+      <h2 class="roi-preview-title">Estimez vos économies en <span class="roi-gradient">30 secondes</span></h2>
+      <p class="roi-preview-subtitle">Découvrez combien l'automatisation peut vous faire économiser chaque mois.</p>
+    </div>
+
+    <div class="roi-preview-card">
+      <div class="roi-preview-inputs">
+        <div class="roi-input-group">
+          <label for="preview-employees">Employés concernés</label>
+          <input type="number" id="preview-employees" min="1" max="1000" value="5" class="roi-input">
+        </div>
+        <div class="roi-input-group">
+          <label for="preview-hours">Heures par tâche</label>
+          <input type="number" id="preview-hours" min="0.5" max="40" step="0.5" value="2" class="roi-input">
+        </div>
+        <div class="roi-input-group">
+          <label for="preview-frequency">Fréquence / semaine</label>
+          <input type="number" id="preview-frequency" min="1" max="100" value="10" class="roi-input">
+        </div>
+        <div class="roi-input-group">
+          <label for="preview-hourly">Coût horaire (€)</label>
+          <input type="number" id="preview-hourly" min="10" max="500" value="35" class="roi-input">
+        </div>
+      </div>
+
+      <div class="roi-preview-result">
+        <div class="roi-result-label">Économies potentielles</div>
+        <div class="roi-result-value">
+          <span class="roi-result-plus">+</span>
+          <span class="roi-result-number" id="preview-savings">2 121</span>
+          <span class="roi-result-currency">€</span>
+          <span class="roi-result-period">/ mois</span>
+        </div>
+        <p class="roi-result-note">*Basé sur 70% d'efficacité d'automatisation</p>
+      </div>
+
+      <a href="./calculator.html" class="btn btn-primary btn-hero-cta roi-preview-cta">
+        Calcul détaillé avec ROI complet
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
   <!-- FAQ Section -->
   <section class="faq" data-section="faq">
     <div class="faq-header">
@@ -687,7 +720,7 @@
   <section class="final-cta" data-section="final-cta">
     <div class="final-cta-bg"></div>
     <div class="final-cta-content">
-      <h2 class="final-cta-title">Prêt à transformer le chaos opérationnel en <span class="final-cta-gradient">machine à profit</span> ?</h2>
+      <h2 class="final-cta-title">Prêt à transformer le chaos opérationnel en machine à profit ?</span>
       <p class="final-cta-subtitle">Découvrez en 30 minutes le potentiel d'automatisation caché dans vos processus actuels.</p>
       <div class="final-cta-features">
         <div class="final-cta-feature">
@@ -929,6 +962,7 @@
 
   <!-- Main JavaScript -->
   <script type="module" src="./scripts/main.js"></script>
+  <script type="module" src="./scripts/calculator.js"></script>
 
   <!-- Hero Video Control Script -->
   <script>

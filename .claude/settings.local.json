@@ -9,7 +9,10 @@
       "Bash(ffmpeg:*)",
       "Bash(tree:*)",
       "Bash(timeout 5 npm run dev:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(ls:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)"
     ]
   }
 }
