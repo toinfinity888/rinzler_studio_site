@@ -323,6 +323,16 @@ function initAuditModal() {
   }
 
   function openModal() {
+    // Close mobile menu if open
+    const mobileNav = document.getElementById('header-nav');
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    if (mobileNav?.classList.contains('active')) {
+      mobileNav.classList.remove('active');
+      mobileBtn?.classList.remove('active');
+      mobileBtn?.setAttribute('aria-expanded', 'false');
+    }
+
+    // Open modal
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
     setTimeout(() => {

@@ -3170,9 +3170,27 @@
 
 /* Modal Responsive */
 @media (max-width: 600px) {
+  .modal-overlay {
+    padding: 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .modal-container {
     padding: 24px;
     border-radius: 20px;
+    max-height: calc(100vh - 80px);
+    transform: none !important;
+  }
+
+  /* Disable heavy blur effect on mobile for performance */
+  .modal-container::before {
+    display: none;
   }
 
   .audit-form .form-row {
