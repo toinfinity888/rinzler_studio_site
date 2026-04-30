@@ -21,4 +21,4 @@
           Fermer
         </button>
       </div>
-    `}function r(){e.classList.add("active"),document.body.style.overflow="hidden",setTimeout(()=>{var a;(a=t==null?void 0:t.querySelector("input"))==null||a.focus()},100)}function l(){e.classList.remove("active"),document.body.style.overflow=""}}function b(){console.log("[Main] Initializing Rinzler Studio website..."),L(),S(),q(),M(),A(),k(),I(),initAurora(),console.log("[Main] Initialization complete")}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",b):b();
+    `}function r(){e.classList.add("active"),document.body.style.overflow="hidden",setTimeout(()=>{var a;(a=t==null?void 0:t.querySelector("input"))==null||a.focus()},100)}function l(){e.classList.remove("active"),document.body.style.overflow=""}}function b(){console.log("[Main] Initializing Rinzler Studio website..."),L(),S(),q(),M(),A(),k(),I(),console.log("[Main] Initialization complete")}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",b):b();

@@ -349,7 +349,6 @@ function init() {
   initPhaseObservers();
   initFAQ();
   initAuditModal();
-  initAurora();
 
   console.log('[Main] Initialization complete');
 }
