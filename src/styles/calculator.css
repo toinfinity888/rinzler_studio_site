@@ -721,3 +721,127 @@
 .calc-footer-link:hover {
   color: var(--color-accent-cyan-hover);
 }
+
+/* ===== Info Tooltips ===== */
+.calc-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.calc-field-label label {
+  margin-bottom: 0;
+}
+
+.info-tooltip-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.info-tooltip-trigger:hover {
+  transform: scale(1.1);
+}
+
+.info-tooltip-trigger.active {
+  transform: scale(1.1);
+}
+
+.info-tooltip-trigger svg {
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.2s ease;
+  overflow: visible;
+}
+
+.info-tooltip-trigger:hover svg,
+.info-tooltip-trigger.active svg {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.info-tooltip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  width: 280px;
+  padding: 14px 16px;
+  background: rgba(20, 20, 30, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 217, 255, 0.1);
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.info-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: rgba(0, 217, 255, 0.3);
+}
+
+.info-tooltip-trigger.active .info-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+/* Tooltip positioning adjustments for edge cases */
+@media (max-width: 600px) {
+  .info-tooltip {
+    width: 240px;
+    left: auto;
+    right: -10px;
+    transform: translateX(0) scale(0.95);
+  }
+
+  .info-tooltip::after {
+    left: auto;
+    right: 16px;
+    transform: none;
+  }
+
+  .info-tooltip-trigger.active .info-tooltip {
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Slider tooltip special positioning */
+.calc-slider-group .info-tooltip-trigger {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.calc-efficiency .calc-card-title {
+  position: relative;
+}
+
+.calc-efficiency .info-tooltip-trigger {
+  margin-left: auto;
+}

@@ -615,6 +615,59 @@ function initMobileMenu() {
 }
 
 /**
+ * Initialize info tooltips
+ * Click to show/hide tooltip content
+ */
+function initInfoTooltips() {
+  const tooltipTriggers = document.querySelectorAll('.info-tooltip-trigger[data-tooltip]');
+  if (!tooltipTriggers.length) return;
+
+  // Close all tooltips
+  const closeAllTooltips = () => {
+    tooltipTriggers.forEach(trigger => trigger.classList.remove('active'));
+  };
+
+  // Handle tooltip trigger clicks
+  tooltipTriggers.forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isActive = trigger.classList.contains('active');
+
+      // Close all other tooltips first
+      closeAllTooltips();
+
+      // Toggle current tooltip
+      if (!isActive) {
+        trigger.classList.add('active');
+      }
+    });
+  });
+
+  // Close tooltips when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.info-tooltip-trigger')) {
+      closeAllTooltips();
+    }
+  });
+
+  // Close tooltips on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllTooltips();
+    }
+  });
+
+  // Close tooltips when scrolling
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(closeAllTooltips, 100);
+  }, { passive: true });
+}
+
+/**
  * Initialize calculators when DOM is ready
  */
 function init() {
@@ -631,6 +684,7 @@ function init() {
     initHeaderScroll();
     initMobileMenu();
     initCalcAuditModal();
+    initInfoTooltips();
   }
 
   console.log('[Calculator] Initialization complete');
