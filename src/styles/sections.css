@@ -2137,8 +2137,8 @@
   box-shadow: 0 20px 60px rgba(34, 197, 94, 0.15);
 }
 
-/* Card Icon - Direct on card */
-.sov-card-icon-direct {
+/* Card Icon - Glass effect with blurred gradient inside icon shape */
+.sov-icon-glass {
   position: relative;
   z-index: 1;
   width: 48px;
@@ -2146,14 +2146,55 @@
   margin-bottom: 24px;
 }
 
-.sov-card--sovereignty .sov-card-icon-direct {
-  color: var(--color-accent-cyan);
-  filter: drop-shadow(0 4px 15px rgba(33, 194, 253, 0.2));
+/* Blurred gradient masked to icon shape */
+.sov-icon-glass-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: blur(8px);
+  transition: filter 0.3s ease;
 }
 
-.sov-card--compliance .sov-card-icon-direct {
-  color: #22c55e;
-  filter: drop-shadow(0 4px 16px rgba(34, 197, 94, 0.2));
+.sov-card:hover .sov-icon-glass-glow {
+  filter: blur(10px);
+}
+
+/* Shield icon mask - Data Sovereignty */
+.sov-icon-glass-glow--shield {
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 30%, rgba(33, 194, 253, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 90% at 70% 70%, rgba(88, 62, 255, 0.8) 0%, transparent 50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Document icon mask - RGPD Compliance */
+.sov-icon-glass-glow--document {
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 30%, rgba(34, 197, 94, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 90% at 70% 70%, rgba(16, 185, 129, 0.8) 0%, transparent 50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Semi-transparent glass icon overlay */
+.sov-icon-glass-shape {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
 }
 
 /* Brand Icons Row - Direct on card */
@@ -2217,27 +2258,38 @@
 .sov-feature {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
+  gap: 12px;
 }
 
-.sov-feature-icon {
+/* Feature Point Icons - Glass Dots */
+.sov-point-icon {
+  position: relative;
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.sov-card--sovereignty .sov-feature-icon {
-  color: var(--color-accent-cyan);
+.sov-point-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  filter: blur(3px);
 }
 
-.sov-card--compliance .sov-feature-icon {
-  color: #22c55e;
+.sov-point-icon--cyan::before {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(33, 194, 253, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(88, 62, 255, 0.7) 0%, transparent 60%);
+}
+
+.sov-point-icon--green::before {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.7) 0%, transparent 60%);
 }
 
 /* Brand icons (images instead of SVG) */
@@ -2266,7 +2318,6 @@
   font-size: clamp(13px, 1.1vw, 15px);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.7);
-  padding-top: 6px;
 }
 
 .sov-feature-text strong {
@@ -2488,28 +2539,77 @@
   box-shadow: 0 20px 60px rgba(138, 80, 255, 0.12);
 }
 
-.why-card-icon-direct {
+/* Why Card Glass Icons */
+.why-icon-glass {
   position: relative;
   z-index: 1;
   width: 48px;
   height: 48px;
   margin-bottom: 24px;
-  filter: drop-shadow(0 4px 12px currentColor);
 }
 
-.why-card--1 .why-card-icon-direct {
-  color: var(--color-accent-cyan);
-  filter: drop-shadow(0 4px 16px rgba(33, 194, 253, 0.5));
+.why-icon-glass-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  filter: blur(8px);
+  transition: filter 0.3s ease;
 }
 
-.why-card--2 .why-card-icon-direct {
-  color: #fbbf24;
-  filter: drop-shadow(0 4px 16px rgba(251, 191, 36, 0.5));
+.why-card:hover .why-icon-glass-glow {
+  filter: blur(10px);
 }
 
-.why-card--3 .why-card-icon-direct {
-  color: var(--color-accent-purple);
-  filter: drop-shadow(0 4px 16px rgba(138, 80, 255, 0.5));
+.why-icon-glass-shape {
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+}
+
+/* Euro icon - Card 1 */
+.why-icon-glass-glow--euro {
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 30%, rgba(33, 194, 253, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 90% at 70% 70%, rgba(88, 62, 255, 0.8) 0%, transparent 50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M600-120q-118 0-210-67T260-360H120v-80h122q-3-24-2.5-44.5T242-520H120v-80h140q38-106 130-173t210-67q69 0 130.5 24.5T840-748l-57 56q-37-32-83.5-50T600-760q-85 0-152 44.5T347-600h253v80H323q-4 27-3 47.5t3 32.5h277v80H347q34 71 101 115.5T600-200q53 0 99.5-18t83.5-50l57 56q-48 43-109.5 67.5T600-120Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M600-120q-118 0-210-67T260-360H120v-80h122q-3-24-2.5-44.5T242-520H120v-80h140q38-106 130-173t210-67q69 0 130.5 24.5T840-748l-57 56q-37-32-83.5-50T600-760q-85 0-152 44.5T347-600h253v80H323q-4 27-3 47.5t3 32.5h277v80H347q34 71 101 115.5T600-200q53 0 99.5-18t83.5-50l57 56q-48 43-109.5 67.5T600-120Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Blocks icon - Card 2 */
+.why-icon-glass-glow--blocks {
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 30%, rgba(251, 191, 36, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 90% at 70% 70%, rgba(245, 158, 11, 0.8) 0%, transparent 50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M360-720h80v-80h-80v80Zm160 0v-80h80v80h-80ZM360-400v-80h80v80h-80Zm320-160v-80h80v80h-80Zm0 160v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm160-320v-80h80v80h-80Zm-240 80v-80h80v80h-80ZM200-160v-640h80v80h80v80h-80v80h80v80h-80v320h-80Zm400-320v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm-80-80v-80h80v80h-80Zm160 0v-80h80v80h-80Zm80-80v-80h80v80h-80Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M360-720h80v-80h-80v80Zm160 0v-80h80v80h-80ZM360-400v-80h80v80h-80Zm320-160v-80h80v80h-80Zm0 160v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm160-320v-80h80v80h-80Zm-240 80v-80h80v80h-80ZM200-160v-640h80v80h80v80h-80v80h80v80h-80v320h-80Zm400-320v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm-80-80v-80h80v80h-80Zm160 0v-80h80v80h-80Zm80-80v-80h80v80h-80Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+/* Handshake icon - Card 3 */
+.why-icon-glass-glow--handshake {
+  background:
+    radial-gradient(ellipse 90% 80% at 30% 30%, rgba(138, 80, 255, 0.9) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 90% at 70% 70%, rgba(168, 85, 247, 0.8) 0%, transparent 50%);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M475-160q4 0 8-2t6-4l328-328q12-12 17.5-27t5.5-30q0-16-5.5-30.5T817-607L647-777q-11-12-25.5-17.5T591-800q-15 0-30 5.5T534-777l-11 11 74 75q15 14 22 32t7 38q0 42-28.5 70.5T527-522q-20 0-38.5-7T456-550l-75-74-175 175q-3 3-4.5 6.5T200-435q0 8 6 14.5t14 6.5q4 0 8-2t6-4l136-136 56 56-135 136q-3 3-4.5 6.5T285-350q0 8 6 14t14 6q4 0 8-2t6-4l136-135 56 56-135 136q-3 2-4.5 6t-1.5 8q0 8 6 14t14 6q4 0 7.5-1.5t6.5-4.5l136-135 56 56-136 136q-3 3-4.5 6.5T454-180q0 8 6.5 14t14.5 6Zm-1 80q-37 0-65.5-24.5T375-166q-34-5-57-28t-28-57q-34-5-56.5-28.5T206-336q-38-5-62-33t-24-66q0-20 7.5-38.5T149-506l232-231 131 131q2 3 6 4.5t8 1.5q9 0 15-5.5t6-14.5q0-4-1.5-8t-4.5-6L398-777q-11-12-25.5-17.5T342-800q-15 0-30 5.5T285-777L144-635q-9 9-15 21t-8 24q-2 12 0 24.5t8 23.5l-58 58q-17-23-25-50.5T40-590q2-28 14-54.5T87-692l141-141q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l11 11 11-11q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l169 169q23 23 35 53t12 61q0 31-12 60.5T873-437L545-110q-14 14-32.5 22T474-80Zm-99-560Z' fill='black'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 -960 960 960'%3E%3Cpath d='M475-160q4 0 8-2t6-4l328-328q12-12 17.5-27t5.5-30q0-16-5.5-30.5T817-607L647-777q-11-12-25.5-17.5T591-800q-15 0-30 5.5T534-777l-11 11 74 75q15 14 22 32t7 38q0 42-28.5 70.5T527-522q-20 0-38.5-7T456-550l-75-74-175 175q-3 3-4.5 6.5T200-435q0 8 6 14.5t14 6.5q4 0 8-2t6-4l136-136 56 56-135 136q-3 3-4.5 6.5T285-350q0 8 6 14t14 6q4 0 8-2t6-4l136-135 56 56-135 136q-3 2-4.5 6t-1.5 8q0 8 6 14t14 6q4 0 7.5-1.5t6.5-4.5l136-135 56 56-136 136q-3 3-4.5 6.5T454-180q0 8 6.5 14t14.5 6Zm-1 80q-37 0-65.5-24.5T375-166q-34-5-57-28t-28-57q-34-5-56.5-28.5T206-336q-38-5-62-33t-24-66q0-20 7.5-38.5T149-506l232-231 131 131q2 3 6 4.5t8 1.5q9 0 15-5.5t6-14.5q0-4-1.5-8t-4.5-6L398-777q-11-12-25.5-17.5T342-800q-15 0-30 5.5T285-777L144-635q-9 9-15 21t-8 24q-2 12 0 24.5t8 23.5l-58 58q-17-23-25-50.5T40-590q2-28 14-54.5T87-692l141-141q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l11 11 11-11q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l169 169q23 23 35 53t12 61q0 31-12 60.5T873-437L545-110q-14 14-32.5 22T474-80Zm-99-560Z' fill='black'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 .why-card-title {
@@ -2545,29 +2645,47 @@
 
 .why-card-points li {
   position: relative;
-  padding-left: 20px;
+  padding-left: 22px;
   font-size: clamp(13px, 1vw, 14px);
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
 }
 
-.why-card-points li::before {
-  content: '';
+/* Glass bullet point icon */
+.why-point-icon {
   position: absolute;
   left: 0;
-  top: 8px;
-  width: 6px;
-  height: 6px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--color-accent-cyan);
+  background: rgba(255, 255, 255, 0.2);
 }
 
-.why-card--2 .why-card-points li::before {
-  background: #fbbf24;
+.why-point-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  filter: blur(3px);
 }
 
-.why-card--3 .why-card-points li::before {
-  background: var(--color-accent-purple);
+.why-card--1 .why-point-icon::before {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(33, 194, 253, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(88, 62, 255, 0.7) 0%, transparent 60%);
+}
+
+.why-card--2 .why-point-icon::before {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(251, 191, 36, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(245, 158, 11, 0.7) 0%, transparent 60%);
+}
+
+.why-card--3 .why-point-icon::before {
+  background:
+    radial-gradient(circle at 30% 30%, rgba(138, 80, 255, 0.9) 0%, transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(168, 85, 247, 0.7) 0%, transparent 60%);
 }
 
 /* Why Us Responsive */
