@@ -954,13 +954,13 @@
 
 .ba-item--negative .ba-item-icon {
   background: rgba(255, 100, 100, 0.15);
-  color: #ff6b6b;
+  color: #863a3a;
   border: 1px solid rgba(255, 100, 100, 0.3);
 }
 
 .ba-item--positive .ba-item-icon {
   background: rgba(33, 194, 253, 0.15);
-  color: #21c2fd;
+  color: #1c6681;
   border: 1px solid rgba(33, 194, 253, 0.3);
 }
 
@@ -988,11 +988,11 @@
 }
 
 .ba-card--before .ba-metric-value {
-  color: #ff6b6b;
+  color: #863a3a;
 }
 
 .ba-card--after .ba-metric-value {
-  color: #21c2fd;
+  color: #1c6681;
 }
 
 .ba-metric-label {
@@ -2925,7 +2925,7 @@
 }
 
 .final-cta-feature svg {
-  color: #00e676;
+  color: #70c79d;
   flex-shrink: 0;
 }
 

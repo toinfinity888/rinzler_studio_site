@@ -11,12 +11,12 @@
   --color-text-primary: #e8e8f0;
   --color-text-secondary: #b8b8c5;
   --color-text-muted: #808090;
-  --color-accent-cyan: #00d9ff;
-  --color-accent-purple: #b366ff;
+  --color-accent-cyan: #7aebffe0;
+  --color-accent-purple: #c794f98f;
   --color-accent-cyan-hover: #00b8dd;
-  --color-accent-purple-hover: #9944ff;
+  --color-accent-purple-hover: #9844ff84;
   --color-error: #ff4d4d;
-  --color-success: #00e676;
+  --color-success: #5ae5a289;
   --color-warning: #ffaa00;
 
   /* Typography */

@@ -23,7 +23,7 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-accent-cyan);
+  color: var(--color-text-muted);
   margin-bottom: 16px;
 }
 
@@ -36,11 +36,29 @@
   margin-bottom: 20px;
 }
 
+/* Glass text effect - similar to Why Us icons */
 .roi-gradient {
-  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+  position: relative;
+  display: inline-block;
+  /* Soft chaotic gradient patches clipped to text */
+  background:
+    radial-gradient(ellipse 80% 120% at 15% 30%, rgba(73, 206, 255, 0.651) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 100% at 85% 70%, rgba(253, 124, 124, 0.296) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 50% 20%, rgba(179, 112, 255, 0.441) 0%, transparent 45%),
+    rgba(255, 255, 255, 0.099);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Semi-transparent text overlay for glass effect */
+.roi-gradient::after {
+  content: '30 secondes';
+  position: absolute;
+  inset: 0;
+  color: rgba(255, 255, 255, 0.18);
+  pointer-events: none;
 }
 
 .roi-preview-subtitle {
@@ -152,8 +170,8 @@
   text-align: center;
   margin-bottom: 32px;
   padding: 32px;
-  background: rgba(0, 230, 118, 0.05);
-  border: 1px solid rgba(0, 230, 118, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
 }
 
@@ -241,11 +259,29 @@
   margin-bottom: 20px;
 }
 
+/* Glass text effect - same as homepage "30 secondes" */
 .calc-gradient {
-  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+  position: relative;
+  display: inline-block;
+  /* Soft chaotic gradient patches clipped to text */
+  background:
+    radial-gradient(ellipse 80% 120% at 15% 30%, rgba(73, 206, 255, 0.651) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 100% at 85% 70%, rgba(253, 124, 124, 0.296) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 50% 20%, rgba(179, 112, 255, 0.441) 0%, transparent 45%),
+    rgba(255, 255, 255, 0.099);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Semi-transparent text overlay for glass effect */
+.calc-gradient::after {
+  content: 'ROI';
+  position: absolute;
+  inset: 0;
+  color: rgba(255, 255, 255, 0.18);
+  pointer-events: none;
 }
 
 .calc-hero-subtitle {
