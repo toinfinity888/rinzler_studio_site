@@ -13,6 +13,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         calculator: resolve(__dirname, 'src/calculator.html'),
+        mentionsLegales: resolve(__dirname, 'src/mentions-legales.html'),
+        politiqueConfidentialite: resolve(__dirname, 'src/politique-confidentialite.html'),
       },
     },
   },
