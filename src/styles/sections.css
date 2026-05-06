@@ -75,6 +75,11 @@
   color: var(--color-text-primary);
 }
 
+/* Active nav link - just highlighted text */
+.nav-link--active {
+  color: var(--color-text-primary);
+}
+
 .header-nav .btn-sm {
   padding: var(--space-xs) var(--space-md);
   font-size: var(--font-size-sm);
@@ -682,16 +687,18 @@
   max-width: 500px;
 }
 
-/* Stats row */
+/* Stats - centered single stat */
 .pain-card-stats {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-lg);
+  justify-content: center;
+  margin-top: var(--space-md);
 }
 
 .pain-card-stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: var(--space-xs);
 }
 
@@ -709,7 +716,6 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   line-height: 1.4;
-  max-width: 160px;
 }
 
 /* CTA Section */
@@ -1373,7 +1379,7 @@
   max-width: 900px;
 }
 
-/* Workflow Video Frame */
+/* Workflow Video Frame - gradient border like buttons */
 .workflow-video-frame {
   position: relative;
   width: 100%;
@@ -1383,7 +1389,12 @@
   box-shadow:
     0 25px 80px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
+    linear-gradient(135deg, rgba(33, 194, 253, 0.5) 0%, rgba(138, 80, 255, 0.5) 50%, rgba(33, 194, 253, 0.4) 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
 }
 
 .workflow-video {
@@ -1391,6 +1402,38 @@
   width: 100%;
   height: auto;
   border-radius: 20px;
+}
+
+/* Compatible Platforms */
+.workflow-platforms {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.workflow-platforms-icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.platform-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.platform-icon:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Invert dark icons to white */
+.platform-icon[src*="openai"] {
+  filter: invert(1);
 }
 
 /* Phase 2 tag - inherits from .phase-tag */
