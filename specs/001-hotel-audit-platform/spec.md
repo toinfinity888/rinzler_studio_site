@@ -214,12 +214,43 @@ again with all previous answers preserved. After the client re-submits, the
   shows a counter near the limit.
 - **Browser refresh on the last step before submit**: The user returns to
   the same step with all answers intact; no double submission is created.
-- **Admin loses session mid-edit of internal notes**: Notes auto-save; the
-  admin is redirected to login and returns to the same project view.
-- **Concurrent admin edits to internal notes**: Last-write-wins is acceptable
-  for V1, but the second editor sees a "notes were updated by [admin]" notice.
+- **Admin loses session mid-compose of an internal note**: The composer
+  preserves the in-progress note text in local storage; on re-login the
+  admin is returned to the same project view with the draft restored.
+- **Concurrent admin notes on the same project**: Both notes are appended
+  to the thread in chronological order; no merge or last-write-wins is
+  needed because notes are append-only and never overwrite one another.
 - **Client opens the URL on a very small viewport (≤ 360 px)**: All inputs
   and CTAs remain usable; sliders fall back to a numeric input if needed.
+
+## Clarifications
+
+### Session 2026-05-09
+
+- Q: How should admins authenticate to the dashboard? → A: Email + password,
+  passwords hashed at rest with a memory-hard KDF (Argon2id, fallback bcrypt).
+  Password reset in V1 is operator-handled (DB edit) until a self-serve UI is
+  added.
+- Q: Where will the audit platform (and client submissions) be hosted? → A:
+  o2switch (French cPanel hosting), same provider as the existing marketing
+  site — French data residency, RGPD-aligned, brand-consistent with "IA
+  souveraine". Compatibility of Next.js + server actions with o2switch's
+  Node.js / Passenger setup is a planning-phase concern.
+- Q: How many admin seats does V1 need? → A: A single hardcoded admin user
+  in V1 (one credential row, no in-app user-management UI). The data model
+  may still keep an `admins` table to leave room for future multi-admin
+  support without a destructive migration, but only one row exists at
+  launch; multi-admin and in-app invitations are future enhancements.
+- Q: What is the default data retention policy for client submissions? → A:
+  Auto-purge a project's submission 36 months after the project's last admin
+  activity (aligned with CNIL's 3-year B2B prospect baseline). Admins can
+  mark a project as "ongoing engagement" to extend retention while the
+  engagement is active. The privacy notice MUST disclose this policy.
+- Q: How are internal consultant notes structured per project? → A: Multiple
+  timestamped notes per project (append-only thread). Each note carries
+  author, created-at timestamp, and body. Notes are immutable once written
+  in V1 (no edit, no delete) — admins add a follow-up note for corrections.
+  Eliminates the concurrent-edit edge case and future-proofs collaboration.
 
 ## Requirements *(mandatory)*
 
@@ -317,10 +348,13 @@ again with all previous answers preserved. After the client re-submits, the
   name, submission status, completion percentage, last-updated date, priority
   level, and the four computed scores when available.
 - **FR-026**: Admins MUST be able to set and update each project's priority
-  level (e.g., low / medium / high) and internal notes from the dashboard.
+  level (e.g., low / medium / high) from the dashboard, and to append
+  internal notes to a project's notes thread (notes are append-only, not
+  editable or deletable in V1).
 - **FR-027**: Admins MUST be able to open a project to see a read-only,
-  section-grouped view of every client answer alongside an editable
-  internal-notes panel.
+  section-grouped view of every client answer alongside the project's
+  internal-notes thread (chronological, with author and timestamp per entry)
+  and an "add note" composer.
 - **FR-028**: Internal notes MUST never be exposed via the client URL or any
   client-accessible response, even by URL guessing or API enumeration.
 - **FR-029**: Admins MUST be able to reopen a submitted project to allow the
@@ -369,8 +403,10 @@ again with all previous answers preserved. After the client re-submits, the
 #### Privacy, Security & Data
 
 - **FR-041**: All client data submitted via the form MUST be stored in a
-  single backend system controlled by the studio (no cross-posting to
-  third-party form services).
+  single backend system controlled by the studio, hosted in France / the EU
+  (V1: o2switch, same provider as the marketing site). No cross-posting to
+  third-party form services. The privacy notice on the form's landing screen
+  MUST disclose the hosting jurisdiction.
 - **FR-042**: The application MUST comply with the studio's existing
   RGPD-first stance: cookie-free analytics on the client form, an explicit
   privacy notice on the form's landing screen linking to
@@ -380,6 +416,20 @@ again with all previous answers preserved. After the client re-submits, the
 - **FR-044**: Admin actions that change or delete data (project deletion,
   reopening submissions, revoking URLs) MUST be recorded with timestamp and
   acting admin identity for traceability.
+- **FR-044a**: Admin authentication MUST use email + password. Passwords MUST
+  be hashed at rest with a memory-hard key-derivation function (Argon2id
+  preferred; bcrypt acceptable). Plaintext passwords MUST never be logged or
+  persisted. Password reset in V1 is operator-handled (direct database edit
+  by a trusted operator); a self-serve reset flow is a future enhancement.
+- **FR-044b**: Each Project MUST carry a `last_admin_activity_at` timestamp,
+  updated whenever an admin opens, edits, exports, or otherwise interacts
+  with the project. Submissions whose project has had no admin activity for
+  **36 months** MUST be automatically purged (client answers, scores, and
+  internal notes deleted; project metadata retained as a tombstone with a
+  "purged" status). Admins MUST be able to mark a project as "ongoing
+  engagement" to suspend the auto-purge clock for that project. Auto-purge
+  MUST be logged as an audit-log entry. The privacy notice on the form's
+  landing screen MUST disclose this 36-month retention policy.
 
 #### Extensibility
 
@@ -419,10 +469,15 @@ again with all previous answers preserved. After the client re-submits, the
   Operational Complexity, Modernization Readiness, Digital Maturity Level)
   derived from a Submission. Re-computed deterministically.
 - **Internal Note**: An admin-only annotation attached to a Project. Never
-  visible to the client. Carries author, timestamp, and free-text content.
+  visible to the client. A Project owns **many** Internal Notes
+  (append-only thread). Each note carries author (Admin User), created-at
+  timestamp, and free-text body. Notes are immutable in V1: not editable,
+  not deletable; corrections are made by appending another note.
 - **Admin User**: An authenticated user of the dashboard. Carries identity
-  (email), role (V1: single role "admin"), and is referenced by audit
-  records for project mutations.
+  (email), password hash, role (V1: single role "admin"), and is referenced
+  by audit records for project mutations. V1 contains exactly one row; the
+  table is sized to allow multiple rows in a future iteration without a
+  destructive migration.
 - **Audit Log Entry**: A timestamped record of admin actions that mutate or
   reveal sensitive data (create/delete project, revoke URL, reopen submission,
   export JSON).
@@ -465,8 +520,11 @@ again with all previous answers preserved. After the client re-submits, the
   client-facing form is in French. English is not required for V1.
 - **Single tenant**: All projects belong to the studio. Multi-tenant isolation
   (other consultancies) is out of scope for V1.
-- **Single admin role**: One role ("admin / consultant") is sufficient for
-  V1; granular roles (read-only, restricted, etc.) are out of scope.
+- **Single admin user, single role**: V1 ships with exactly one admin user
+  (one credential row) and one role ("admin / consultant"). Multi-admin
+  support, in-app invitations, and granular roles (read-only, restricted,
+  etc.) are out of scope; the data model SHOULD nevertheless leave room for
+  multiple admin rows so that future expansion is non-destructive.
 - **Client identity**: The hotel client is identified by the project they were
   invited to, not by an account; one private URL = one client. Per-individual
   authentication is not required.
@@ -480,7 +538,12 @@ again with all previous answers preserved. After the client re-submits, the
 - **Hosting separation**: The audit platform is a separate Next.js
   application from the existing static marketing site (Vite-based,
   rinzlerstudio.fr); the two share brand identity but not codebases or
-  deployment.
+  deployment. Both are hosted on o2switch (French cPanel hosting). The
+  planning phase MUST verify that o2switch's Node.js / Passenger environment
+  can run a Next.js application with server actions and a SQLite database;
+  if not, choose a runtime mode (e.g., static export + lightweight Node API,
+  or migrate the audit app to a Node-friendly French sovereign host such as
+  Clever Cloud or Scaleway) before implementation.
 - **Brand assets**: Logo, color tokens, and typography (Inter) are reused from
   the existing marketing site to maintain visual consistency.
 - **Scoring heuristics**: V1 scores are deterministic, hand-tuned heuristics
@@ -493,9 +556,12 @@ again with all previous answers preserved. After the client re-submits, the
 - **Email delivery**: V1 does not send emails to clients on the studio's
   behalf; the consultant copies the private URL and sends it manually from
   their own mail client. Automated email is a future enhancement.
-- **Data retention**: Submissions are retained indefinitely until an admin
-  deletes the project. RGPD deletion requests are handled manually by the
-  admin via the dashboard's delete action.
+- **Data retention**: Submissions are auto-purged 36 months after a
+  project's last admin activity (CNIL's standard 3-year B2B prospect
+  baseline). Admins may flag a project as "ongoing engagement" to suspend
+  the clock for active engagements. RGPD deletion-on-request is handled
+  manually by the admin via the dashboard's delete action and supersedes
+  the auto-purge clock.
 - **Analytics on the client form**: Limited to cookie-free, RGPD-compliant
   events (e.g., section-completion, submission), consistent with the
   constitution's Plausible-only stance.
