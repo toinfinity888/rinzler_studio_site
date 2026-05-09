@@ -12,7 +12,8 @@
       "Bash(npm install:*)",
       "Bash(ls:*)",
       "Bash(grep:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(git -C /Users/saraevsviatoslav/Documents/rinzler_studio_web_site log --reverse --format=\"%ai %s\")"
     ]
   }
 }
