@@ -15,7 +15,14 @@
       "Bash(wc:*)",
       "Bash(git -C /Users/saraevsviatoslav/Documents/rinzler_studio_web_site log --reverse --format=\"%ai %s\")",
       "Bash(bash *)",
-      "Bash(git -C /Users/saraevsviatoslav/Documents/rinzler_studio_web_site branch --show-current)"
+      "Bash(git -C /Users/saraevsviatoslav/Documents/rinzler_studio_web_site branch --show-current)",
+      "Bash(npx --yes create-next-app@15 . --ts --tailwind --app --eslint --no-src-dir --import-alias \"@/*\" --use-npm --no-turbopack --skip-install)",
+      "Bash(curl -sI -m 5 https://registry.npmjs.org/)",
+      "Bash(npx drizzle-kit *)",
+      "Bash(npx tsx *)",
+      "Bash(npx tsc *)",
+      "Bash(npm test *)",
+      "Bash(npm run *)"
     ]
   }
 }

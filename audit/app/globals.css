@@ -1,0 +1,129 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+
+/*
+ * Brand tokens → Tailwind v4 theme.
+ * Every utility (bg-*, text-*, border-*, rounded-*, shadow-*, font-*) below
+ * resolves through CSS variables declared in ../styles/tokens.css, which is
+ * mirrored 1:1 from the marketing site at src/styles/tokens.css.
+ *
+ * Constitution Principle IV: ad-hoc hex/px values in components are
+ * prohibited — use these utilities or token variables, never literals.
+ */
+@theme inline {
+  /* Surfaces & text */
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-input-bg: var(--color-input-bg);
+  --color-input-border: var(--color-input-border);
+  --color-input-border-hover: var(--color-input-border-hover);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+
+  /* Brand accents (cyan + purple gradient pair from marketing site) */
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-cyan-hover: var(--color-accent-cyan-hover);
+  --color-accent-purple: var(--color-accent-purple);
+  --color-accent-purple-hover: var(--color-accent-purple-hover);
+
+  /* Status */
+  --color-error: var(--color-error);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --text-base: var(--font-size-base);
+  --text-sm: var(--font-size-sm);
+  --text-xs: var(--font-size-xs);
+  --text-h1: var(--font-size-h1);
+  --text-h2: var(--font-size-h2);
+  --text-h3: var(--font-size-h3);
+  --text-h4: var(--font-size-h4);
+
+  --leading-tight: var(--line-height-tight);
+  --leading-normal: var(--line-height-normal);
+  --leading-relaxed: var(--line-height-relaxed);
+
+  --font-weight-normal: var(--font-weight-normal);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-semibold: var(--font-weight-semibold);
+  --font-weight-bold: var(--font-weight-bold);
+
+  /* Spacing scale (xs..2xl). Tailwind also retains its numeric scale. */
+  --spacing-token-xs: var(--space-xs);
+  --spacing-token-sm: var(--space-sm);
+  --spacing-token-md: var(--space-md);
+  --spacing-token-lg: var(--space-lg);
+  --spacing-token-xl: var(--space-xl);
+  --spacing-token-2xl: var(--space-2xl);
+
+  /* Radii */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadows + brand glows */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-glow-cyan: var(--shadow-glow-cyan);
+  --shadow-glow-purple: var(--shadow-glow-purple);
+
+  /* Transition durations (FR-039 caps perceived motion at 250ms) */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/*
+ * Base layer: dark canvas (constitution: dark default for client form),
+ * Inter typeface inherited from next/font/google in app/layout.tsx.
+ */
+html,
+body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  min-height: 100dvh;
+}
+
+/* Brand glass-panel mixin (used by buttons, cards, header) */
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Brand gradient text (cyan → purple), mirrors .calc-gradient on marketing site */
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent-cyan) 0%,
+    var(--color-accent-purple) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Respect motion preferences (FR-039 + accessibility baseline) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

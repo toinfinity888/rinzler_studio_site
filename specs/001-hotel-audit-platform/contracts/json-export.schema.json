@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://audit.rinzlerstudio.com/schemas/audit-export.v1.json",
+  "title": "Rinzler Studio Hotel Audit Export",
+  "description": "Versioned JSON export for a single hotel-audit submission. v1 is forward-compatible: future versions add optional fields (e.g., aiRecommendations) without removing or renaming any v1 field.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "exportedAt",
+    "project",
+    "submission",
+    "scores"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "audit-export.v1" },
+    "exportedAt": { "type": "string", "format": "date-time" },
+    "project": {
+      "type": "object",
+      "required": ["id", "label", "hotelName", "contactEmail", "priority", "status", "createdAt", "lastAdminActivityAt"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "UUIDv7" },
+        "label": { "type": "string" },
+        "hotelName": { "type": "string" },
+        "contactEmail": { "type": "string", "format": "email" },
+        "priority": { "enum": ["low", "medium", "high"] },
+        "status": { "enum": ["draft", "awaiting", "in_progress", "submitted", "reopened", "purged"] },
+        "ongoingEngagement": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "sentAt": { "type": ["string", "null"], "format": "date-time" },
+        "submittedAt": { "type": ["string", "null"], "format": "date-time" },
+        "lastEditedAt": { "type": ["string", "null"], "format": "date-time" },
+        "lastAdminActivityAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "submission": {
+      "type": "object",
+      "required": ["completionPct", "sections"],
+      "additionalProperties": false,
+      "properties": {
+        "completionPct": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "sections": {
+          "type": "array",
+          "minItems": 8,
+          "items": {
+            "type": "object",
+            "required": ["id", "title", "answers"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "pattern": "^s[1-8]$" },
+              "title": { "type": "string", "description": "Localized section title (FR by default)" },
+              "answers": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["fieldId", "value"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "fieldId": { "type": "string" },
+                    "label": { "type": "string", "description": "Localized field label" },
+                    "value": {},
+                    "source": { "enum": ["client", "admin_prefill"] },
+                    "updatedAt": { "type": "string", "format": "date-time" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "scores": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["name", "value", "band"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "enum": [
+              "automation_opportunity",
+              "operational_complexity",
+              "modernization_readiness",
+              "digital_maturity"
+            ]
+          },
+          "value": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "band": { "enum": ["low", "medium", "high"] },
+          "basis": {
+            "type": "array",
+            "items": { "type": "string", "description": "field_id whose answer drove the score" }
+          },
+          "computedAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "internalNotes": {
+      "description": "Present only when ?include=notes was requested. Never present in client-accessible exports.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "authorEmail", "body", "createdAt"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "authorEmail": { "type": "string", "format": "email" },
+          "body": { "type": "string" },
+          "createdAt": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

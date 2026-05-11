@@ -187,3 +187,33 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ============================================================
+# Audit platform (audit/) — Next.js app
+# ============================================================
+audit/.next/
+audit/node_modules/
+audit/.turbo/
+audit/dist/
+audit/coverage/
+audit/.vercel/
+
+# SQLite DB and WAL files (data is local; never committed)
+audit/data/*.sqlite
+audit/data/*.sqlite-journal
+audit/data/*.sqlite-shm
+audit/data/*.sqlite-wal
+
+# Env files (.env.example IS committed)
+audit/.env
+audit/.env.local
+audit/.env.*.local
+
+# Test outputs
+audit/playwright-report/
+audit/test-results/
+audit/.vitest-cache/
+
+# Build artifacts
+audit/*.tsbuildinfo
+audit/next-env.d.ts

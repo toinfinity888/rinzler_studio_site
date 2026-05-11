@@ -225,6 +225,18 @@ again with all previous answers preserved. After the client re-submits, the
 
 ## Clarifications
 
+### Terminology
+
+- **Consultant** and **admin** refer to the same actor: the Rinzler Studio
+  team member operating the audit platform. "Consultant" appears in user
+  stories where the role/business framing matters; "admin" appears in
+  functional requirements and technical contracts where the system-user
+  framing matters. There is no distinction in V1 (single user, single role).
+- **Project**, **engagement**, and **assessment** refer to the same record
+  in slightly different contexts: a Project is the system entity, an
+  Engagement is the consultant-client relationship, and an Assessment is
+  the act of completing the form. In V1, they map 1:1.
+
 ### Session 2026-05-09
 
 - Q: How should admins authenticate to the dashboard? → A: Email + password,

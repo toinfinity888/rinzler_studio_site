@@ -1,34 +1,37 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: (uninitialized template) → 1.0.0
-Type: Initial ratification (first concrete materialization of the project constitution).
+Version change: 1.1.0 → 1.1.1
+Type: PATCH amendment — two scope clarifications surfaced by
+`/speckit.analyze` of feature 001-hotel-audit-platform:
+  1) Add a one-line scoping note to Principle II so its meaning is clear
+     for non-marketing applications (the audit app's CTAs aren't the
+     marketing funnel's CTAs). No semantic change to the marketing site.
+  2) Lock the Plausible `data-domain` for the audit app to
+     `audit.rinzlerstudio.com` (the audit subdomain) — replacing the prior
+     "either-or" wording in the audit sub-stack.
 
-Modified principles:
-  - [PRINCIPLE_1_NAME] → I. RGPD & Privacy First (NON-NEGOTIABLE)
-  - [PRINCIPLE_2_NAME] → II. Conversion-Focused Content
-  - [PRINCIPLE_3_NAME] → III. French-Canonical, i18n-Ready
-  - [PRINCIPLE_4_NAME] → IV. Design Tokens & Component Reuse
-  - [PRINCIPLE_5_NAME] → V. SEO & Analytics Discipline
+No principle was removed, renamed, or redefined; no new section added.
+Both edits are clarifications, hence PATCH per the versioning policy.
 
-Added sections:
-  - Core Principles (5 principles populated)
-  - Technical Constraints & Stack
-  - Development Workflow & Quality Gates
-  - Governance
-
-Removed sections: none.
+Earlier amendment (v1.0.0 → v1.1.0, 2026-05-09):
+  - Renamed "Technical Constraints & Stack" → "(Marketing Site)" and
+    explicitly scoped the no-framework rule to `src/`.
+  - Added "Audit Platform Sub-Stack (`audit/`)" sanctioning Next.js 15 +
+    TS + Tailwind + Drizzle + SQLite.
+  - Added "Repository Scope" preamble.
 
 Templates requiring updates:
-  - .specify/templates/plan-template.md         ✅ compatible (generic "Constitution Check" gate placeholder, no rename needed)
-  - .specify/templates/spec-template.md         ✅ compatible (no constitution-specific references)
-  - .specify/templates/tasks-template.md        ✅ compatible (no constitution-specific references)
-  - .specify/templates/checklist-template.md    ✅ compatible (no constitution-specific references)
-  - .specify/templates/agent-file-template.md   ✅ compatible (no constitution-specific references)
-  - .specify/templates/constitution-template.md ✅ unchanged (template source, not project copy)
+  - all .specify/templates/*.md                ✅ compatible (no constitution-specific references)
+
+Dependent feature artifacts:
+  - specs/001-hotel-audit-platform/plan.md     ✅ aligned (Plausible domain
+    locked; Principle II re-interpretation now constitution-sanctioned)
+  - specs/001-hotel-audit-platform/tasks.md    ✅ aligned
 
 Runtime guidance docs:
-  - README.md                                   ⚠ none exists at repo root — optional follow-up to add a project README that links to this constitution.
+  - README.md                                  ⚠ still missing at repo
+    root — addressed by tasks.md T115 in the audit feature.
 
 Follow-up TODOs: none.
 -->
@@ -61,6 +64,14 @@ logistics SMEs) above the fold on desktop and within the first viewport on mobil
 
 **Rationale:** This is a lead-generation site, not a content publication. Sections
 without a CTA dilute the funnel and slow page weight without measurable return.
+
+**Scope note for non-marketing applications:** Other applications in this
+repository (e.g., the audit platform at `audit/`) are tools rather than
+marketing surfaces, so they do not have an audit-booking or ROI-calculator
+CTA to point at. For those applications, this principle reads as **"every
+primary screen MUST have a single, unambiguous primary action"** (e.g.,
+"New project" on the admin dashboard, "Continue / Submit" on the client
+form). The intent — no purposeless screens — is preserved.
 
 ### III. French-Canonical, i18n-Ready
 French (`lang="fr"`) is the canonical content language and the source of truth for
@@ -102,13 +113,34 @@ target keywords. Without consistent event tracking we cannot measure whether cha
 to the funnel actually improve conversion — which is the only meaningful success
 metric for this site.
 
-## Technical Constraints & Stack
+## Repository Scope
+
+This repository hosts more than one application. The current set is:
+
+- **Marketing site** at `src/` + `public/` + `vite.config.js` — the public
+  brochure deployed to `rinzlerstudio.fr`.
+- **Audit platform** at `audit/` — the private Next.js application
+  introduced by feature `001-hotel-audit-platform`, deployed to
+  `audit.rinzlerstudio.com` (the studio's `.com` subdomain, intentionally
+  separate from the marketing site's `.fr`).
+
+**Principles I–V (Core Principles) apply to every application in the repo.**
+The "Technical Constraints & Stack" sections below are **per-application**:
+each one names the directory it governs in its heading. A constraint
+written for one application does NOT silently apply to the other; if a new
+application is added, it MUST receive its own sub-stack section in this
+constitution (MINOR bump).
+
+## Technical Constraints & Stack (Marketing Site — `src/`)
 
 - **Build & runtime:** Vite (`^6.0.0`) producing a static bundle to `dist/`. No
   server-side runtime, no SSR, no Node process in production. Deployment is static
   hosting (cPanel, per `.cpanel.yml`).
-- **Languages:** Vanilla HTML, CSS, and ES module JavaScript only. Adding a frontend
-  framework (React, Vue, Svelte, etc.) requires a constitution amendment.
+- **Languages:** Vanilla HTML, CSS, and ES module JavaScript only **for the
+  marketing site at `src/`**. Adding a frontend framework (React, Vue,
+  Svelte, etc.) to the marketing site requires a constitution amendment.
+  This rule does NOT govern other applications in the repo (see Repository
+  Scope above and the per-app sections below).
 - **Entry points:** `src/index.html`, `src/calculator.html`, `src/mentions-legales.html`,
   `src/politique-confidentialite.html`. Adding entry points MUST be reflected in
   `vite.config.js` `rollupOptions.input`.
@@ -121,6 +153,50 @@ metric for this site.
 - **Performance budget:** Largest Contentful Paint MUST stay under 2.5 s on a
   throttled 4G profile for the home page. Total JS shipped to the home page MUST stay
   under 50 KB gzipped (excluding the Plausible tag). Regressions MUST be justified.
+
+## Audit Platform Sub-Stack (`audit/`)
+
+Sanctioned stack for the audit application introduced by feature
+`001-hotel-audit-platform`. Replacing any of these requires a constitution
+amendment (MINOR for swap-equivalent technologies, MAJOR for a paradigm
+change such as moving away from Node).
+
+- **Framework & runtime:** Next.js 15+ (App Router, server actions) on
+  Node.js 20 LTS. SSR and a long-running Node process are explicitly
+  permitted **for this application only**. Output mode: `standalone`.
+- **Language:** TypeScript 5.6+ (strict mode). React 19 for UI.
+- **Styling:** TailwindCSS 3.4+ whose theme is configured to reference the
+  brand CSS variables in `audit/styles/tokens.css`, which mirrors
+  `src/styles/tokens.css` 1:1. Direct hex/px values in components are
+  prohibited (Principle IV applies).
+- **Persistence:** SQLite (`better-sqlite3`) accessed via Drizzle ORM.
+  Schema is the single source of truth at `audit/db/schema.ts`. Migration
+  to Postgres is permitted without amendment provided Drizzle remains the
+  ORM and France/EU residency is preserved.
+- **Authentication:** Auth.js v5 with the Credentials provider; passwords
+  hashed with Argon2id (`@node-rs/argon2`). Magic-link, OAuth, and SSO
+  providers MAY be added later as alternative providers without
+  amendment, but Credentials MUST remain available.
+- **Form runtime:** `react-hook-form` + Zod, fed by a single declarative
+  schema at `audit/lib/form-schema/sections.ts` (FR-023, FR-045).
+- **Hosting:** France-resident only. Default target is o2switch's cPanel
+  Node.js Selector; documented sovereign fallback is Clever Cloud or
+  Scaleway. Non-EU hosting (including non-EU control planes such as
+  Vercel US, Supabase, PlanetScale) is PROHIBITED for this application.
+- **Third-party scripts on client surfaces:** Only Plausible (cookie-free,
+  EU-hosted), with `data-domain="audit.rinzlerstudio.com"` (the dedicated
+  audit subdomain — keeps audit-tool metrics cleanly separated from the
+  marketing funnel on `rinzlerstudio.fr`). Any other third-party script
+  requires the same Principle I review as the marketing site.
+- **Performance budget:** LCP ≤ 2.5 s on a throttled 4G profile for the
+  client form landing. Total JS shipped to the client form MUST stay under
+  200 KB gzipped (relaxed from the marketing site's 50 KB budget because
+  the form is interactive multi-step UI, not a landing page). Admin-side
+  budgets are advisory.
+- **Privacy posture:** All tokenized client routes and the entire admin
+  surface MUST emit `noindex` headers. Access tokens MUST be stored as
+  hashes, never as plaintext. Internal consultant notes MUST be excluded
+  from JSON exports by default and never accessible via the client URL.
 
 ## Development Workflow & Quality Gates
 
@@ -167,4 +243,4 @@ constitution is amended first.
   `.specify/templates/`. This constitution is the source of truth only for the
   principles and constraints above.
 
-**Version**: 1.0.0 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-09
+**Version**: 1.1.1 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-09
