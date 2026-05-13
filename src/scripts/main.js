@@ -269,12 +269,15 @@ function initAuditModal() {
         },
         body: JSON.stringify({
           name: formData.get('name'),
-          company: formData.get('company'),
+          // Input name attribute stays "company" (Plausible payload compat); the field now collects hotel name.
+          hotel: formData.get('company'),
           email: formData.get('email'),
           phone: formData.get('phone'),
-          sector: formData.get('sector'),
+          typology: formData.get('typology'),
+          rooms: formData.get('rooms') || undefined,
+          pms_stack: formData.get('pms_stack') || undefined,
           message: formData.get('message'),
-          _subject: `Nouvelle demande d'audit - ${formData.get('company')}`
+          _subject: `Nouvelle demande de diagnostic digital hôtel — ${formData.get('company')}`
         })
       });
 
@@ -282,11 +285,19 @@ function initAuditModal() {
         // Show success
         showSuccess();
 
-        // Track conversion
+        // Track conversion — event name "Audit Request" preserved for dashboard comparability
+        // (see specs/002-hotel-marketing-pivot/contracts/plausible-events.md).
+        // Only business attributes go in props; never PII (email/phone/message/pms_stack).
         if (window.plausible) {
-          window.plausible('Audit Request', {
-            props: { company: formData.get('company'), sector: formData.get('sector') }
-          });
+          const props = {
+            hotel: formData.get('company'),
+            typology: formData.get('typology')
+          };
+          const roomsValue = formData.get('rooms');
+          if (roomsValue) {
+            props.rooms = Number(roomsValue);
+          }
+          window.plausible('Audit Request', { props });
         }
 
         // Reset form
@@ -296,7 +307,7 @@ function initAuditModal() {
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter à hello@rinzlerstudio.com.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
@@ -314,7 +325,7 @@ function initAuditModal() {
           </svg>
         </div>
         <h3 class="success-title">Demande envoyée !</h3>
-        <p class="success-text">Merci pour votre intérêt. Nous vous contacterons dans les 24 heures pour planifier votre audit gratuit.</p>
+        <p class="success-text">Merci pour votre intérêt. Nous vous recontactons sous 24 h pour planifier votre diagnostic digital hôtel.</p>
         <button class="btn btn-primary" onclick="document.getElementById('audit-modal').classList.remove('active'); document.body.style.overflow = ''; location.reload();">
           Fermer
         </button>

@@ -40,7 +40,7 @@ function fmtDate(d: Date | null): string {
 }
 
 export default async function ProjectsPage() {
-  const rows = db
+  const rows = await db
     .select({
       id: projects.id,
       label: projects.label,
@@ -55,8 +55,7 @@ export default async function ProjectsPage() {
     })
     .from(projects)
     .leftJoin(submissions, eq(submissions.projectId, projects.id))
-    .orderBy(desc(projects.lastAdminActivityAt))
-    .all();
+    .orderBy(desc(projects.lastAdminActivityAt));
 
   return (
     <div className="space-y-6">

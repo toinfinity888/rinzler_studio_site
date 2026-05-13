@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Admin pages are never statically rendered — they need an auth session and
+// live DB data. Disable build-time prerendering for everything under /admin/*.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-dvh flex flex-col">

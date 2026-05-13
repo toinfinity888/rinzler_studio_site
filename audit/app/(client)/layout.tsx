@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+// Client (tokenized) pages query the DB by token at every request — always
+// dynamic, never statically rendered.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const PLAUSIBLE_DOMAIN = process.env.PLAUSIBLE_DOMAIN ?? "audit.rinzlerstudio.com";
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {

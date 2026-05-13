@@ -3,21 +3,17 @@
 import { eq, and } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 import { db } from "@/lib/db";
-import { projects, submissions, answers } from "@/db/schema";
+import { projects, submissions, answers, scores as scoresTable } from "@/db/schema";
 import { hashToken } from "@/lib/tokens";
 import { SECTIONS } from "@/lib/form-schema/sections";
 import { buildZodSchema, validatePartial } from "@/lib/form-schema/validation";
 import { computeCompletionPct } from "@/lib/form-schema/completion";
 import { runAllScores } from "@/lib/scoring";
-import { scores as scoresTable } from "@/db/schema";
 import { track } from "@/lib/analytics/plausible";
 
 const SCHEMA = buildZodSchema(SECTIONS);
 
-/* -------------------------------------------------------------------------- *
- *  Per-token rate limiter (R5): max 30 calls / minute / token. In-memory,
- *  process-local — sufficient for V1 single-node deploy on o2switch.
- * -------------------------------------------------------------------------- */
+/* Per-token rate limiter (R5): max 30 calls / minute / token. */
 const RATE_WINDOW_MS = 60_000;
 const RATE_LIMIT = 30;
 const rateBuckets = new Map<string, { count: number; resetAt: number }>();
@@ -33,19 +29,17 @@ function checkRateLimit(tokenHash: string): boolean {
   return bucket.count <= RATE_LIMIT;
 }
 
-/* -------------------------------------------------------------------------- *
- *  saveAnswers — autosave (R5, T072). Per-field upsert keyed by
- *  (submission_id, field_id). Stale-tab guard via expectedUpdatedAt.
- * -------------------------------------------------------------------------- */
-
 export type SaveAnswersResult =
   | { ok: true; updatedAt: number; completionPct: number }
-  | { ok: false; reason: "revoked" | "invalid" | "rate_limited" | "stale"; invalid?: { fieldId: string; reason: string }[] };
+  | {
+      ok: false;
+      reason: "revoked" | "invalid" | "rate_limited" | "stale";
+      invalid?: { fieldId: string; reason: string }[];
+    };
 
 export interface SaveAnswersInput {
   token: string;
   partial: Record<string, unknown>;
-  /** Optional stale-tab guard: client passes the submission.updatedAt it last saw. */
   expectedUpdatedAt?: number;
 }
 
@@ -53,17 +47,21 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
   const tokenHash = hashToken(input.token);
   if (!checkRateLimit(tokenHash)) return { ok: false, reason: "rate_limited" };
 
-  const project = db.select().from(projects).where(eq(projects.tokenHash, tokenHash)).get();
+  const [project] = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.tokenHash, tokenHash))
+    .limit(1);
   if (!project) return { ok: false, reason: "revoked" };
   if (project.tokenRevokedAt || project.status === "purged") {
     return { ok: false, reason: "revoked" };
   }
 
-  const submission = db
+  const [submission] = await db
     .select()
     .from(submissions)
     .where(eq(submissions.projectId, project.id))
-    .get();
+    .limit(1);
   if (!submission) return { ok: false, reason: "revoked" };
 
   if (
@@ -80,37 +78,37 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
 
   const now = new Date();
 
-  db.transaction((tx) => {
+  await db.transaction(async (tx) => {
     for (const [fieldId, value] of Object.entries(valid)) {
       if (value === null) {
-        tx.delete(answers)
-          .where(and(eq(answers.submissionId, submission.id), eq(answers.fieldId, fieldId)))
-          .run();
+        await tx
+          .delete(answers)
+          .where(and(eq(answers.submissionId, submission.id), eq(answers.fieldId, fieldId)));
         continue;
       }
-      // Upsert by (submission_id, field_id) — schema has the unique index.
-      tx.insert(answers)
+      const valueJson = JSON.stringify(value);
+      // Upsert via MySQL's ON DUPLICATE KEY UPDATE (unique index on
+      // (submission_id, field_id) is what triggers the conflict path).
+      await tx
+        .insert(answers)
         .values({
           id: randomUUID(),
           submissionId: submission.id,
           fieldId,
-          valueJson: JSON.stringify(value),
+          valueJson,
           updatedAt: now,
           source: "client",
         })
-        .onConflictDoUpdate({
-          target: [answers.submissionId, answers.fieldId],
-          set: { valueJson: JSON.stringify(value), updatedAt: now, source: "client" },
-        })
-        .run();
+        .onDuplicateKeyUpdate({
+          set: { valueJson, updatedAt: now, source: "client" },
+        });
     }
 
     // Recompute completion %.
-    const allRows = tx
+    const allRows = await tx
       .select({ fieldId: answers.fieldId, valueJson: answers.valueJson })
       .from(answers)
-      .where(eq(answers.submissionId, submission.id))
-      .all();
+      .where(eq(answers.submissionId, submission.id));
     const map: Record<string, unknown> = {};
     for (const r of allRows) {
       try {
@@ -120,32 +118,35 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
       }
     }
     const pct = computeCompletionPct(map, SECTIONS);
-    tx.update(submissions)
+    await tx
+      .update(submissions)
       .set({ updatedAt: now, completionPct: pct })
-      .where(eq(submissions.id, submission.id))
-      .run();
+      .where(eq(submissions.id, submission.id));
 
     // Status transition: awaiting → in_progress on first client save.
     if (project.status === "awaiting" || project.status === "draft") {
-      tx.update(projects)
+      await tx
+        .update(projects)
         .set({ status: "in_progress", lastEditedAt: now })
-        .where(eq(projects.id, project.id))
-        .run();
+        .where(eq(projects.id, project.id));
     } else {
-      tx.update(projects)
+      await tx
+        .update(projects)
         .set({ lastEditedAt: now })
-        .where(eq(projects.id, project.id))
-        .run();
+        .where(eq(projects.id, project.id));
     }
   });
 
-  const fresh = db.select().from(submissions).where(eq(submissions.id, submission.id)).get()!;
+  const [fresh] = await db
+    .select()
+    .from(submissions)
+    .where(eq(submissions.id, submission.id))
+    .limit(1);
+  if (!fresh) return { ok: false, reason: "revoked" };
 
-  // Fire a section-completion event when a section threshold is crossed.
   if (fresh.completionPct >= 100) {
     track("audit_section_completed", { project_id: project.id, completion_pct: 100 });
   } else if (fresh.completionPct >= submission.completionPct + 12) {
-    // ~one section's worth of progress (8 sections ≈ 12.5% each).
     track("audit_section_completed", {
       project_id: project.id,
       completion_pct: fresh.completionPct,
@@ -159,10 +160,6 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
   };
 }
 
-/* -------------------------------------------------------------------------- *
- *  submitAudit — final submission (T073).
- * -------------------------------------------------------------------------- */
-
 export type SubmitAuditResult =
   | { ok: true; submittedAt: number }
   | { ok: false; reason: "revoked" }
@@ -170,23 +167,25 @@ export type SubmitAuditResult =
 
 export async function submitAudit(token: string): Promise<SubmitAuditResult> {
   const tokenHash = hashToken(token);
-  const project = db.select().from(projects).where(eq(projects.tokenHash, tokenHash)).get();
+  const [project] = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.tokenHash, tokenHash))
+    .limit(1);
   if (!project || project.tokenRevokedAt || project.status === "purged") {
     return { ok: false, reason: "revoked" };
   }
-  const submission = db
+  const [submission] = await db
     .select()
     .from(submissions)
     .where(eq(submissions.projectId, project.id))
-    .get();
+    .limit(1);
   if (!submission) return { ok: false, reason: "revoked" };
 
-  // Hydrate current answers map.
-  const allRows = db
+  const allRows = await db
     .select({ fieldId: answers.fieldId, valueJson: answers.valueJson })
     .from(answers)
-    .where(eq(answers.submissionId, submission.id))
-    .all();
+    .where(eq(answers.submissionId, submission.id));
   const map: Record<string, unknown> = {};
   for (const r of allRows) {
     try {
@@ -196,7 +195,6 @@ export async function submitAudit(token: string): Promise<SubmitAuditResult> {
     }
   }
 
-  // Required-field validation (FR-010).
   const missingRequired: string[] = [];
   for (const fid of SCHEMA.requiredFieldIds) {
     const v = map[fid];
@@ -209,29 +207,26 @@ export async function submitAudit(token: string): Promise<SubmitAuditResult> {
   }
 
   const now = new Date();
-  db.transaction((tx) => {
+  await db.transaction(async (tx) => {
     const setOnSubmit: Record<string, unknown> = {
       status: "submitted",
       lastEditedAt: now,
     };
     if (!project.submittedAt) setOnSubmit.submittedAt = now;
-    tx.update(projects).set(setOnSubmit).where(eq(projects.id, project.id)).run();
+    await tx.update(projects).set(setOnSubmit).where(eq(projects.id, project.id));
 
-    // Recompute scores (stub in V1; real heuristics arrive in Phase 6).
     const computed = runAllScores(map);
-    tx.delete(scoresTable).where(eq(scoresTable.submissionId, submission.id)).run();
+    await tx.delete(scoresTable).where(eq(scoresTable.submissionId, submission.id));
     for (const s of computed) {
-      tx.insert(scoresTable)
-        .values({
-          id: randomUUID(),
-          submissionId: submission.id,
-          name: s.name,
-          value: s.value,
-          band: s.band,
-          basisJson: JSON.stringify(s.basis),
-          computedAt: now,
-        })
-        .run();
+      await tx.insert(scoresTable).values({
+        id: randomUUID(),
+        submissionId: submission.id,
+        name: s.name,
+        value: s.value,
+        band: s.band,
+        basisJson: JSON.stringify(s.basis),
+        computedAt: now,
+      });
     }
   });
 

@@ -66,28 +66,28 @@ function formatValue(v: unknown, optionLabels?: Record<string, string>): string 
 
 export default async function ProjectDetailPage({ params }: ProjectDetailProps) {
   const { id } = await params;
-  const project = db.select().from(projects).where(eq(projects.id, id)).get();
+  const [project] = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
   if (!project) notFound();
 
   // Bump activity (covers FR-044b purge clock + FR-029 audit trail).
   await bumpLastAdminActivity(id).catch(() => {});
 
-  const submission = db
+  const [submission] = await db
     .select()
     .from(submissions)
     .where(eq(submissions.projectId, project.id))
-    .get();
+    .limit(1);
 
   const answerRows = submission
-    ? db.select().from(answers).where(eq(answers.submissionId, submission.id)).all()
+    ? await db.select().from(answers).where(eq(answers.submissionId, submission.id))
     : [];
   const byField = new Map(answerRows.map((a) => [a.fieldId, a]));
 
   const scoreRows = submission
-    ? db.select().from(scores).where(eq(scores.submissionId, submission.id)).all()
+    ? await db.select().from(scores).where(eq(scores.submissionId, submission.id))
     : [];
 
-  const notes = db
+  const notes = await db
     .select({
       id: internalNotes.id,
       body: internalNotes.body,
@@ -97,8 +97,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
     .from(internalNotes)
     .leftJoin(admins, eq(internalNotes.authorId, admins.id))
     .where(eq(internalNotes.projectId, project.id))
-    .orderBy(asc(internalNotes.createdAt))
-    .all();
+    .orderBy(asc(internalNotes.createdAt));
 
   return (
     <div className="space-y-6">

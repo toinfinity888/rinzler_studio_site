@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Réduisez vos coûts de 20% grâce à l'IA souveraine et l'automatisation intelligente pour PME transport & logistique françaises">
-  <meta name="keywords" content="automatisation, IA, transport, logistique, PME, France, réduction coûts">
+  <meta name="description" content="Modernisation digitale pour petits hôtels indépendants en France : clarifier la stack (site, PMS, moteur de réservation, OTA), réduire les tâches manuelles à la réception, améliorer les réservations directes. Diagnostic chiffré et progressif.">
+  <meta name="keywords" content="hôtellerie, hôtel indépendant, PMS, moteur de réservation, réservation directe, Booking.com, OTA, modernisation digitale, automatisation, France">
   <meta name="theme-color" content="#0a0a0f">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/favicon-CmjitC-J.png">
 
-  <title>Rinzler Studio | Débloquez 20% de Rentabilité pour Transport & Logistique</title>
+  <title>Rinzler Studio | Modernisation digitale pour hôtels indépendants</title>
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Rinzler Studio">
+  <meta property="og:title" content="Modernisation digitale pour petits hôtels indépendants">
+  <meta property="og:description" content="Diagnostic du site, du moteur de réservation, du PMS et des tâches répétitives — pour les hôtels indépendants en France.">
+  <meta property="og:url" content="https://rinzlerstudio.fr/">
+  <meta property="og:image" content="https://rinzlerstudio.fr/logo.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Modernisation digitale pour petits hôtels indépendants">
+  <meta name="twitter:description" content="Diagnostic du site, du moteur de réservation, du PMS et des tâches répétitives — pour les hôtels indépendants en France.">
+  <meta name="twitter:image" content="https://rinzlerstudio.fr/logo.png">
 
   <!-- Preconnect to Plausible Analytics -->
   <link rel="preconnect" href="https://plausible.io">
@@ -25,8 +38,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="./assets/main-CBhnRVB5.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/calculator-Dq7Sf0nD.js">
+  <script type="module" crossorigin src="./assets/main-ByR9mwNB.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/calculator-BODtluBY.js">
   <link rel="stylesheet" crossorigin href="./assets/calculator-EOi7Tjwv.css">
   <link rel="stylesheet" crossorigin href="./assets/sections-ChCfVI1o.css">
 </head>
@@ -39,7 +52,7 @@
     </a>
     <nav class="header-nav" id="header-nav">
       <a href="./calculator.html" class="nav-link">Calculateur ROI</a>
-      <a href="#audit-booking" class="btn btn-primary btn-sm nav-cta">Audit Gratuit</a>
+      <a href="#audit-booking" class="btn btn-primary btn-sm nav-cta">Diagnostic</a>
     </nav>
     <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
       <span class="hamburger-line"></span>
@@ -61,12 +74,13 @@
       <!-- Centered Content -->
       <div class="hero-content hero-content-centered">
         <h1 class="hero-tagline hero-tagline-white">
-          Réduction de 20% des Coûts
-          via l'Automatisation
+          Modernisation digitale
+          pour petits hôtels indépendants
         </h1>
         <p class="hero-subtitle">
-          L'automatisation intelligente
-          et l'IA française (Mistral AI). Infrastructure 100% souveraine, conformité RGPD garantie.
+          Clarifier votre stack digitale, réduire les tâches manuelles à la réception
+          et améliorer vos réservations directes. Approche progressive, chiffrée et adaptée
+          à un hôtel indépendant.
         </p>
         <div class="hero-cta">
           <a
@@ -75,7 +89,15 @@
             data-cta
             data-cta-id="hero-cta"
             data-section="hero">
-            Réserver Mon Audit Gratuit d'Efficacité
+            Demander un diagnostic digital hôtel
+          </a>
+          <a
+            href="#ce-que-j-analyse"
+            class="btn btn-secondary btn-hero-cta-secondary"
+            data-cta
+            data-cta-id="hero-cta-secondary"
+            data-section="hero">
+            Voir les points analysés
           </a>
         </div>
       </div>
@@ -122,53 +144,82 @@
     </div>
   </section>
 
+  <!-- Pour qui Section (qualifier) — reuses .faq-header + .faq-item styling vocabulary per FR-033 -->
+  <section class="pour-qui faq" data-section="pour-qui" id="pour-qui">
+    <div class="faq-header">
+      <span class="faq-tag">Pour qui</span>
+      <h2 class="faq-title">Cette page s'adresse à vous si…</h2>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous dirigez un hôtel indépendant 2★, 3★ ou 4★ de 10 à 50 chambres en France.</p></div>
+      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous opérez un petit groupe hôtelier indépendant (2 à 5 établissements).</p></div>
+      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Votre site est correct, mais le parcours de réservation directe peut être amélioré.</p></div>
+      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Votre équipe passe trop de temps sur des emails et des demandes répétitives (Booking.com, avant arrivée, FAQ).</p></div>
+      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous souhaitez comprendre les coûts et les bénéfices avant de changer de PMS, de moteur de réservation ou de refaire votre site.</p></div>
+    </div>
+  </section>
+
+  <!-- Ce que j'analyse Section (inventory) — reuses .faq-header + .faq-item styling vocabulary per FR-033 -->
+  <section class="ce-que-j-analyse faq" data-section="ce-que-j-analyse" id="ce-que-j-analyse">
+    <div class="faq-header">
+      <span class="faq-tag">Ce que j'analyse</span>
+      <h2 class="faq-title">Le périmètre du diagnostic</h2>
+    </div>
+    <div class="faq-container">
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Site web et tunnel de réservation directe</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Moteur de réservation</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">PMS et channel manager</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Emails clients et demandes Booking.com / OTA</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">FAQ et informations envoyées avant l'arrivée</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Tracking et analytics du site</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Coûts logiciels mensuels (PMS, channel, site, plugins)</p></div>
+      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Tâches répétitives à la réception</p></div>
+    </div>
+  </section>
+
   <!-- Pain Bridge Section - Bento Grid -->
   <section class="pain-bento" data-section="pain">
     <div class="pain-bento-container">
       <!-- Card 1 - Large -->
       <article class="pain-card pain-card--1">
-        <span class="pain-card-tag">Travail manuel</span>
-        <h3 class="pain-card-title">Arrêtez de perdre 28 500 $ par employé à cause du « travail manuel »</h3>
+        <span class="pain-card-tag">Réservations directes</span>
+        <h3 class="pain-card-title">Votre site est correct, mais le parcours de réservation peut encore freiner certains clients.</h3>
         <div class="pain-card-stats">
           <div class="pain-card-stat">
-            <span class="pain-card-stat-number">9+ h</span>
-            <span class="pain-card-stat-caption">perdues par semaine</span>
+            <span class="pain-card-stat-caption">Marge récupérable sur chaque réservation directe vs. OTA — variable selon votre stack.</span>
           </div>
         </div>
       </article>
 
       <!-- Card 2 - Medium -->
       <article class="pain-card pain-card--2">
-        <span class="pain-card-tag">Ventes perdues</span>
-        <h3 class="pain-card-title">Vos prospects partent avant même que vous répondiez</h3>
+        <span class="pain-card-tag">Tâches répétitives</span>
+        <h3 class="pain-card-title">Votre équipe répond souvent aux mêmes questions par email, téléphone ou Booking.com.</h3>
         <div class="pain-card-stats">
           <div class="pain-card-stat">
-            <span class="pain-card-stat-number">+391 %</span>
-            <span class="pain-card-stat-caption">conversion si réponse &lt; 1 min</span>
+            <span class="pain-card-stat-caption">Heures récupérables à la réception — selon votre volume de demandes.</span>
           </div>
         </div>
       </article>
 
       <!-- Card 3 - Medium -->
       <article class="pain-card pain-card--3">
-        <span class="pain-card-tag">Conformité 2026</span>
-        <h3 class="pain-card-title">Facturation 2026 : évitez les coûts et les amendes</h3>
+        <span class="pain-card-tag">Outils dispersés</span>
+        <h3 class="pain-card-title">Site, PMS, moteur de réservation, channel manager et emails ne travaillent pas toujours ensemble.</h3>
         <div class="pain-card-stats">
           <div class="pain-card-stat">
-            <span class="pain-card-stat-number">15 €</span>
-            <span class="pain-card-stat-caption">amende par facture dès 2026</span>
+            <span class="pain-card-stat-caption">Données qui se perdent entre les outils — coûts et erreurs cachés.</span>
           </div>
         </div>
       </article>
 
       <!-- Card 4 - Large -->
       <article class="pain-card pain-card--4">
-        <span class="pain-card-tag">Rétention talents</span>
-        <h3 class="pain-card-title">Vos meilleurs talents s'épuisent sur des tâches inutiles</h3>
+        <span class="pain-card-tag">Décisions coûteuses</span>
+        <h3 class="pain-card-title">Changer de PMS, refaire un site ou ajouter une automatisation demande une estimation claire du coût et du ROI.</h3>
         <div class="pain-card-stats">
           <div class="pain-card-stat">
-            <span class="pain-card-stat-number">43 %</span>
-            <span class="pain-card-stat-caption">des employés en burnout</span>
+            <span class="pain-card-stat-caption">Avant d'engager des dépenses, savoir ce qui rapporte vraiment — chiffré, scénario par scénario.</span>
           </div>
         </div>
       </article>
@@ -177,7 +228,7 @@
     <!-- CTA -->
     <div class="pain-bento-cta">
       <a href="./calculator.html" class="btn btn-hero-cta" data-cta data-cta-id="pain-bridge-cta" data-section="pain">
-        Évaluez votre potentiel d'automatisation
+        Estimer mes gains hôtel
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
@@ -189,8 +240,8 @@
   <section class="transformation-journey" data-section="transformation">
     <!-- Section Title -->
     <div class="journey-section-header">
-      <span class="journey-section-tag">Notre Méthode</span>
-      <h2 class="journey-section-title">Trois étapes vers le résultat</h2>
+      <span class="journey-section-tag">Ma méthode</span>
+      <h2 class="journey-section-title">Trois étapes pour moderniser votre hôtel</h2>
     </div>
 
     <div class="journey-sticky-container">
@@ -203,32 +254,32 @@
 
       <!-- Phase 1: Deep Diagnosis - Dashboard Style -->
       <div class="journey-phase phase-1 active" data-phase="1">
-        <span class="phase-tag diag-tag">Étape 1 — Identification & Priorisation</span>
+        <span class="phase-tag diag-tag">Étape 1 — Diagnostic digital hôtel</span>
         <div class="diagnosis-canvas">
           <!-- Left: Text Column -->
           <div class="diagnosis-text-col">
-            <h2 class="diag-headline">Opportunités à <span class="diag-gradient">fort ROI</span> identifiées.</h2>
-            <p class="diag-body">Nous cartographions chaque opportunité d'automatisation et les classons selon leur potentiel réel — pour concentrer vos efforts là où le retour est maximal.</p>
+            <h2 class="diag-headline">Cartographie de votre <span class="diag-gradient">stack digitale</span>.</h2>
+            <p class="diag-body">J'analyse votre site, votre moteur de réservation, votre PMS, vos outils OTA et les tâches répétitives à la réception — pour identifier les améliorations à fort impact pour votre hôtel.</p>
             <ul class="diag-points">
               <li class="diag-point">
                 <span class="diag-point-marker"></span>
                 <div class="diag-point-text">
-                  <strong>Matrice complexité / valeur</strong>
-                  <span>Chaque processus positionné selon son effort d'automatisation et son impact business.</span>
+                  <strong>Parcours de réservation directe</strong>
+                  <span>Site, moteur de réservation, conversion : ce qui freine vos réservations directes.</span>
                 </div>
               </li>
               <li class="diag-point">
                 <span class="diag-point-marker"></span>
                 <div class="diag-point-text">
-                  <strong>ROI tangible & intangible</strong>
-                  <span>Gains directs (temps, coûts) et indirects (qualité, conformité, satisfaction) chiffrés.</span>
+                  <strong>Tâches répétitives à la réception</strong>
+                  <span>Emails clients, demandes Booking.com / OTA, FAQ avant arrivée — temps réel passé.</span>
                 </div>
               </li>
               <li class="diag-point">
                 <span class="diag-point-marker"></span>
                 <div class="diag-point-text">
-                  <strong>TCO pris en compte</strong>
-                  <span>Coût total de possession sur la durée : licences, maintenance, formation, évolution.</span>
+                  <strong>Coûts logiciels & dépendances</strong>
+                  <span>PMS, channel manager, hébergement, plugins : ce que vous payez, ce qui sert vraiment.</span>
                 </div>
               </li>
             </ul>
@@ -249,18 +300,18 @@
 
       <!-- Phase 2: Automation MVP -->
       <div class="journey-phase phase-2" data-phase="2">
-        <span class="phase-tag wf-tag">Étape 2 — MVP d'automatisation</span>
+        <span class="phase-tag wf-tag">Étape 2 — Plan priorisé</span>
         <div class="workflow-canvas">
           <!-- Left: Text Column -->
           <div class="workflow-text-col">
-            <h2 class="wf-headline">Un <span class="wf-gradient">MVP fonctionnel</span> avant tout.</h2>
-            <p class="wf-body">Nous livrons d'abord une version minimale mais réelle de l'automatisation — connectée à vos outils, traitant vos vrais flux — pour valider la valeur sur le terrain avant d'industrialiser.</p>
+            <h2 class="wf-headline">Un <span class="wf-gradient">plan chiffré</span> et progressif.</h2>
+            <p class="wf-body">Pour chaque amélioration identifiée — réservation directe, automatisation d'une réponse type, intégration d'outils, refonte ciblée — j'estime le coût, le bénéfice, la complexité et l'ordre de mise en œuvre.</p>
             <div class="wf-process-flow">
-              <span class="wf-flow-step">Prototype</span>
+              <span class="wf-flow-step">Coûts</span>
               <span class="wf-flow-arrow">›</span>
-              <span class="wf-flow-step">Validation</span>
+              <span class="wf-flow-step">Bénéfices</span>
               <span class="wf-flow-arrow">›</span>
-              <span class="wf-flow-step">Déploiement</span>
+              <span class="wf-flow-step">Ordre de mise en œuvre</span>
             </div>
           </div>
 
@@ -291,32 +342,32 @@
 
       <!-- Phase 3: Scaling -->
       <div class="journey-phase phase-3" data-phase="3">
-        <span class="phase-tag scale-tag">Étape 3 — Passage à l'échelle</span>
+        <span class="phase-tag scale-tag">Étape 3 — Implémentation progressive</span>
         <div class="scaling-canvas">
           <!-- Left: Text Column -->
           <div class="scaling-text-col">
-            <h2 class="scale-headline">Intégration <span class="scale-gradient">complète</span> dans vos processus.</h2>
-            <p class="scale-body">Une fois la valeur prouvée, nous déployons la solution à l'ensemble de votre organisation avec un accompagnement sur mesure.</p>
+            <h2 class="scale-headline">Déploiement <span class="scale-gradient">progressif</span> dans votre hôtel.</h2>
+            <p class="scale-body">MVP d'abord, mise à l'échelle ensuite. Chaque amélioration est validée sur le terrain — à la réception, dans le moteur de réservation, sur le site — avant d'aller plus loin.</p>
             <ul class="scale-points">
               <li class="scale-point">
                 <span class="scale-point-marker"></span>
                 <div class="scale-point-text">
-                  <strong>Formation des équipes</strong>
-                  <span>Vos collaborateurs maîtrisent les nouveaux outils et processus automatisés.</span>
+                  <strong>MVP fonctionnel rapide</strong>
+                  <span>Un premier livrable concret en quelques semaines : script email type, page de réservation directe, automatisation ciblée.</span>
                 </div>
               </li>
               <li class="scale-point">
                 <span class="scale-point-marker"></span>
                 <div class="scale-point-text">
-                  <strong>Intégration système</strong>
-                  <span>Connexion native à votre stack existant : CRM, ERP, outils métier.</span>
+                  <strong>Connexion à vos outils existants</strong>
+                  <span>Site, PMS, moteur de réservation et channel manager mieux articulés — sans tout remplacer.</span>
                 </div>
               </li>
               <li class="scale-point">
                 <span class="scale-point-marker"></span>
                 <div class="scale-point-text">
-                  <strong>Support continu</strong>
-                  <span>Monitoring, optimisation et évolution selon vos besoins business.</span>
+                  <strong>Accompagnement de la direction</strong>
+                  <span>Documentation claire, transfert à l'équipe de réception, évolution selon l'occupation et la saisonnalité.</span>
                 </div>
               </li>
             </ul>
@@ -338,8 +389,8 @@
   <section class="before-after" data-section="comparison">
     <!-- Section Header -->
     <div class="ba-header">
-      <span class="ba-section-tag">Le Résultat</span>
-      <h2 class="ba-section-title">La transformation en un coup d'œil</h2>
+      <span class="ba-section-tag">Le résultat</span>
+      <h2 class="ba-section-title">Avant et après, côté hôtel</h2>
     </div>
 
     <div class="ba-container">
@@ -347,33 +398,33 @@
       <div class="ba-card ba-card--before">
         <div class="ba-card-header">
           <span class="ba-card-label">Avant</span>
-          <span class="ba-card-subtitle">Processus manuels</span>
+          <span class="ba-card-subtitle">Sans diagnostic</span>
         </div>
         <div class="ba-card-items">
           <div class="ba-item ba-item--negative">
             <span class="ba-item-icon">✕</span>
-            <span class="ba-item-text">Erreurs fréquentes</span>
+            <span class="ba-item-text">Questions répétitives traitées manuellement</span>
           </div>
           <div class="ba-item ba-item--negative">
             <span class="ba-item-icon">✕</span>
-            <span class="ba-item-text">Messages sans réponse</span>
+            <span class="ba-item-text">Réservations directes difficiles à mesurer</span>
           </div>
           <div class="ba-item ba-item--negative">
             <span class="ba-item-icon">✕</span>
-            <span class="ba-item-text">Leads perdus</span>
+            <span class="ba-item-text">Outils séparés (site, PMS, moteur, channel)</span>
           </div>
           <div class="ba-item ba-item--negative">
             <span class="ba-item-icon">✕</span>
-            <span class="ba-item-text">Travail répétitif</span>
+            <span class="ba-item-text">Mises à jour du site lentes</span>
           </div>
           <div class="ba-item ba-item--negative">
             <span class="ba-item-icon">✕</span>
-            <span class="ba-item-text">Données éparpillées</span>
+            <span class="ba-item-text">Coûts logiciels peu lisibles</span>
           </div>
         </div>
         <div class="ba-card-metric">
-          <span class="ba-metric-value">+20h</span>
-          <span class="ba-metric-label">perdues par semaine</span>
+          <span class="ba-metric-value">Temps perdu</span>
+          <span class="ba-metric-label">à la réception, chaque semaine</span>
         </div>
       </div>
 
@@ -394,33 +445,33 @@
       <div class="ba-card ba-card--after">
         <div class="ba-card-header">
           <span class="ba-card-label">Après</span>
-          <span class="ba-card-subtitle">Automatisation IA</span>
+          <span class="ba-card-subtitle">Modernisation progressive</span>
         </div>
         <div class="ba-card-items">
           <div class="ba-item ba-item--positive">
             <span class="ba-item-icon">✓</span>
-            <span class="ba-item-text">Zéro erreur</span>
+            <span class="ba-item-text">Réponses plus rapides aux demandes</span>
           </div>
           <div class="ba-item ba-item--positive">
             <span class="ba-item-icon">✓</span>
-            <span class="ba-item-text">Réponses instantanées</span>
+            <span class="ba-item-text">Parcours de réservation directe clarifié</span>
           </div>
           <div class="ba-item ba-item--positive">
             <span class="ba-item-icon">✓</span>
-            <span class="ba-item-text">100% des leads traités</span>
+            <span class="ba-item-text">Outils mieux connectés</span>
           </div>
           <div class="ba-item ba-item--positive">
             <span class="ba-item-icon">✓</span>
-            <span class="ba-item-text">Workflows automatisés</span>
+            <span class="ba-item-text">Processus documentés et partageables</span>
           </div>
           <div class="ba-item ba-item--positive">
             <span class="ba-item-icon">✓</span>
-            <span class="ba-item-text">Données centralisées</span>
+            <span class="ba-item-text">Décisions basées sur coûts, temps gagné et ROI</span>
           </div>
         </div>
         <div class="ba-card-metric">
-          <span class="ba-metric-value">+20h</span>
-          <span class="ba-metric-label">récupérées par semaine</span>
+          <span class="ba-metric-value">Temps récupéré</span>
+          <span class="ba-metric-label">à la réception et sur les réservations</span>
         </div>
       </div>
     </div>
@@ -430,9 +481,9 @@
   <section class="sovereignty" data-section="sovereignty">
     <!-- Section Header -->
     <div class="sov-header">
-      <span class="sov-section-tag">Souveraineté & Sécurité</span>
-      <h2 class="sov-section-title">Vos données restent en France</h2>
-      <p class="sov-section-subtitle">Une infrastructure 100% européenne pour une indépendance totale vis-à-vis des Cloud US</p>
+      <span class="sov-section-tag">Protection des données clients</span>
+      <h2 class="sov-section-title">Vos données clients restent sous contrôle</h2>
+      <p class="sov-section-subtitle">Hébergement européen, accès limités et tracés, documentation claire conforme au RGPD.</p>
     </div>
 
     <div class="sov-container">
@@ -447,20 +498,20 @@
             <path d="M9 12l2 2 4-4" fill="none" stroke="rgba(10,10,15,0.5)" stroke-width="2"/>
           </svg>
         </div>
-        <h3 class="sov-card-title">Data Sovereignty</h3>
-        <p class="sov-card-description">Vos données ne quittent jamais l'Union Européenne. Nous garantissons une souveraineté totale sur vos informations sensibles.</p>
+        <h3 class="sov-card-title">Données clients protégées</h3>
+        <p class="sov-card-description">Les données de vos clients (réservations, contacts, préférences) sont traitées avec discipline : collecte limitée, finalité explicite, durée définie.</p>
         <ul class="sov-card-features">
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--cyan"></span>
-            <span class="sov-feature-text"><strong>Hébergement européen</strong> — Vos données ne quittent jamais l'UE</span>
+            <span class="sov-feature-text"><strong>Hébergement européen</strong> — vos données restent en UE</span>
           </li>
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--cyan"></span>
-            <span class="sov-feature-text"><strong>Hors Cloud Act US</strong> — Aucune juridiction américaine sur vos données</span>
+            <span class="sov-feature-text"><strong>Collecte minimale</strong> — seulement ce qui sert la finalité du diagnostic</span>
           </li>
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--cyan"></span>
-            <span class="sov-feature-text"><strong>Contrôle total</strong> — Vous restez propriétaire de vos données et systèmes</span>
+            <span class="sov-feature-text"><strong>Vous restez propriétaire</strong> de vos outils et de vos données</span>
           </li>
         </ul>
       </article>
@@ -477,20 +528,20 @@
             <path d="M9 15l2 2 4-4" fill="none" stroke="rgba(10,10,15,0.5)" stroke-width="2"/>
           </svg>
         </div>
-        <h3 class="sov-card-title">RGPD Compliant</h3>
-        <p class="sov-card-description">Conformité totale avec le Règlement Général sur la Protection des Données. Transparence juridique et protection de votre propriété intellectuelle.</p>
+        <h3 class="sov-card-title">Conformité RGPD claire</h3>
+        <p class="sov-card-description">Documentation lisible, journalisation des accès, exportabilité de vos données — pour que votre conformité reste démontrable face à un client ou à la CNIL.</p>
         <ul class="sov-card-features">
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--green"></span>
-            <span class="sov-feature-text"><strong>Transparence totale</strong> — Traçabilité de chaque traitement</span>
+            <span class="sov-feature-text"><strong>Accès limités et tracés</strong> — moindre privilège, journalisation</span>
           </li>
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--green"></span>
-            <span class="sov-feature-text"><strong>Protection IP</strong> — Vos données vous appartiennent</span>
+            <span class="sov-feature-text"><strong>Documentation claire</strong> — finalité, durée, base légale</span>
           </li>
           <li class="sov-feature">
             <span class="sov-point-icon sov-point-icon--green"></span>
-            <span class="sov-feature-text"><strong>Audit-ready</strong> — Documentation conforme aux exigences</span>
+            <span class="sov-feature-text"><strong>Exportabilité</strong> — vos données restent réutilisables si vous changez d'outil</span>
           </li>
         </ul>
       </article>
@@ -499,12 +550,12 @@
     <!-- Trust Badges -->
     <div class="sov-badges">
       <div class="sov-badge">
-        <span class="sov-badge-flag">🇫🇷</span>
-        <span class="sov-badge-text">Hébergement France</span>
+        <span class="sov-badge-flag">🇪🇺</span>
+        <span class="sov-badge-text">Hébergement européen</span>
       </div>
       <div class="sov-badge">
         <img src="./assets/RGPD_logo-Photoroom-jXE1Yp_8.png" alt="RGPD" class="sov-badge-img">
-        <span class="sov-badge-text">100% RGPD</span>
+        <span class="sov-badge-text">Conformité RGPD</span>
       </div>
       <div class="sov-badge">
         <span class="sov-badge-icon">
@@ -512,7 +563,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </span>
-        <span class="sov-badge-text">Zero Cloud US</span>
+        <span class="sov-badge-text">Pas d'export hors UE</span>
       </div>
     </div>
   </section>
@@ -520,9 +571,9 @@
   <!-- Why Us Section -->
   <section class="why-us" data-section="why-us">
     <div class="why-us-header">
-      <span class="why-us-tag">Pourquoi Nous</span>
-      <h2 class="why-us-title">Pas des techniciens.<br><span class="why-us-gradient">Des partenaires stratégiques.</span></h2>
-      <p class="why-us-subtitle">Nous ne vendons pas des lignes de code. Nous créons des systèmes qui génèrent du profit.</p>
+      <span class="why-us-tag">Pourquoi nous</span>
+      <h2 class="why-us-title">Une approche taillée pour<br><span class="why-us-gradient">les petits hôtels indépendants.</span></h2>
+      <p class="why-us-subtitle">Pas de grands projets cathédrale, pas de jargon. Un accompagnement concret pour la direction d'un hôtel indépendant.</p>
     </div>
 
     <div class="why-us-grid">
@@ -534,12 +585,12 @@
             <path d="M600-120q-118 0-210-67T260-360H120v-80h122q-3-24-2.5-44.5T242-520H120v-80h140q38-106 130-173t210-67q69 0 130.5 24.5T840-748l-57 56q-37-32-83.5-50T600-760q-85 0-152 44.5T347-600h253v80H323q-4 27-3 47.5t3 32.5h277v80H347q34 71 101 115.5T600-200q53 0 99.5-18t83.5-50l57 56q-48 43-109.5 67.5T600-120Z" fill="rgba(255,255,255,0.18)"/>
           </svg>
         </div>
-        <h3 class="why-card-title">Business-First</h3>
-        <p class="why-card-description">Nous parlons le langage du ROI, pas du jargon technique. Chaque solution est évaluée en termes d'impact sur votre marge, votre temps et votre croissance.</p>
+        <h3 class="why-card-title">Connaissance terrain de l'hôtellerie</h3>
+        <p class="why-card-description">L'offre est conçue à partir d'une expérience opérationnelle réelle en hôtel indépendant — réception, OTA, parcours client — pas d'une grille générique PME.</p>
         <ul class="why-card-points">
-          <li><span class="why-point-icon"></span>Objectifs chiffrés dès le premier jour</li>
-          <li><span class="why-point-icon"></span>KPIs alignés sur vos priorités business</li>
-          <li><span class="why-point-icon"></span>Reporting en euros, pas en lignes de code</li>
+          <li><span class="why-point-icon"></span>Vocabulaire métier : PMS, moteur de réservation, channel manager</li>
+          <li><span class="why-point-icon"></span>Compréhension des contraintes de réception et de saisonnalité</li>
+          <li><span class="why-point-icon"></span>Pas de promesse miracle : des chiffres et des étapes claires</li>
         </ul>
       </article>
 
@@ -551,12 +602,12 @@
             <path d="M360-720h80v-80h-80v80Zm160 0v-80h80v80h-80ZM360-400v-80h80v80h-80Zm320-160v-80h80v80h-80Zm0 160v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm160-320v-80h80v80h-80Zm-240 80v-80h80v80h-80ZM200-160v-640h80v80h80v80h-80v80h80v80h-80v320h-80Zm400-320v-80h80v80h-80Zm-160 0v-80h80v80h-80Zm-80-80v-80h80v80h-80Zm160 0v-80h80v80h-80Zm80-80v-80h80v80h-80Z" fill="rgba(255,255,255,0.18)"/>
           </svg>
         </div>
-        <h3 class="why-card-title">Méthodologie MVP</h3>
-        <p class="why-card-description">Pas de « projets cathédrale » qui durent des années. Nous livrons des victoires rapides : un premier résultat concret en quelques semaines, pas en mois.</p>
+        <h3 class="why-card-title">MVP adapté aux petits hôtels</h3>
+        <p class="why-card-description">Un premier livrable concret en quelques semaines — script email type, page de réservation directe, automatisation ciblée — pas un grand projet PMS de douze mois.</p>
         <ul class="why-card-points">
-          <li><span class="why-point-icon"></span>Premier workflow fonctionnel en quelques jours</li>
-          <li><span class="why-point-icon"></span>Itérations courtes basées sur vos retours</li>
-          <li><span class="why-point-icon"></span>Valeur prouvée avant de scaler</li>
+          <li><span class="why-point-icon"></span>Premier livrable utile en quelques semaines</li>
+          <li><span class="why-point-icon"></span>Itérations courtes selon vos retours de réception</li>
+          <li><span class="why-point-icon"></span>Aucune obligation de remplacer votre PMS ou votre site</li>
         </ul>
       </article>
 
@@ -568,58 +619,65 @@
             <path d="M475-160q4 0 8-2t6-4l328-328q12-12 17.5-27t5.5-30q0-16-5.5-30.5T817-607L647-777q-11-12-25.5-17.5T591-800q-15 0-30 5.5T534-777l-11 11 74 75q15 14 22 32t7 38q0 42-28.5 70.5T527-522q-20 0-38.5-7T456-550l-75-74-175 175q-3 3-4.5 6.5T200-435q0 8 6 14.5t14 6.5q4 0 8-2t6-4l136-136 56 56-135 136q-3 3-4.5 6.5T285-350q0 8 6 14t14 6q4 0 8-2t6-4l136-135 56 56-135 136q-3 2-4.5 6t-1.5 8q0 8 6 14t14 6q4 0 7.5-1.5t6.5-4.5l136-135 56 56-136 136q-3 3-4.5 6.5T454-180q0 8 6.5 14t14.5 6Zm-1 80q-37 0-65.5-24.5T375-166q-34-5-57-28t-28-57q-34-5-56.5-28.5T206-336q-38-5-62-33t-24-66q0-20 7.5-38.5T149-506l232-231 131 131q2 3 6 4.5t8 1.5q9 0 15-5.5t6-14.5q0-4-1.5-8t-4.5-6L398-777q-11-12-25.5-17.5T342-800q-15 0-30 5.5T285-777L144-635q-9 9-15 21t-8 24q-2 12 0 24.5t8 23.5l-58 58q-17-23-25-50.5T40-590q2-28 14-54.5T87-692l141-141q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l11 11 11-11q24-23 53.5-35t60.5-12q31 0 60.5 12t52.5 35l169 169q23 23 35 53t12 61q0 31-12 60.5T873-437L545-110q-14 14-32.5 22T474-80Zm-99-560Z" fill="rgba(255,255,255,0.18)"/>
           </svg>
         </div>
-        <h3 class="why-card-title">Partenariat Long-Terme</h3>
-        <p class="why-card-description">Nous ne sommes pas des prestataires qui disparaissent après la livraison. Nous devenons les architectes de votre système d'automatisation, engagés dans votre succès.</p>
+        <h3 class="why-card-title">Accompagnement sur la durée</h3>
+        <p class="why-card-description">Relation continue avec la direction, transfert de compétences à l'équipe de réception, évolution des outils selon l'occupation et la saisonnalité de votre hôtel.</p>
         <ul class="why-card-points">
-          <li><span class="why-point-icon"></span>Accompagnement continu et proactif</li>
-          <li><span class="why-point-icon"></span>Évolution de vos systèmes selon vos besoins</li>
-          <li><span class="why-point-icon"></span>Transfert de compétences à vos équipes</li>
+          <li><span class="why-point-icon"></span>Documentation claire pour la réception</li>
+          <li><span class="why-point-icon"></span>Évolution selon votre saisonnalité et votre occupation</li>
+          <li><span class="why-point-icon"></span>Vous restez maître de vos outils — pas de dépendance</li>
         </ul>
       </article>
     </div>
   </section>
 
+  <!--
+    DEFERRED: À propos / Pourquoi l'hôtellerie founder block (FR-020, FR-021).
+    Insert here once the founder portrait, LinkedIn URL, and 3-5 line bio are ready.
+    See tasks T054, T057, T058, T059. Per the spec's edge case, this block must NOT
+    ship with placeholder content. The rest of the page is coherent without it.
+  -->
+
   <!-- ROI Calculator Preview Section -->
   <section class="roi-preview" data-section="roi-preview">
     <div class="roi-preview-header">
-      <span class="roi-preview-tag">Calculateur ROI</span>
-      <h2 class="roi-preview-title">Estimez vos économies en <span class="roi-gradient">30 secondes</span></h2>
-      <p class="roi-preview-subtitle">Découvrez combien l'automatisation peut vous faire économiser chaque mois.</p>
+      <span class="roi-preview-tag">Calculateur ROI hôtel</span>
+      <h2 class="roi-preview-title">Estimez vos gains hôtel en <span class="roi-gradient">30 secondes</span></h2>
+      <p class="roi-preview-subtitle">Heures récupérées à la réception et réservations directes potentielles, en quelques chiffres.</p>
     </div>
 
     <div class="roi-preview-card">
       <div class="roi-preview-inputs">
         <div class="roi-input-group">
-          <label for="preview-employees">Employés concernés</label>
-          <input type="number" id="preview-employees" min="1" max="1000" value="5" class="roi-input">
+          <label for="preview-employees">Personnes à la réception</label>
+          <input type="number" id="preview-employees" min="1" max="100" value="3" class="roi-input">
         </div>
         <div class="roi-input-group">
-          <label for="preview-hours">Heures par tâche</label>
-          <input type="number" id="preview-hours" min="0.5" max="40" step="0.5" value="2" class="roi-input">
+          <label for="preview-hours">Temps moyen par demande (h)</label>
+          <input type="number" id="preview-hours" min="0.25" max="10" step="0.25" value="0.5" class="roi-input">
         </div>
         <div class="roi-input-group">
-          <label for="preview-frequency">Fréquence / semaine</label>
-          <input type="number" id="preview-frequency" min="1" max="100" value="10" class="roi-input">
+          <label for="preview-frequency">Demandes par semaine</label>
+          <input type="number" id="preview-frequency" min="1" max="500" value="40" class="roi-input">
         </div>
         <div class="roi-input-group">
-          <label for="preview-hourly">Coût horaire (€)</label>
-          <input type="number" id="preview-hourly" min="10" max="500" value="35" class="roi-input">
+          <label for="preview-hourly">Coût horaire réception (€)</label>
+          <input type="number" id="preview-hourly" min="10" max="100" value="28" class="roi-input">
         </div>
       </div>
 
       <div class="roi-preview-result">
-        <div class="roi-result-label">Économies potentielles</div>
+        <div class="roi-result-label">Économies estimées / mois</div>
         <div class="roi-result-value">
           <span class="roi-result-plus">+</span>
           <span class="roi-result-number" id="preview-savings">2 121</span>
           <span class="roi-result-currency">€</span>
           <span class="roi-result-period">/ mois</span>
         </div>
-        <p class="roi-result-note">*Basé sur 70% d'efficacité d'automatisation</p>
+        <p class="roi-result-note">*Estimation à 70 % d'efficacité — selon votre cas.</p>
       </div>
 
       <a href="./calculator.html" class="btn btn-primary btn-hero-cta roi-preview-cta">
-        Calcul détaillé avec ROI complet
+        Calcul détaillé pour mon hôtel
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
@@ -637,7 +695,7 @@
     <div class="faq-container">
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span class="faq-question-text">« C'est trop complexe pour mon équipe ? »</span>
+          <span class="faq-question-text">« Dois-je forcément changer de PMS ? »</span>
           <span class="faq-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 5v14M5 12h14"/>
@@ -645,13 +703,13 @@
           </span>
         </button>
         <div class="faq-answer">
-          <p><strong>Non, c'est notre travail de simplifier.</strong> Nous formons vos équipes à utiliser les outils, pas à les construire. L'interface est conçue pour être aussi simple qu'un email. En moyenne, nos clients sont autonomes après 2 sessions de formation de 2 heures.</p>
+          <p><strong>Non, dans la plupart des cas.</strong> Le diagnostic part de votre stack existante. On regarde ce que fait votre PMS aujourd'hui, ce qui marche, ce qui coince — et on évalue le coût d'une migration par rapport à des ajustements ciblés. Beaucoup d'améliorations sont possibles sans changer de PMS.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span class="faq-question-text">« L'IA va-t-elle remplacer mes employés ? »</span>
+          <span class="faq-question-text">« Est-ce compatible avec mon moteur de réservation ? »</span>
           <span class="faq-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 5v14M5 12h14"/>
@@ -659,13 +717,13 @@
           </span>
         </button>
         <div class="faq-answer">
-          <p><strong>Non, elle les libère.</strong> L'IA est un « copilote », pas un remplaçant. Elle prend en charge les tâches répétitives et à faible valeur ajoutée pour que vos talents puissent se concentrer sur ce qui compte vraiment : la relation client, la stratégie, l'innovation. Résultat : +30% de satisfaction employé en moyenne.</p>
+          <p><strong>Oui, dans la majorité des cas.</strong> L'approche est vendor-neutre : on travaille à partir de ce que vous utilisez (Mews, Asterio, Cloudbeds, Misterbooking, Vertical Booking, etc.). Le diagnostic identifie les frictions du parcours de réservation directe et propose des améliorations selon les capacités de votre moteur.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span class="faq-question-text">« Mes données sont-elles en sécurité ? »</span>
+          <span class="faq-question-text">« Est-ce adapté à un hôtel de 15 à 40 chambres ? »</span>
           <span class="faq-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 5v14M5 12h14"/>
@@ -673,13 +731,13 @@
           </span>
         </button>
         <div class="faq-answer">
-          <p><strong>Absolument.</strong> Vos données restent votre propriété exclusive. Infrastructure 100% française (Scaleway Paris), IA souveraine (Mistral AI), conformité RGPD totale. Aucune donnée ne transite par des serveurs américains. Nous signons des accords de confidentialité stricts.</p>
+          <p><strong>Oui, c'est exactement la cible.</strong> Cette offre est conçue pour les hôtels indépendants de 10 à 50 chambres et les petits groupes hôteliers indépendants. À cette échelle, un MVP utile peut être livré en quelques semaines plutôt que sur un projet annuel.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span class="faq-question-text">« Quel est le délai avant de voir des résultats ? »</span>
+          <span class="faq-question-text">« Peut-on commencer sans refaire tout le site ? »</span>
           <span class="faq-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 5v14M5 12h14"/>
@@ -687,13 +745,13 @@
           </span>
         </button>
         <div class="faq-answer">
-          <p><strong>Rapidement.</strong> Notre méthodologie MVP garantit un premier workflow fonctionnel en 2 à 4 semaines. Vous commencez à mesurer les gains dès le premier mois. Pas de projet interminable : vous validez la valeur avant d'investir davantage.</p>
+          <p><strong>Oui, presque toujours.</strong> Une refonte complète est rarement le meilleur premier pas. Le diagnostic permet souvent de récupérer du temps à la réception ou d'améliorer les réservations directes avec des modifications ciblées — script email, page de réservation, intégration d'outils — avant d'envisager une refonte.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">
-          <span class="faq-question-text">« Et si ça ne fonctionne pas pour mon secteur ? »</span>
+          <span class="faq-question-text">« Combien coûte une modernisation ? »</span>
           <span class="faq-icon">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 5v14M5 12h14"/>
@@ -701,7 +759,21 @@
           </span>
         </button>
         <div class="faq-answer">
-          <p><strong>C'est pour ça que l'audit est gratuit.</strong> Nous analysons vos processus spécifiques avant de nous engager. Si l'automatisation n'est pas pertinente pour vous, nous vous le dirons honnêtement. Notre réputation vaut plus qu'un contrat forcé.</p>
+          <p><strong>Cela dépend du périmètre.</strong> Un MVP ciblé (script email, page de réservation, automatisation d'une réponse type) coûte généralement moins qu'une refonte complète de site ou un changement de PMS. Le diagnostic sert précisément à chiffrer plusieurs scénarios pour que vous puissiez choisir en connaissance de cause.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span class="faq-question-text">« Est-ce que l'IA remplace la réception ? »</span>
+          <span class="faq-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Non.</strong> L'objectif est d'aider la réception, pas de la remplacer. L'automatisation prend en charge les demandes répétitives (FAQ avant arrivée, réponses types) pour libérer du temps sur la relation client réelle et le check-in. La décision finale reste humaine.</p>
         </div>
       </div>
     </div>
@@ -711,35 +783,35 @@
   <section class="final-cta" data-section="final-cta">
     <div class="final-cta-bg"></div>
     <div class="final-cta-content">
-      <h2 class="final-cta-title">Prêt à transformer le chaos opérationnel en machine à profit ?</span>
-      <p class="final-cta-subtitle">Découvrez en 30 minutes le potentiel d'automatisation caché dans vos processus actuels.</p>
+      <h2 class="final-cta-title">Prêt à clarifier la stack digitale de votre hôtel ?</h2>
+      <p class="final-cta-subtitle">Un échange de 30 minutes pour identifier les améliorations à fort impact et leur ordre de mise en œuvre — adapté à votre hôtel.</p>
       <div class="final-cta-features">
         <div class="final-cta-feature">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span>Audit gratuit et sans engagement</span>
+          <span>Diagnostic digital hôtel gratuit et sans engagement</span>
         </div>
         <div class="final-cta-feature">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span>Estimation chiffrée de vos gains</span>
+          <span>Estimation des gains réalistes — heures réception, réservations directes</span>
         </div>
         <div class="final-cta-feature">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
-          <span>Plan d'action personnalisé</span>
+          <span>Plan priorisé adapté à la taille de votre hôtel</span>
         </div>
       </div>
       <a href="#audit-booking" class="btn btn-primary btn-hero-cta animate-glow" data-cta data-cta-id="final-cta" data-section="final-cta">
-        Calculer Mon Potentiel d'Automatisation
+        Demander un diagnostic digital hôtel
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
-      <p class="final-cta-note">Réponse sous 24h • Appel de 30 min • 100% confidentiel</p>
+      <p class="final-cta-note">Réponse sous 24 h • Échange de 30 min • Confidentiel</p>
     </div>
   </section>
 
@@ -753,27 +825,28 @@
       </button>
 
       <div class="modal-header">
-        <span class="modal-tag">Audit Gratuit</span>
-        <h2 class="modal-title">Réservez votre diagnostic</h2>
-        <p class="modal-subtitle">Découvrez le potentiel d'automatisation de votre entreprise en 30 minutes.</p>
+        <span class="modal-tag">Diagnostic digital hôtel</span>
+        <h2 class="modal-title">Demandez votre diagnostic digital hôtel</h2>
+        <p class="modal-subtitle">Un échange de 30 minutes pour clarifier votre stack digitale, identifier les améliorations à fort impact et estimer leur ROI.</p>
       </div>
 
       <form class="audit-form" id="audit-form">
         <div class="form-row">
           <div class="form-field">
             <label for="audit-name">Nom complet *</label>
-            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" required>
+            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" maxlength="120" required>
           </div>
+          <!-- Note: input name attribute kept as "company" to preserve Plausible payload-key shape; label changes to "Hôtel" per data-model.md v0→v1 migration note. -->
           <div class="form-field">
-            <label for="audit-company">Entreprise *</label>
-            <input type="text" id="audit-company" name="company" placeholder="Votre entreprise" required>
+            <label for="audit-hotel">Hôtel *</label>
+            <input type="text" id="audit-hotel" name="company" placeholder="Hôtel des Tilleuls" maxlength="120" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="audit-email">Email *</label>
-            <input type="email" id="audit-email" name="email" placeholder="jean@entreprise.fr" required>
+            <input type="email" id="audit-email" name="email" placeholder="jean@hotel-tilleuls.fr" required>
           </div>
           <div class="form-field">
             <label for="audit-phone">Téléphone *</label>
@@ -781,29 +854,38 @@
           </div>
         </div>
 
-        <div class="form-field">
-          <label for="audit-sector">Secteur d'activité</label>
-          <select id="audit-sector" name="sector">
-            <option value="">Sélectionnez votre secteur</option>
-            <option value="transport">Transport & Logistique</option>
-            <option value="commerce">Commerce & Distribution</option>
-            <option value="services">Services aux entreprises</option>
-            <option value="industrie">Industrie & Production</option>
-            <option value="sante">Santé & Médical</option>
-            <option value="autre">Autre</option>
-          </select>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-typology">Typologie d'établissement *</label>
+            <select id="audit-typology" name="typology" required>
+              <option value="" disabled selected>Sélectionnez la typologie de votre établissement</option>
+              <option value="independent">Hôtel indépendant</option>
+              <option value="small-group">Petit groupe hôtelier</option>
+              <option value="hotel-restaurant">Hôtel-restaurant</option>
+              <option value="maison-d-hotes">Maison d'hôtes</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="audit-rooms">Nombre de chambres</label>
+            <input type="number" id="audit-rooms" name="rooms" min="1" max="500" placeholder="22">
+          </div>
         </div>
 
         <div class="form-field">
-          <label for="audit-message">Décrivez brièvement vos besoins</label>
-          <textarea id="audit-message" name="message" placeholder="Quels processus souhaitez-vous automatiser ? Quels sont vos principaux défis opérationnels ?"></textarea>
+          <label for="audit-pms-stack">PMS / moteur de réservation actuels</label>
+          <input type="text" id="audit-pms-stack" name="pms_stack" maxlength="250" placeholder="Mews, Asterio, Cloudbeds, Misterbooking… (optionnel)">
+        </div>
+
+        <div class="form-field">
+          <label for="audit-message">Décrivez brièvement votre situation</label>
+          <textarea id="audit-message" name="message" maxlength="2000" placeholder="Réservations directes, parcours guest, OTA, tâches répétitives à la réception — qu'aimeriez-vous clarifier ou améliorer ?"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary btn-hero-cta animate-glow btn-submit">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
           </svg>
-          Envoyer ma demande
+          Demander un diagnostic digital hôtel
         </button>
 
         <p class="form-note">
@@ -821,7 +903,7 @@
     <div class="footer-container">
       <div class="footer-brand">
         <img src="./assets/rinzler_studio_logo_white-C9JkfPs2.svg" alt="Rinzler Studio" class="footer-logo">
-        <p class="footer-tagline">Automatisation & IA pour Transport & Logistique</p>
+        <p class="footer-tagline">Modernisation digitale pour hôtels indépendants</p>
       </div>
       <div class="footer-links">
         <a href="./mentions-legales.html" class="footer-link">Mentions légales</a>

@@ -3,90 +3,103 @@
  * Handles both preview calculator (homepage) and full calculator (calculator.html)
  */
 
-// Predefined scenarios with default values
+// Predefined scenarios with default values — hotel-relevant baselines.
+// Internal keys preserved for math + Plausible payload compatibility (see
+// specs/002-hotel-marketing-pivot/research.md §6). User-facing labels are
+// rendered from the <select> in calculator.html.
+//   email      → Réponses aux emails clients
+//   leads      → Demandes Booking.com / OTA
+//   onboarding → Questions répétitives avant arrivée
+//   invoicing  → Suivi des réservations directes
+//   reporting  → Reporting direction
 const SCENARIOS = {
   custom: {
-    employees: 5,
-    hoursPerTask: 2,
-    frequency: 10,
-    hourlyRate: 45,
+    employees: 3,
+    hoursPerTask: 0.5,
+    frequency: 40,
+    hourlyRate: 28,
     errorRate: 3,
-    errorCost: 150,
-    errorVolume: 500,
-    leadsLost: 10,
-    leadValue: 500,
-    implCost: 15000,
-    monthlyCost: 200,
+    errorCost: 80,
+    errorVolume: 200,
+    leadsLost: 8,
+    leadValue: 350,
+    implCost: 6000,
+    monthlyCost: 120,
     efficiency: 70
   },
   email: {
-    employees: 3,
-    hoursPerTask: 3,
-    frequency: 25,
-    hourlyRate: 40,
+    // Réponses aux emails clients — petit hôtel, demandes courantes
+    employees: 2,
+    hoursPerTask: 0.4,
+    frequency: 50,
+    hourlyRate: 28,
     errorRate: 5,
-    errorCost: 50,
-    errorVolume: 1000,
-    leadsLost: 5,
-    leadValue: 200,
-    implCost: 8000,
-    monthlyCost: 150,
+    errorCost: 60,
+    errorVolume: 240,
+    leadsLost: 4,
+    leadValue: 250,
+    implCost: 4500,
+    monthlyCost: 90,
     efficiency: 80
   },
   leads: {
-    employees: 4,
-    hoursPerTask: 1.5,
+    // Demandes Booking.com / OTA — réponses rapides = meilleure conversion
+    employees: 2,
+    hoursPerTask: 0.5,
     frequency: 30,
-    hourlyRate: 50,
+    hourlyRate: 28,
     errorRate: 8,
-    errorCost: 300,
-    errorVolume: 200,
-    leadsLost: 20,
-    leadValue: 800,
-    implCost: 12000,
-    monthlyCost: 200,
+    errorCost: 120,
+    errorVolume: 140,
+    leadsLost: 12,
+    leadValue: 320,
+    implCost: 5000,
+    monthlyCost: 100,
     efficiency: 75
   },
   invoicing: {
-    employees: 2,
-    hoursPerTask: 4,
+    // Suivi des réservations directes — visibilité + relance + récupération
+    employees: 1,
+    hoursPerTask: 0.75,
     frequency: 20,
-    hourlyRate: 35,
+    hourlyRate: 30,
     errorRate: 4,
-    errorCost: 200,
-    errorVolume: 400,
-    leadsLost: 0,
-    leadValue: 0,
-    implCost: 10000,
-    monthlyCost: 100,
+    errorCost: 150,
+    errorVolume: 100,
+    leadsLost: 6,
+    leadValue: 380,
+    implCost: 5500,
+    monthlyCost: 110,
     efficiency: 85
   },
   onboarding: {
-    employees: 3,
-    hoursPerTask: 5,
-    frequency: 8,
-    hourlyRate: 55,
+    // Questions répétitives avant arrivée (parking, check-in, animal, petit-déj…)
+    employees: 2,
+    hoursPerTask: 0.3,
+    frequency: 60,
+    hourlyRate: 28,
     errorRate: 2,
-    errorCost: 500,
-    errorVolume: 50,
-    leadsLost: 5,
-    leadValue: 1000,
-    implCost: 20000,
-    monthlyCost: 250,
-    efficiency: 65
+    errorCost: 70,
+    errorVolume: 260,
+    leadsLost: 2,
+    leadValue: 200,
+    implCost: 4000,
+    monthlyCost: 80,
+    efficiency: 85
   },
   reporting: {
-    employees: 2,
-    hoursPerTask: 8,
-    frequency: 4,
-    hourlyRate: 60,
+    // Reporting direction — tableau de bord mensuel à la place de tableaux Excel
+    employees: 1,
+    hoursPerTask: 3,
+    frequency: 2,
+    hourlyRate: 40,
     errorRate: 6,
-    errorCost: 100,
-    errorVolume: 100,
+    errorCost: 80,
+    errorVolume: 30,
     leadsLost: 0,
     leadValue: 0,
-    implCost: 8000,
-    monthlyCost: 100,
+    implCost: 3500,
+    monthlyCost: 60,
     efficiency: 90
   }
 };
@@ -493,22 +506,34 @@ function initCalcAuditModal() {
         },
         body: JSON.stringify({
           name: formData.get('name'),
-          company: formData.get('company'),
+          // Input name attribute stays "company" (Plausible payload compat); the field collects hotel name.
+          hotel: formData.get('company'),
           email: formData.get('email'),
           phone: formData.get('phone'),
-          sector: formData.get('sector'),
+          typology: formData.get('typology'),
+          rooms: formData.get('rooms') || undefined,
+          pms_stack: formData.get('pms_stack') || undefined,
           message: formData.get('message'),
           source: 'calculator_page',
-          _subject: `Nouvelle demande d'audit (Calculateur) - ${formData.get('company')}`
+          _subject: `Nouvelle demande de diagnostic digital hôtel (Calculateur) — ${formData.get('company')}`
         })
       });
 
       if (response.ok) {
         showSuccess();
+        // Event name "Audit Request" preserved for dashboard comparability
+        // (see specs/002-hotel-marketing-pivot/contracts/plausible-events.md).
         if (window.plausible) {
-          window.plausible('Audit Request', {
-            props: { company: formData.get('company'), source: 'calculator' }
-          });
+          const props = {
+            hotel: formData.get('company'),
+            typology: formData.get('typology'),
+            source: 'calculator'
+          };
+          const roomsValue = formData.get('rooms');
+          if (roomsValue) {
+            props.rooms = Number(roomsValue);
+          }
+          window.plausible('Audit Request', { props });
         }
         form.reset();
       } else {
@@ -516,7 +541,7 @@ function initCalcAuditModal() {
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter à hello@rinzlerstudio.com.');
     } finally {
       submitBtn.disabled = false;
       submitBtn.innerHTML = originalText;
@@ -534,7 +559,7 @@ function initCalcAuditModal() {
           </svg>
         </div>
         <h3 class="success-title">Demande envoyée !</h3>
-        <p class="success-text">Merci pour votre intérêt. Nous vous contacterons dans les 24 heures pour planifier votre audit gratuit.</p>
+        <p class="success-text">Merci pour votre intérêt. Nous vous recontactons sous 24 h pour planifier votre diagnostic digital hôtel.</p>
         <button class="btn btn-primary" onclick="document.getElementById('audit-modal').classList.remove('active'); document.body.style.overflow = '';">
           Fermer
         </button>

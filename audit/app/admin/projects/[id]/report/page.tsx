@@ -44,13 +44,23 @@ function fmtValue(v: unknown, options?: Record<string, string>): string {
 
 export default async function ReportPage({ params }: ReportPageProps) {
   const { id } = await params;
-  const project = db.select().from(projects).where(eq(projects.id, id)).get();
+  const [project] = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
   if (!project) notFound();
-  const submission = db.select().from(submissions).where(eq(submissions.projectId, project.id)).get();
+  const [submission] = await db
+    .select()
+    .from(submissions)
+    .where(eq(submissions.projectId, project.id))
+    .limit(1);
   if (!submission) notFound();
-  const answerRows = db.select().from(answers).where(eq(answers.submissionId, submission.id)).all();
+  const answerRows = await db
+    .select()
+    .from(answers)
+    .where(eq(answers.submissionId, submission.id));
   const byField = new Map(answerRows.map((a) => [a.fieldId, a]));
-  const scoreRows = db.select().from(scores).where(eq(scores.submissionId, submission.id)).all();
+  const scoreRows = await db
+    .select()
+    .from(scores)
+    .where(eq(scores.submissionId, submission.id));
 
   const fmt = (d: Date | null): string =>
     d

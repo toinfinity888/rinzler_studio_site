@@ -22,7 +22,20 @@
       "Bash(npx tsx *)",
       "Bash(npx tsc *)",
       "Bash(npm test *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npm uninstall *)",
+      "Bash(DATABASE_URL=\"mysql://placeholder:placeholder@localhost:3306/placeholder\" npx drizzle-kit generate)",
+      "Bash(cp -R public .next/standalone/public)",
+      "Bash(cp -R .next/static .next/standalone/.next/static)",
+      "Bash(cp -R db .next/standalone/db)",
+      "Bash(cp -R scripts .next/standalone/scripts)",
+      "Bash(cp -R lib .next/standalone/lib)",
+      "Bash(.specify/extensions/git/scripts/bash/create-new-feature.sh *)",
+      "Bash(sort -t- -k2 -n)",
+      "Bash(.specify/scripts/bash/check-prerequisites.sh *)",
+      "Bash(echo \"---exit: $?\")",
+      "Bash(.specify/scripts/bash/setup-plan.sh *)",
+      "Bash(.specify/scripts/bash/update-agent-context.sh claude *)"
     ]
   }
 }

@@ -1,18 +1,28 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.0 → 1.1.1
-Type: PATCH amendment — two scope clarifications surfaced by
-`/speckit.analyze` of feature 001-hotel-audit-platform:
-  1) Add a one-line scoping note to Principle II so its meaning is clear
-     for non-marketing applications (the audit app's CTAs aren't the
-     marketing funnel's CTAs). No semantic change to the marketing site.
-  2) Lock the Plausible `data-domain` for the audit app to
-     `audit.rinzlerstudio.com` (the audit subdomain) — replacing the prior
-     "either-or" wording in the audit sub-stack.
+Version change: 1.1.1 → 1.1.2
+Type: PATCH amendment — one wording clarification surfaced by
+`/speckit.analyze` of feature 002-hotel-marketing-pivot:
+  - Principle II's parenthetical example named the legacy segment
+    ("cost reduction for transport & logistics SMEs"). The studio is
+    pivoting the marketing site to a different SME segment (petits
+    hôtels indépendants, per feature 002), and the literal parenthetical
+    was creating a documented constitution-vs-spec conflict.
+  - Resolution: rewrite the parenthetical in segment-neutral terms so
+    the principle survives future re-segmentation without further
+    amendment. The principle itself (above-the-fold headline value
+    proposition) is unchanged.
 
 No principle was removed, renamed, or redefined; no new section added.
-Both edits are clarifications, hence PATCH per the versioning policy.
+The edit is a wording clarification, hence PATCH per the versioning
+policy.
+
+Earlier amendment (v1.1.0 → v1.1.1, 2026-05-09):
+  - Added a Principle II scope note for non-marketing applications
+    (audit platform CTAs).
+  - Locked the Plausible `data-domain` for the audit app to
+    `audit.rinzlerstudio.com`.
 
 Earlier amendment (v1.0.0 → v1.1.0, 2026-05-09):
   - Renamed "Technical Constraints & Stack" → "(Marketing Site)" and
@@ -25,9 +35,13 @@ Templates requiring updates:
   - all .specify/templates/*.md                ✅ compatible (no constitution-specific references)
 
 Dependent feature artifacts:
-  - specs/001-hotel-audit-platform/plan.md     ✅ aligned (Plausible domain
-    locked; Principle II re-interpretation now constitution-sanctioned)
+  - specs/001-hotel-audit-platform/plan.md     ✅ aligned (no Principle II
+    parenthetical references; the audit app uses the scope-note carve-out)
   - specs/001-hotel-audit-platform/tasks.md    ✅ aligned
+  - specs/002-hotel-marketing-pivot/spec.md    ✅ aligned by this amendment
+  - specs/002-hotel-marketing-pivot/plan.md    ✅ Constitution Check still PASS;
+    the hotel value prop is the headline-of-the-day under the new neutral wording
+  - specs/002-hotel-marketing-pivot/tasks.md   ✅ aligned
 
 Runtime guidance docs:
   - README.md                                  ⚠ still missing at repo
@@ -59,8 +73,13 @@ Every primary page section MUST have a single, unambiguous call-to-action tied t
 of the two conversion goals: (a) booking a free audit, or (b) using the ROI calculator
 (`calculator.html`). New sections that do not advance one of these goals MUST be
 justified in writing in the PR description or rejected. Hero, pricing, and proof
-sections MUST surface the headline value proposition (cost reduction for transport &
-logistics SMEs) above the fold on desktop and within the first viewport on mobile.
+sections MUST surface the page's headline value proposition for the marketing site's
+currently-targeted SME segment above the fold on desktop and within the first
+viewport on mobile. The current segment is defined by the most recently merged
+positioning feature under `specs/` (at the time of v1.1.2: petits hôtels
+indépendants, per feature 002); re-segmentation is permitted without a constitution
+amendment as long as a positioning feature documents it and Principle II's
+above-the-fold requirement is preserved.
 
 **Rationale:** This is a lead-generation site, not a content publication. Sections
 without a CTA dilute the funnel and slow page weight without measurable return.
@@ -243,4 +262,4 @@ constitution is amended first.
   `.specify/templates/`. This constitution is the source of truth only for the
   principles and constraints above.
 
-**Version**: 1.1.1 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-09
+**Version**: 1.1.2 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-13

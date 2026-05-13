@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Calculez votre ROI d'automatisation - Estimez vos économies avec notre calculateur interactif de retour sur investissement">
-  <meta name="keywords" content="calculateur ROI, automatisation, économies, retour sur investissement, PME, France">
+  <meta name="description" content="Calculateur ROI pour hôtels indépendants — estimez les heures récupérées à la réception et les réservations directes potentielles. Scénarios concrets : emails clients, Booking.com / OTA, mise à jour du site, suivi des réservations.">
+  <meta name="keywords" content="calculateur ROI hôtel, hôtellerie indépendante, PMS, moteur de réservation, réservation directe, Booking.com, OTA, automatisation, France">
   <meta name="theme-color" content="#0a0a0f">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
 
-  <title>Calculateur ROI Automatisation | Rinzler Studio</title>
+  <title>Calculateur ROI Hôtel | Rinzler Studio</title>
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Rinzler Studio">
+  <meta property="og:title" content="Calculateur ROI Hôtel">
+  <meta property="og:description" content="Estimez en quelques minutes les heures économisées à la réception et les réservations directes potentielles pour votre hôtel indépendant.">
+  <meta property="og:url" content="https://rinzlerstudio.fr/calculator.html">
+  <meta property="og:image" content="https://rinzlerstudio.fr/logo.png">
+  <meta property="og:locale" content="fr_FR">
 
   <!-- Plausible Analytics -->
   <link rel="preconnect" href="https://plausible.io">
@@ -38,7 +47,7 @@
     </a>
     <nav class="header-nav" id="header-nav">
       <a href="./calculator.html" class="nav-link nav-link--active">Calculateur ROI</a>
-      <a href="./index.html#audit-booking" class="btn btn-primary btn-sm nav-cta">Audit Gratuit</a>
+      <a href="./index.html#audit-booking" class="btn btn-primary btn-sm nav-cta">Diagnostic</a>
     </nav>
     <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Ouvrir le menu" aria-expanded="false">
       <span class="hamburger-line"></span>
@@ -50,8 +59,8 @@
   <main class="calculator-page">
     <!-- Hero Banner -->
     <section class="calc-hero">
-      <h1 class="calc-hero-title">Calculateur <span class="calc-gradient">ROI</span> Automatisation</h1>
-      <p class="calc-hero-subtitle">Estimez précisément vos économies et le retour sur investissement de l'automatisation de vos processus.</p>
+      <h1 class="calc-hero-title">Calculateur <span class="calc-gradient">ROI</span> Hôtel</h1>
+      <p class="calc-hero-subtitle">Estimez en quelques minutes les heures économisées à la réception et les réservations directes potentielles pour votre hôtel indépendant.</p>
     </section>
 
     <!-- Calculator Grid -->
@@ -68,11 +77,11 @@
           </h3>
           <select id="calc-scenario" class="calc-select">
             <option value="custom">Personnalisé</option>
-            <option value="email">Traitement emails</option>
-            <option value="leads">Gestion des leads</option>
-            <option value="invoicing">Facturation</option>
-            <option value="onboarding">Onboarding clients</option>
-            <option value="reporting">Reporting</option>
+            <option value="email">Réponses aux emails clients</option>
+            <option value="leads">Demandes Booking.com / OTA</option>
+            <option value="onboarding">Questions répétitives avant arrivée</option>
+            <option value="invoicing">Suivi des réservations directes</option>
+            <option value="reporting">Reporting direction</option>
           </select>
         </div>
 
@@ -82,67 +91,67 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
             </svg>
-            Temps & Coûts de main-d'œuvre
+            Temps & coûts à la réception
           </h3>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-employees">Employés concernés</label>
+              <label for="calc-employees">Personnes à la réception</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Nombre total de personnes qui exécutent cette tâche régulièrement dans votre organisation.</span>
+                <span class="info-tooltip">Nombre de personnes (réception, direction, propriétaire) qui traitent ce type de demande régulièrement dans votre hôtel.</span>
               </span>
             </div>
-            <input type="number" id="calc-employees" min="1" max="1000" value="5">
+            <input type="number" id="calc-employees" min="1" max="100" value="3">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-hours-task">Heures par tâche</label>
+              <label for="calc-hours-task">Temps moyen par demande (h)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Durée moyenne nécessaire pour accomplir une seule instance de cette tâche, du début à la fin.</span>
+                <span class="info-tooltip">Temps moyen passé sur une demande type (lecture, recherche, rédaction de la réponse, suivi).</span>
               </span>
             </div>
-            <input type="number" id="calc-hours-task" min="0.25" max="40" step="0.25" value="2">
+            <input type="number" id="calc-hours-task" min="0.1" max="10" step="0.1" value="0.5">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-frequency">Fréquence par semaine</label>
+              <label for="calc-frequency">Demandes par semaine</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Combien de fois cette tâche est exécutée chaque semaine par tous les employés combinés.</span>
+                <span class="info-tooltip">Combien de demandes de ce type vous traitez chaque semaine — emails clients, demandes Booking.com, FAQ avant arrivée…</span>
               </span>
             </div>
-            <input type="number" id="calc-frequency" min="1" max="200" value="10">
+            <input type="number" id="calc-frequency" min="1" max="500" value="40">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-hourly-rate">Coût horaire chargé (€)</label>
+              <label for="calc-hourly-rate">Coût horaire réception (€)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Salaire horaire brut + charges patronales. En France, comptez environ 1.5× le salaire net horaire.</span>
+                <span class="info-tooltip">Coût horaire chargé d'une personne à la réception (salaire + charges patronales). En France, comptez environ 1.5× le salaire net horaire.</span>
               </span>
             </div>
-            <input type="number" id="calc-hourly-rate" min="10" max="500" value="45">
+            <input type="number" id="calc-hourly-rate" min="10" max="100" value="28">
           </div>
         </div>
 
@@ -152,19 +161,19 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
             </svg>
-            Coûts des erreurs
+            Demandes mal traitées
           </h3>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-error-rate">Taux d'erreur actuel (%)</label>
+              <label for="calc-error-rate">Taux de demandes mal traitées (%)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Pourcentage de transactions contenant des erreurs nécessitant une correction manuelle.</span>
+                <span class="info-tooltip">Part de demandes oubliées, traitées en retard, ou nécessitant un second échange. Selon votre cas.</span>
               </span>
             </div>
             <input type="number" id="calc-error-rate" min="0" max="50" step="0.5" value="3">
@@ -172,32 +181,32 @@
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-error-cost">Coût moyen par erreur (€)</label>
+              <label for="calc-error-cost">Coût moyen d'une demande mal traitée (€)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Coût total de correction : temps passé, pénalités éventuelles, impact client, et coûts administratifs.</span>
+                <span class="info-tooltip">Coût estimé d'une demande mal traitée : avis négatif potentiel, réservation perdue, temps de rattrapage.</span>
               </span>
             </div>
-            <input type="number" id="calc-error-cost" min="0" max="10000" value="150">
+            <input type="number" id="calc-error-cost" min="0" max="2000" value="80">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-error-volume">Volume mensuel de transactions</label>
+              <label for="calc-error-volume">Volume mensuel de demandes clients</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Nombre total de transactions ou opérations traitées chaque mois pour ce processus.</span>
+                <span class="info-tooltip">Nombre total de demandes clients reçues chaque mois — emails, formulaire site, OTA, téléphone.</span>
               </span>
             </div>
-            <input type="number" id="calc-error-volume" min="1" max="100000" value="500">
+            <input type="number" id="calc-error-volume" min="1" max="10000" value="200">
           </div>
         </div>
 
@@ -207,37 +216,37 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/>
             </svg>
-            Opportunités manquées
+            Réservations directes manquées
           </h3>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-leads-lost">Leads perdus par mois</label>
+              <label for="calc-leads-lost">Réservations directes manquées / mois</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Prospects perdus à cause d'un temps de réponse trop long ou d'un suivi inadéquat des demandes.</span>
+                <span class="info-tooltip">Réservations potentielles perdues à cause d'un parcours direct peu clair, d'un moteur lent, ou d'un retour OTA plus rapide.</span>
               </span>
             </div>
-            <input type="number" id="calc-leads-lost" min="0" max="1000" value="10">
+            <input type="number" id="calc-leads-lost" min="0" max="1000" value="8">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-lead-value">Valeur moyenne d'un lead (€)</label>
+              <label for="calc-lead-value">Valeur moyenne d'une réservation directe (€)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Revenu moyen généré par un prospect converti en client. Considérez la valeur sur la durée de vie du client.</span>
+                <span class="info-tooltip">Revenu net moyen d'une réservation directe (panier moyen × nombre moyen de nuits), commission OTA évitée comprise.</span>
               </span>
             </div>
-            <input type="number" id="calc-lead-value" min="0" max="100000" value="500">
+            <input type="number" id="calc-lead-value" min="0" max="5000" value="350">
           </div>
         </div>
 
@@ -247,7 +256,7 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
             </svg>
-            Implémentation (TCO)
+            Investissement & coûts récurrents
           </h3>
 
           <div class="calc-field">
@@ -259,25 +268,25 @@
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Investissement initial unique : développement, intégration aux systèmes existants, tests et formation des équipes.</span>
+                <span class="info-tooltip">Investissement initial estimé : diagnostic, mise en place de l'automatisation / amélioration du site / intégration d'outils, formation de la réception.</span>
               </span>
             </div>
-            <input type="number" id="calc-impl-cost" min="0" max="500000" value="15000">
+            <input type="number" id="calc-impl-cost" min="0" max="100000" value="6000">
           </div>
 
           <div class="calc-field">
             <div class="calc-field-label">
-              <label for="calc-monthly-cost">Coût mensuel exploitation (€)</label>
+              <label for="calc-monthly-cost">Coût mensuel récurrent (€)</label>
               <span class="info-tooltip-trigger" data-tooltip>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9"/>
                   <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.4-1 1-1 1.7v.5"/>
                   <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
                 </svg>
-                <span class="info-tooltip">Frais récurrents mensuels : licences logicielles, hébergement cloud, maintenance et support technique.</span>
+                <span class="info-tooltip">Frais récurrents mensuels après mise en place : licences (PMS, channel manager, outils d'automatisation), hébergement, maintenance.</span>
               </span>
             </div>
-            <input type="number" id="calc-monthly-cost" min="0" max="10000" value="200">
+            <input type="number" id="calc-monthly-cost" min="0" max="2000" value="120">
           </div>
         </div>
 
@@ -287,14 +296,14 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
               <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
             </svg>
-            Niveau d'automatisation
+            Niveau d'amélioration estimé
             <span class="info-tooltip-trigger" data-tooltip>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="16" x2="12" y2="12"/>
                 <line x1="12" y1="8" x2="12.01" y2="8"/>
               </svg>
-              <span class="info-tooltip">Pourcentage du processus pouvant être automatisé. Varie selon la complexité, la standardisation des données et les exceptions à gérer.</span>
+              <span class="info-tooltip">Part du processus que l'on peut espérer améliorer (automatisation, refonte d'un parcours, intégration d'outils). 70 % est un repère prudent pour un hôtel indépendant.</span>
             </span>
           </h3>
 
@@ -314,7 +323,7 @@
         <div class="calc-results-card">
           <!-- Main Savings -->
           <div class="calc-result-main">
-            <span class="calc-result-label">Économies mensuelles estimées</span>
+            <span class="calc-result-label">Économies estimées / mois</span>
             <div class="calc-result-value-large">
               <span class="calc-result-currency-large">€</span>
               <span class="calc-result-number-large" id="result-savings">12 450</span>
@@ -329,26 +338,26 @@
             </div>
             <div class="calc-metric">
               <span class="calc-metric-value" id="result-payback">4.2</span>
-              <span class="calc-metric-label">Mois de payback</span>
+              <span class="calc-metric-label">Mois de retour</span>
             </div>
             <div class="calc-metric">
               <span class="calc-metric-value" id="result-hours">160h</span>
-              <span class="calc-metric-label">Heures libérées/mois</span>
+              <span class="calc-metric-label">Heures récupérées / mois</span>
             </div>
           </div>
 
           <!-- Before/After Mini Visualization -->
           <div class="calc-comparison">
-            <h4 class="calc-comparison-title">Comparaison Avant / Après</h4>
+            <h4 class="calc-comparison-title">Comparaison avant / après</h4>
             <div class="calc-bars">
               <div class="calc-bar-group">
-                <span class="calc-bar-label">Heures manuelles</span>
+                <span class="calc-bar-label">Heures à la réception (avant)</span>
                 <div class="calc-bar calc-bar--before" style="--bar-width: 100%">
                   <span id="bar-before-hours">200h</span>
                 </div>
               </div>
               <div class="calc-bar-group">
-                <span class="calc-bar-label">Heures après automation</span>
+                <span class="calc-bar-label">Heures à la réception (après)</span>
                 <div class="calc-bar calc-bar--after" style="--bar-width: 30%">
                   <span id="bar-after-hours">60h</span>
                 </div>
@@ -395,12 +404,12 @@
 
           <!-- CTA -->
           <div class="calc-cta">
-            <p class="calc-cta-text">Ces chiffres sont des estimations. Obtenez une analyse personnalisée de votre situation.</p>
+            <p class="calc-cta-text">Ces chiffres sont des estimations. Obtenez une analyse adaptée à votre hôtel.</p>
             <a href="#audit-booking" class="btn btn-primary btn-hero-cta animate-glow">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
               </svg>
-              Demander mon audit gratuit
+              Demander un diagnostic digital hôtel
             </a>
           </div>
         </div>
@@ -412,7 +421,7 @@
       <p class="calc-footer-text">
         <a href="./index.html" class="calc-footer-link">← Retour à l'accueil</a>
         &nbsp;|&nbsp;
-        Rinzler Studio - Automatisation intelligente pour PME
+        Rinzler Studio — Modernisation digitale pour hôtels indépendants
       </p>
     </footer>
   </main>
@@ -427,27 +436,28 @@
       </button>
 
       <div class="modal-header">
-        <span class="modal-tag">Audit Gratuit</span>
-        <h2 class="modal-title">Réservez votre diagnostic</h2>
-        <p class="modal-subtitle">Découvrez le potentiel d'automatisation de votre entreprise en 30 minutes.</p>
+        <span class="modal-tag">Diagnostic digital hôtel</span>
+        <h2 class="modal-title">Demandez votre diagnostic digital hôtel</h2>
+        <p class="modal-subtitle">Un échange de 30 minutes pour clarifier votre stack digitale, identifier les améliorations à fort impact et estimer leur ROI.</p>
       </div>
 
       <form class="audit-form" id="audit-form">
         <div class="form-row">
           <div class="form-field">
             <label for="audit-name">Nom complet *</label>
-            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" required>
+            <input type="text" id="audit-name" name="name" placeholder="Jean Dupont" maxlength="120" required>
           </div>
+          <!-- Note: input name attribute kept as "company" to preserve Plausible payload-key shape; label changes to "Hôtel" per data-model.md v0→v1 migration note. -->
           <div class="form-field">
-            <label for="audit-company">Entreprise *</label>
-            <input type="text" id="audit-company" name="company" placeholder="Votre entreprise" required>
+            <label for="audit-hotel">Hôtel *</label>
+            <input type="text" id="audit-hotel" name="company" placeholder="Hôtel des Tilleuls" maxlength="120" required>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-field">
             <label for="audit-email">Email *</label>
-            <input type="email" id="audit-email" name="email" placeholder="jean@entreprise.fr" required>
+            <input type="email" id="audit-email" name="email" placeholder="jean@hotel-tilleuls.fr" required>
           </div>
           <div class="form-field">
             <label for="audit-phone">Téléphone *</label>
@@ -455,29 +465,38 @@
           </div>
         </div>
 
-        <div class="form-field">
-          <label for="audit-sector">Secteur d'activité</label>
-          <select id="audit-sector" name="sector">
-            <option value="">Sélectionnez votre secteur</option>
-            <option value="transport">Transport & Logistique</option>
-            <option value="commerce">Commerce & Distribution</option>
-            <option value="services">Services aux entreprises</option>
-            <option value="industrie">Industrie & Production</option>
-            <option value="sante">Santé & Médical</option>
-            <option value="autre">Autre</option>
-          </select>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="audit-typology">Typologie d'établissement *</label>
+            <select id="audit-typology" name="typology" required>
+              <option value="" disabled selected>Sélectionnez la typologie de votre établissement</option>
+              <option value="independent">Hôtel indépendant</option>
+              <option value="small-group">Petit groupe hôtelier</option>
+              <option value="hotel-restaurant">Hôtel-restaurant</option>
+              <option value="maison-d-hotes">Maison d'hôtes</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="audit-rooms">Nombre de chambres</label>
+            <input type="number" id="audit-rooms" name="rooms" min="1" max="500" placeholder="22">
+          </div>
         </div>
 
         <div class="form-field">
-          <label for="audit-message">Décrivez brièvement vos besoins</label>
-          <textarea id="audit-message" name="message" placeholder="Quels processus souhaitez-vous automatiser ? Quels sont vos principaux défis opérationnels ?"></textarea>
+          <label for="audit-pms-stack">PMS / moteur de réservation actuels</label>
+          <input type="text" id="audit-pms-stack" name="pms_stack" maxlength="250" placeholder="Mews, Asterio, Cloudbeds, Misterbooking… (optionnel)">
+        </div>
+
+        <div class="form-field">
+          <label for="audit-message">Décrivez brièvement votre situation</label>
+          <textarea id="audit-message" name="message" maxlength="2000" placeholder="Réservations directes, parcours guest, OTA, tâches répétitives à la réception — qu'aimeriez-vous clarifier ou améliorer ?"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary btn-hero-cta animate-glow btn-submit">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
           </svg>
-          Envoyer ma demande
+          Demander un diagnostic digital hôtel
         </button>
 
         <p class="form-note">

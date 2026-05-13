@@ -44,48 +44,45 @@ export async function createProject(rawInput: CreateProjectInput): Promise<Creat
     ? validatePartial(input.prefill, SCHEMA).valid
     : {};
 
-  db.transaction((tx) => {
-    tx.insert(projects)
-      .values({
-        id: projectId,
-        label: input.label.trim(),
-        hotelName: input.hotelName?.trim() || null,
-        contactEmail: input.contactEmail,
-        priority: input.priority ?? "medium",
-        status: "awaiting",
-        tokenHash: hash,
-        ongoingEngagement: false,
-        createdAt: now,
-        lastAdminActivityAt: now,
-        createdBy: admin.id,
-      })
-      .run();
-    tx.insert(submissions)
-      .values({
-        id: submissionId,
-        projectId,
-        completionPct: 0,
-        createdAt: now,
-        updatedAt: now,
-      })
-      .run();
+  await db.transaction(async (tx) => {
+    await tx.insert(projects).values({
+      id: projectId,
+      label: input.label.trim(),
+      hotelName: input.hotelName?.trim() || null,
+      contactEmail: input.contactEmail,
+      priority: input.priority ?? "medium",
+      status: "awaiting",
+      tokenHash: hash,
+      ongoingEngagement: false,
+      createdAt: now,
+      lastAdminActivityAt: now,
+      createdBy: admin.id,
+    });
+    await tx.insert(submissions).values({
+      id: submissionId,
+      projectId,
+      completionPct: 0,
+      createdAt: now,
+      updatedAt: now,
+    });
 
     for (const [fieldId, value] of Object.entries(validatedPrefill)) {
-      tx.insert(answers)
-        .values({
-          id: randomUUID(),
-          submissionId,
-          fieldId,
-          valueJson: JSON.stringify(value),
-          updatedAt: now,
-          source: "admin_prefill",
-        })
-        .run();
+      await tx.insert(answers).values({
+        id: randomUUID(),
+        submissionId,
+        fieldId,
+        valueJson: JSON.stringify(value),
+        updatedAt: now,
+        source: "admin_prefill",
+      });
     }
 
     if (Object.keys(validatedPrefill).length > 0) {
       const pct = computeCompletionPct(validatedPrefill, SECTIONS);
-      tx.update(submissions).set({ completionPct: pct, updatedAt: now }).where(eq(submissions.id, submissionId)).run();
+      await tx
+        .update(submissions)
+        .set({ completionPct: pct, updatedAt: now })
+        .where(eq(submissions.id, submissionId));
     }
   });
 
@@ -105,14 +102,17 @@ export async function createProject(rawInput: CreateProjectInput): Promise<Creat
 
 const PRIORITY_INPUT = z.enum(PRIORITIES);
 
-export async function updateProjectPriority(projectId: string, priority: (typeof PRIORITIES)[number]) {
+export async function updateProjectPriority(
+  projectId: string,
+  priority: (typeof PRIORITIES)[number],
+) {
   const admin = await requireAdmin();
   const validated = PRIORITY_INPUT.parse(priority);
   const now = new Date();
-  db.update(projects)
+  await db
+    .update(projects)
     .set({ priority: validated, lastAdminActivityAt: now })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
   writeAuditEntry({
     actorId: admin.id,
     action: "project.update_priority",
@@ -124,10 +124,10 @@ export async function updateProjectPriority(projectId: string, priority: (typeof
 
 export async function bumpLastAdminActivity(projectId: string) {
   await requireAdmin();
-  db.update(projects)
+  await db
+    .update(projects)
     .set({ lastAdminActivityAt: new Date() })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
 }
 
 export async function appendInternalNote(projectId: string, body: string) {
@@ -137,29 +137,27 @@ export async function appendInternalNote(projectId: string, body: string) {
     throw new Error("Note body must be 1..5000 characters");
   }
   const now = new Date();
-  db.insert(internalNotes)
-    .values({
-      id: randomUUID(),
-      projectId,
-      authorId: admin.id,
-      body: trimmed,
-      createdAt: now,
-    })
-    .run();
-  db.update(projects)
+  await db.insert(internalNotes).values({
+    id: randomUUID(),
+    projectId,
+    authorId: admin.id,
+    body: trimmed,
+    createdAt: now,
+  });
+  await db
+    .update(projects)
     .set({ lastAdminActivityAt: now })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
   revalidatePath(`/admin/projects/${projectId}`);
 }
 
 export async function revokeProjectToken(projectId: string) {
   const admin = await requireAdmin();
   const now = new Date();
-  db.update(projects)
+  await db
+    .update(projects)
     .set({ tokenRevokedAt: now, lastAdminActivityAt: now })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
   writeAuditEntry({ actorId: admin.id, action: "project.revoke", projectId });
   revalidatePath("/admin/projects");
   revalidatePath(`/admin/projects/${projectId}`);
@@ -168,10 +166,10 @@ export async function revokeProjectToken(projectId: string) {
 export async function reopenProject(projectId: string) {
   const admin = await requireAdmin();
   const now = new Date();
-  db.update(projects)
+  await db
+    .update(projects)
     .set({ status: "reopened", lastAdminActivityAt: now })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
   writeAuditEntry({ actorId: admin.id, action: "project.reopen", projectId });
   revalidatePath("/admin/projects");
   revalidatePath(`/admin/projects/${projectId}`);
@@ -179,10 +177,10 @@ export async function reopenProject(projectId: string) {
 
 export async function markOngoingEngagement(projectId: string, ongoing: boolean) {
   const admin = await requireAdmin();
-  db.update(projects)
+  await db
+    .update(projects)
     .set({ ongoingEngagement: ongoing, lastAdminActivityAt: new Date() })
-    .where(eq(projects.id, projectId))
-    .run();
+    .where(eq(projects.id, projectId));
   writeAuditEntry({
     actorId: admin.id,
     action: "project.mark_ongoing",
@@ -198,12 +196,12 @@ const DELETE_INPUT = z.object({ projectId: z.string(), confirmLabel: z.string() 
 export async function deleteProject(projectId: string, confirmLabel: string) {
   const admin = await requireAdmin();
   DELETE_INPUT.parse({ projectId, confirmLabel });
-  const project = db.select().from(projects).where(eq(projects.id, projectId)).get();
+  const [project] = await db.select().from(projects).where(eq(projects.id, projectId)).limit(1);
   if (!project) throw new Error("Project not found");
   if (project.label !== confirmLabel) {
     throw new Error("Confirmation label does not match");
   }
-  db.delete(projects).where(eq(projects.id, projectId)).run();
+  await db.delete(projects).where(eq(projects.id, projectId));
   writeAuditEntry({
     actorId: admin.id,
     action: "project.delete",
