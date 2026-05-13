@@ -7,7 +7,8 @@ INPUT_PATH = Path("/Users/saraevsviatoslav/Documents/rinzler_studio_web_site/db_
 OUTPUT_DIR = INPUT_PATH.parent / "filtered_leads"
 OUTPUT_DIR.mkdir(exist_ok=True)
 
-OUTPUT_FILE = OUTPUT_DIR / "hotels_hubspot_companies_import.csv"
+COMPANIES_OUTPUT_FILE = OUTPUT_DIR / "hotels_hubspot_companies_import.csv"
+CONTACTS_OUTPUT_FILE = OUTPUT_DIR / "hotels_hubspot_contacts_import.csv"
 
 CHAIN_KEYWORDS = [
     "ibis", "mercure", "novotel", "adagio", "accor",
@@ -142,6 +143,80 @@ def normalize_domain(value) -> str:
     return text
 
 
+def normalize_email(value) -> str:
+    if pd.isna(value):
+        return ""
+
+    text = str(value).strip().lower()
+
+    # If several emails are in one field, keep the first valid one.
+    candidates = re.split(r"[;,/|\s]+", text)
+
+    for candidate in candidates:
+        candidate = candidate.strip()
+        if re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", candidate):
+            return candidate
+
+    return ""
+
+
+def email_local_part(email: str) -> str:
+    if not email or "@" not in email:
+        return ""
+    return email.split("@")[0].lower().strip()
+
+
+def infer_generic_contact_first_name(email: str) -> str:
+    local = email_local_part(email)
+
+    direction_aliases = [
+        "direction", "directeur", "directrice", "dg", "gerance", "gérance",
+        "manager", "management"
+    ]
+
+    reservation_aliases = [
+        "reservation", "reservations", "réservation", "réservations",
+        "booking", "resa", "résa"
+    ]
+
+    reception_aliases = [
+        "reception", "réception", "frontdesk", "front-desk"
+    ]
+
+    contact_aliases = [
+        "contact", "info", "hello", "bonjour", "mail", "hotel", "hôtel"
+    ]
+
+    if local in direction_aliases:
+        return "Direction"
+
+    if local in reservation_aliases:
+        return "Réservations"
+
+    if local in reception_aliases:
+        return "Réception"
+
+    if local in contact_aliases:
+        return "Contact"
+
+    return "Contact"
+
+
+def infer_generic_contact_job_title(email: str) -> str:
+    local = email_local_part(email)
+
+    if local in ["direction", "directeur", "directrice", "dg", "gerance", "gérance"]:
+        return "Direction"
+
+    if local in ["reservation", "reservations", "réservation", "réservations", "booking", "resa", "résa"]:
+        return "Réservations"
+
+    if local in ["reception", "réception", "frontdesk", "front-desk"]:
+        return "Réception"
+
+    return "Contact hôtel"
+
+
 def is_obvious_chain(row) -> bool:
     name = normalize_text(row.get("nom_commercial", ""))
     website = normalize_text(row.get("site_internet", ""))
@@ -235,9 +310,6 @@ def assign_segment(row) -> str:
     if not core_criteria:
         return "excluded_outside_core_criteria"
 
-    # A+:
-    # First outreach wave.
-    # 3-star, 20–35 rooms, Paris only, has email + phone, has website, non-chain.
     if (
         stars == 3
         and 20 <= rooms <= 35
@@ -249,7 +321,6 @@ def assign_segment(row) -> str:
     ):
         return "a_plus_priority"
 
-    # A:
     if (
         stars == 3
         and 15 <= rooms <= 35
@@ -258,7 +329,6 @@ def assign_segment(row) -> str:
     ):
         return "a_priority"
 
-    # B:
     if (
         stars in [2, 3, 4]
         and 15 <= rooms <= 40
@@ -292,7 +362,8 @@ if missing_columns:
 df["star_rating_clean"] = df["classement"].apply(extract_star_rating)
 df["rooms_clean"] = df["nombre_de_chambres"].apply(clean_int)
 df["has_website_clean"] = df["site_internet"].apply(has_website)
-df["has_email_clean"] = df["courriel"].apply(has_email)
+df["email_clean"] = df["courriel"].apply(normalize_email)
+df["has_email_clean"] = df["email_clean"].apply(has_email)
 df["has_phone_clean"] = df["telephone"].apply(has_phone)
 df["is_obvious_chain"] = df.apply(is_obvious_chain, axis=1)
 df["department_group"] = df["departement"].apply(department_group)
@@ -339,49 +410,89 @@ df_sorted["first_wave"] = False
 a_plus_index = df_sorted[df_sorted["lead_segment"] == "a_plus_priority"].head(30).index
 df_sorted.loc[a_plus_index, "first_wave"] = True
 
+# Keep only first wave for this import
+first_wave_df = df_sorted[df_sorted["first_wave"] == True].copy()
+
+# Remove rows without company name, domain, or email
+first_wave_df = first_wave_df[
+    first_wave_df["company_name"].astype(str).str.strip().ne("")
+].copy()
+
+first_wave_df = first_wave_df[
+    first_wave_df["company_domain_name"].astype(str).str.strip().ne("")
+].copy()
+
+first_wave_df = first_wave_df[
+    first_wave_df["email_clean"].astype(str).str.strip().ne("")
+].copy()
+
 # Create clean Companies-only import file for HubSpot
 companies_df = pd.DataFrame()
 
-companies_df["Company name"] = df_sorted["company_name"]
-companies_df["Company domain name"] = df_sorted["company_domain_name"]
-companies_df["Website URL"] = df_sorted["site_internet"]
-companies_df["Phone number"] = df_sorted["phone_number"]
-companies_df["City"] = df_sorted["city"]
-companies_df["Street address"] = df_sorted["street_address"]
-companies_df["Postal code"] = df_sorted["postal_code"]
+companies_df["Company name"] = first_wave_df["company_name"]
+companies_df["Company domain name"] = first_wave_df["company_domain_name"]
+companies_df["Website URL"] = first_wave_df["site_internet"]
+companies_df["Phone number"] = first_wave_df["phone_number"]
+companies_df["City"] = first_wave_df["city"]
+companies_df["Street address"] = first_wave_df["street_address"]
+companies_df["Postal code"] = first_wave_df["postal_code"]
 
-companies_df["Lead category"] = df_sorted["lead_category"]
-companies_df["Lead segment"] = df_sorted["lead_segment"]
-companies_df["Lead source"] = df_sorted["lead_source"]
-companies_df["Import batch"] = df_sorted["import_batch"]
-companies_df["ICP"] = df_sorted["icp"]
-companies_df["Outreach status"] = df_sorted["outreach_status"]
+companies_df["Lead category"] = first_wave_df["lead_category"]
+companies_df["Lead segment"] = first_wave_df["lead_segment"]
+companies_df["Lead source"] = first_wave_df["lead_source"]
+companies_df["Import batch"] = first_wave_df["import_batch"]
+companies_df["ICP"] = first_wave_df["icp"]
+companies_df["Outreach status"] = first_wave_df["outreach_status"]
 
-companies_df["Priority score"] = df_sorted["priority_score"]
-companies_df["First wave"] = df_sorted["first_wave"].map({True: "Yes", False: "No"})
-companies_df["Number of rooms"] = df_sorted["rooms_clean"]
-companies_df["Stars"] = df_sorted["star_rating_clean"]
+companies_df["Priority score"] = first_wave_df["priority_score"]
+companies_df["First wave"] = "Yes"
+companies_df["Number of rooms"] = first_wave_df["rooms_clean"]
+companies_df["Stars"] = first_wave_df["star_rating_clean"]
 
-companies_df["Personal observation"] = df_sorted["personal_observation"]
-companies_df["Next action"] = df_sorted["next_action"]
-companies_df["Follow-up date"] = df_sorted["follow_up_date"]
+companies_df["Personal observation"] = first_wave_df["personal_observation"]
+companies_df["Next action"] = first_wave_df["next_action"]
+companies_df["Follow-up date"] = first_wave_df["follow_up_date"]
 
-# Keep only first wave for the first HubSpot import.
-# If you later want to import all companies, comment out the next line.
-companies_df = companies_df[companies_df["First wave"] == "Yes"].copy()
+# Create Contacts import file for HubSpot
+contacts_df = pd.DataFrame()
 
-# Remove rows without company name
-companies_df = companies_df[
-    companies_df["Company name"].astype(str).str.strip().ne("")
-].copy()
+contacts_df["Email"] = first_wave_df["email_clean"]
 
-# Remove rows without domain to reduce duplicate risk in HubSpot
-companies_df = companies_df[
-    companies_df["Company domain name"].astype(str).str.strip().ne("")
-].copy()
+contacts_df["First name"] = first_wave_df["email_clean"].apply(infer_generic_contact_first_name)
+contacts_df["Last name"] = first_wave_df["company_name"].apply(lambda name: f"Hôtel {name}" if name else "")
+contacts_df["Job title"] = first_wave_df["email_clean"].apply(infer_generic_contact_job_title)
 
-companies_df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8-sig")
+contacts_df["Phone number"] = first_wave_df["phone_number"]
+contacts_df["Company name"] = first_wave_df["company_name"]
+contacts_df["Company domain name"] = first_wave_df["company_domain_name"]
 
-print("HubSpot Companies import file created.")
-print(f"Rows saved: {len(companies_df)}")
-print(f"File saved to: {OUTPUT_FILE}")
+contacts_df["Lead category"] = first_wave_df["lead_category"]
+contacts_df["Lead segment"] = first_wave_df["lead_segment"]
+contacts_df["Lead source"] = first_wave_df["lead_source"]
+contacts_df["Import batch"] = first_wave_df["import_batch"]
+contacts_df["ICP"] = first_wave_df["icp"]
+contacts_df["Outreach status"] = first_wave_df["outreach_status"]
+
+contacts_df["Priority score"] = first_wave_df["priority_score"]
+contacts_df["First wave"] = "Yes"
+contacts_df["Number of rooms"] = first_wave_df["rooms_clean"]
+contacts_df["Stars"] = first_wave_df["star_rating_clean"]
+
+contacts_df["Personal observation"] = first_wave_df["personal_observation"]
+contacts_df["Next action"] = "Send first outreach email"
+contacts_df["Follow-up date"] = first_wave_df["follow_up_date"]
+
+# Remove duplicate contacts by email
+contacts_df = contacts_df.drop_duplicates(subset=["Email"]).copy()
+
+# Save files
+companies_df.to_csv(COMPANIES_OUTPUT_FILE, index=False, encoding="utf-8-sig")
+contacts_df.to_csv(CONTACTS_OUTPUT_FILE, index=False, encoding="utf-8-sig")
+
+print("HubSpot import files created.")
+print()
+print(f"Companies rows saved: {len(companies_df)}")
+print(f"Companies file saved to: {COMPANIES_OUTPUT_FILE}")
+print()
+print(f"Contacts rows saved: {len(contacts_df)}")
+print(f"Contacts file saved to: {CONTACTS_OUTPUT_FILE}")

@@ -190,7 +190,7 @@ description: "Task list for feature 002-hotel-marketing-pivot"
 
 #### Founder asset
 
-- [ ] T054 [US4] Acquire the founder portrait asset (FR-020 prerequisite). The founder provides a square portrait, exported to WebP at ~200–280 px × 200–280 px, target file size 50–80 KB. Save to `src/assets/images/sviatoslav-portrait.webp`. **Block this story** if the founder hasn't provided the photo, the confirmed LinkedIn URL, or the 3–5 line bio — the spec's edge case says defer rather than placeholder.
+- [X] T054 [US4] Acquire the founder portrait asset (FR-020 prerequisite). The founder provides a square portrait, exported to WebP at ~200–280 px × 200–280 px, target file size 50–80 KB. Save to `src/assets/images/sviatoslav-portrait.webp`. **Block this story** if the founder hasn't provided the photo, the confirmed LinkedIn URL, or the 3–5 line bio — the spec's edge case says defer rather than placeholder.
 
 #### Existing "Pourquoi nous" 3-card rewrite (FR-035, FR-036)
 
@@ -199,9 +199,9 @@ description: "Task list for feature 002-hotel-marketing-pivot"
 
 #### New "Pourquoi l'hôtellerie / À propos" founder block (FR-020, FR-021)
 
-- [ ] T057 [US4] Insert a new section in `src/index.html` between the "Pourquoi Nous" 3-card section and the ROI preview section per FR-020. Two-column layout (portrait left, copy right on desktop; stacked on mobile). Use existing section-header tokens (`.section-tag`, `.section-title`) — no new visual vocabulary (FR-033). Section content: `À propos / Pourquoi l'hôtellerie` tag, hotel-specific title, founder name (Sviatoslav Saraev) at h3 weight, role (Fondateur de Rinzler Studio), 3–5 line bio (hands-on independent hotel near Paris), LinkedIn link, location line (Paris / Île-de-France).
-- [ ] T058 [US4] In the founder block, render the portrait `<img src="./assets/images/sviatoslav-portrait.webp" alt="Sviatoslav Saraev, fondateur de Rinzler Studio" width="220" height="220" loading="lazy">` per FR-021. The block MUST remain coherent when the image fails to load — verify the layout doesn't collapse if `src` returns 404.
-- [ ] T059 [US4] In the founder block, render the LinkedIn link with `target="_blank" rel="noopener noreferrer"` and a visible focus ring on keyboard tab (re-use the existing focus-ring tokens — do not add new CSS). Place the LinkedIn link as a clear inline call (e.g., `→ LinkedIn`) on its own line.
+- [X] T057 [US4] Insert a new section in `src/index.html` between the "Pourquoi Nous" 3-card section and the ROI preview section per FR-020. Two-column layout (portrait left, copy right on desktop; stacked on mobile). Use existing section-header tokens (`.section-tag`, `.section-title`) — no new visual vocabulary (FR-033). Section content: `À propos / Pourquoi l'hôtellerie` tag, hotel-specific title, founder name (Sviatoslav Saraev) at h3 weight, role (Fondateur de Rinzler Studio), 3–5 line bio (hands-on independent hotel near Paris), LinkedIn link, location line (Paris / Île-de-France).
+- [X] T058 [US4] In the founder block, render the portrait `<img src="./assets/images/sviatoslav-portrait.webp" alt="Sviatoslav Saraev, fondateur de Rinzler Studio" width="220" height="220" loading="lazy">` per FR-021. The block MUST remain coherent when the image fails to load — verify the layout doesn't collapse if `src` returns 404.
+- [X] T059 [US4] In the founder block, render the LinkedIn link with `target="_blank" rel="noopener noreferrer"` and a visible focus ring on keyboard tab (re-use the existing focus-ring tokens — do not add new CSS). Place the LinkedIn link as a clear inline call (e.g., `→ LinkedIn`) on its own line.
 
 #### Manual test fill-in
 

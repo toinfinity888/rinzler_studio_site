@@ -144,36 +144,153 @@
     </div>
   </section>
 
-  <!-- Pour qui Section (qualifier) — reuses .faq-header + .faq-item styling vocabulary per FR-033 -->
+  <!-- Pour qui Section (qualifier) — icon + headline + detail cards in a responsive grid.
+       Reuses .faq-header + .faq-item chrome and existing design tokens per FR-033. -->
   <section class="pour-qui faq" data-section="pour-qui" id="pour-qui">
     <div class="faq-header">
       <span class="faq-tag">Pour qui</span>
       <h2 class="faq-title">Cette page s'adresse à vous si…</h2>
     </div>
-    <div class="faq-container">
-      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous dirigez un hôtel indépendant 2★, 3★ ou 4★ de 10 à 50 chambres en France.</p></div>
-      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous opérez un petit groupe hôtelier indépendant (2 à 5 établissements).</p></div>
-      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Votre site est correct, mais le parcours de réservation directe peut être amélioré.</p></div>
-      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Votre équipe passe trop de temps sur des emails et des demandes répétitives (Booking.com, avant arrivée, FAQ).</p></div>
-      <div class="faq-item"><p style="padding: 16px 20px; margin: 0;">Vous souhaitez comprendre les coûts et les bénéfices avant de changer de PMS, de moteur de réservation ou de refaire votre site.</p></div>
+    <div class="faq-container" style="max-width: 1100px; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: var(--gap-md);">
+      <div class="faq-item" style="flex: 0 1 320px; padding: 20px 22px; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;">
+        <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan); flex-shrink: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h2"/><path d="M13 9h2"/><path d="M9 13h2"/><path d="M13 13h2"/><path d="M9 17h2"/><path d="M13 17h2"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); margin-bottom: 4px;">Hôtel indépendant 10–50 chambres</strong>
+          <span style="display: block; color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: var(--line-height-normal);">2★, 3★ ou 4★, situé en France.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="flex: 0 1 320px; padding: 20px 22px; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;">
+        <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan); flex-shrink: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="7" height="12" rx="1"/><rect x="14" y="5" width="7" height="16" rx="1"/><path d="M6 13h1"/><path d="M6 17h1"/><path d="M17 9h1"/><path d="M17 13h1"/><path d="M17 17h1"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); margin-bottom: 4px;">Petit groupe hôtelier indépendant</strong>
+          <span style="display: block; color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: var(--line-height-normal);">2 à 5 établissements sous une même direction.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="flex: 0 1 320px; padding: 20px 22px; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;">
+        <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan); flex-shrink: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); margin-bottom: 4px;">Parcours de réservation perfectible</strong>
+          <span style="display: block; color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: var(--line-height-normal);">Votre site est correct, mais la réservation directe peut encore freiner certains clients.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="flex: 0 1 320px; padding: 20px 22px; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;">
+        <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan); flex-shrink: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); margin-bottom: 4px;">Trop de tâches répétitives</strong>
+          <span style="display: block; color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: var(--line-height-normal);">Votre équipe répond aux mêmes questions par email, téléphone ou Booking.com.</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="flex: 0 1 320px; padding: 20px 22px; display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;">
+        <span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--radius-full); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan); flex-shrink: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="3" y1="20" x2="21" y2="20"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); line-height: var(--line-height-tight); margin-bottom: 4px;">Décisions difficiles à chiffrer</strong>
+          <span style="display: block; color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: var(--line-height-normal);">Vous voulez comprendre coûts et bénéfices avant de changer de PMS, de moteur ou de site.</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Ce que j'analyse Section (inventory) — reuses .faq-header + .faq-item styling vocabulary per FR-033 -->
+  <!-- Ce que j'analyse Section (inventory) — compact icon-top + label tiles in a responsive grid.
+       Reuses .faq-header + .faq-item chrome and existing design tokens per FR-033. -->
   <section class="ce-que-j-analyse faq" data-section="ce-que-j-analyse" id="ce-que-j-analyse">
     <div class="faq-header">
       <span class="faq-tag">Ce que j'analyse</span>
       <h2 class="faq-title">Le périmètre du diagnostic</h2>
     </div>
-    <div class="faq-container">
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Site web et tunnel de réservation directe</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Moteur de réservation</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">PMS et channel manager</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Emails clients et demandes Booking.com / OTA</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">FAQ et informations envoyées avant l'arrivée</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Tracking et analytics du site</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Coûts logiciels mensuels (PMS, channel, site, plugins)</p></div>
-      <div class="faq-item"><p style="padding: 14px 18px; margin: 0;">Tâches répétitives à la réception</p></div>
+    <div class="faq-container" style="max-width: 1100px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--gap-md);">
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Site web</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Tunnel de réservation directe</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Moteur de réservation</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Conversion, prix, frictions</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">PMS &amp; channel manager</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Synchro, doublons, paramétrage</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Emails &amp; demandes OTA</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Booking.com, Expedia, mails directs</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r="0.6" fill="currentColor"/><circle cx="12" cy="10" r="0.6" fill="currentColor"/><circle cx="15" cy="10" r="0.6" fill="currentColor"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">FAQ avant arrivée</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Parking, check-in, animaux, petit-déj</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Tracking &amp; analytics</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Sources de trafic, conversions, RGPD</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 9.5c-.7-1-1.9-1.5-3.5-1.5-2.5 0-4.5 1.5-4.5 4s2 4 4.5 4c1.6 0 2.8-.5 3.5-1.5"/><line x1="6" y1="11" x2="13" y2="11"/><line x1="6" y1="13.5" x2="13" y2="13.5"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Coûts logiciels mensuels</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">PMS, channel, site, plugins, hébergement</span>
+        </div>
+      </div>
+
+      <div class="faq-item" style="padding: 22px 18px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span aria-hidden="true" style="width: 48px; height: 48px; border-radius: var(--radius-lg); display: inline-flex; align-items: center; justify-content: center; background: rgba(122, 235, 255, 0.08); color: var(--color-accent-cyan);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg>
+        </span>
+        <div>
+          <strong style="display: block; color: var(--color-text-primary); font-weight: var(--font-weight-semibold); font-size: var(--font-size-sm); line-height: var(--line-height-tight); margin-bottom: 4px;">Tâches répétitives</strong>
+          <span style="display: block; color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: var(--line-height-normal);">Travail manuel à la réception</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -322,19 +439,6 @@
                 <source src="./assets/video/workflow.mov" type="video/quicktime">
                 <source src="./assets/workflow-DJ6UjrIm.mp4" type="video/mp4">
               </video>
-            </div>
-            <!-- Compatible Platforms -->
-            <div class="workflow-platforms">
-              <div class="workflow-platforms-icons">
-                <img src="data:image/webp;base64,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" alt="n8n" class="platform-icon">
-                <img src="./assets/Mistral_icon-CVPWb8yG.png" alt="Mistral AI" class="platform-icon">
-                <img src="./assets/openai-icon-ohh_r5-W.png" alt="OpenAI" class="platform-icon">
-                <img src="./assets/Notion-logo-t8ahqWge.png" alt="Notion" class="platform-icon">
-                <img src="./assets/Slack_icon-CXTYB4q2.png" alt="Slack" class="platform-icon">
-                <img src="./assets/whatsapp_icon-BMFOLKHh.png" alt="WhatsApp" class="platform-icon">
-                <img src="data:image/svg+xml,%3csvg%20height='2500'%20viewBox='6.20856283%20.64498824%20244.26943717%20251.24701176'%20width='2500'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='m191.385%2085.694v-29.506a22.722%2022.722%200%200%200%2013.101-20.48v-.677c0-12.549-10.173-22.722-22.721-22.722h-.678c-12.549%200-22.722%2010.173-22.722%2022.722v.677a22.722%2022.722%200%200%200%2013.101%2020.48v29.506a64.342%2064.342%200%200%200%20-30.594%2013.47l-80.922-63.03c.577-2.083.878-4.225.912-6.375a25.6%2025.6%200%201%200%20-25.633%2025.55%2025.323%2025.323%200%200%200%2012.607-3.43l79.685%2062.007c-14.65%2022.131-14.258%2050.974.987%2072.7l-24.236%2024.243c-1.96-.626-4-.959-6.057-.987-11.607.01-21.01%209.423-21.007%2021.03.003%2011.606%209.412%2021.014%2021.018%2021.017%2011.607.003%2021.02-9.4%2021.03-21.007a20.747%2020.747%200%200%200%20-.988-6.056l23.976-23.985c21.423%2016.492%2050.846%2017.913%2073.759%203.562%2022.912-14.352%2034.475-41.446%2028.985-67.918-5.49-26.473-26.873-46.734-53.603-50.792m-9.938%2097.044a33.17%2033.17%200%201%201%200-66.316c17.85.625%2032%2015.272%2032.01%2033.134.008%2017.86-14.127%2032.522-31.977%2033.165'%20fill='%23ff7a59'/%3e%3c/svg%3e" alt="HubSpot" class="platform-icon">
-                <img src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'%20standalone='no'?%3e%3c!--%20Created%20with%20Inkscape%20(http://www.inkscape.org/)%20--%3e%3csvg%20width='266.67719mm'%20height='160.86824mm'%20viewBox='0%200%20266.67719%20160.86824'%20version='1.1'%20id='svg1'%20xml:space='preserve'%20inkscape:export-filename='image.png'%20inkscape:export-xdpi='81.763809'%20inkscape:export-ydpi='81.763809'%20xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape'%20xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd'%20xmlns='http://www.w3.org/2000/svg'%20xmlns:svg='http://www.w3.org/2000/svg'%3e%3csodipodi:namedview%20id='namedview1'%20pagecolor='%23ffffff'%20bordercolor='%23000000'%20borderopacity='0.25'%20inkscape:showpageshadow='2'%20inkscape:pageopacity='0.0'%20inkscape:pagecheckerboard='0'%20inkscape:deskcolor='%23d1d1d1'%20inkscape:document-units='mm'%20inkscape:export-bgcolor='%23ffffff00'%3e%3cinkscape:page%20x='0'%20y='6.0708594e-13'%20width='266.67719'%20height='160.86826'%20id='page2'%20margin='0'%20bleed='0'%20/%3e%3c/sodipodi:namedview%3e%3cdefs%20id='defs1'%20/%3e%3cg%20id='g22'%20style='fill:%230000e4;fill-opacity:1'%20transform='translate(262.74117,416.05859)'%3e%3cpath%20style='fill:%230000e4;fill-opacity:1'%20d='m%20-99.075262,-255.52096%20c%200.07377,-0.1819%205.085614,-9.08182%2011.137421,-19.77761%20l%2011.003285,-19.44687%20-14.80328,-0.13229%20-14.803274,-0.13229%2017.518639,-30.88517%2017.518646,-30.88517%2014.98146,-0.005%2014.981461,-0.005%2014.0027,-24.93698%20c%207.701485,-13.71534%2014.108872,-24.93698%2014.238639,-24.93698%200.338166,0%203.266082,5.67274%205.3259023,10.31875%2020.3089397,45.80771%2014.3683845,98.05274%20-15.7116913,138.17865%20l%20-2.231358,2.97656%20h%20-36.646343%20c%20-29.212226,0%20-36.619133,-0.0671%20-36.512207,-0.33073%20z'%20id='path11'%20/%3e%3cpath%20style='fill:%230000e4;fill-opacity:1'%20d='m%20-234.61945,-258.12927%20c%20-29.86812,-38.88308%20-36.45268,-90.43341%20-17.30962,-135.51655%201.413,-3.32771%205.83352,-12.28768%206.5368,-13.24948%20l%200.33215,-0.45424%2024.0719,41.81479%20c%2013.23954,22.99812%2024.1375,41.81538%2024.21767,41.81611%200.0802,7.3e-4%2012.05882,-20.74531%2026.6192,-46.10232%20l%2026.47341,-46.10364%2039.35282,-0.067%2039.35282,-0.067%20-0.884513,1.56243%20c%20-0.486482,0.85933%20-21.303731,37.04892%20-46.260547,80.4213%20l%20-45.37605,78.85886%20-37.43854,0.007%20-37.43854,0.007%20z'%20id='path10'%20/%3e%3c/g%3e%3c/svg%3e" alt="OVH" class="platform-icon">
-              </div>
             </div>
           </div>
         </div>
@@ -630,12 +734,47 @@
     </div>
   </section>
 
-  <!--
-    DEFERRED: À propos / Pourquoi l'hôtellerie founder block (FR-020, FR-021).
-    Insert here once the founder portrait, LinkedIn URL, and 3-5 line bio are ready.
-    See tasks T054, T057, T058, T059. Per the spec's edge case, this block must NOT
-    ship with placeholder content. The rest of the page is coherent without it.
-  -->
+  <!-- À propos / Pourquoi l'hôtellerie — founder block (FR-020, FR-021).
+       Reuses .faq-header + .faq-item styling vocabulary per FR-033. -->
+  <section class="founder faq" data-section="founder" id="a-propos">
+    <div class="faq-header">
+      <span class="faq-tag">À propos / Pourquoi l'hôtellerie</span>
+      <h2 class="faq-title">L'offre vient du terrain</h2>
+    </div>
+    <div class="faq-container" style="max-width: 960px;">
+      <div class="faq-item" style="display: grid; grid-template-columns: minmax(180px, 280px) 1fr; gap: 28px; align-items: center; padding: 24px;">
+        <div style="display: flex; justify-content: center;">
+          <img
+            src="./assets/Photo_profil-cRPAAKss.jpg"
+            alt="Sviatoslav Saraev, fondateur de Rinzler Studio"
+            width="260"
+            height="346"
+            loading="lazy"
+            style="width: 100%; max-width: 260px; height: auto; border-radius: 16px; display: block;">
+        </div>
+        <div>
+          <h3 style="margin: 0 0 4px; font-size: 1.4rem; font-weight: 700; color: var(--color-text-primary);">Sviatoslav Saraev</h3>
+          <p style="margin: 0 0 16px; font-size: 0.95rem; color: var(--color-text-muted);">Fondateur de Rinzler Studio</p>
+
+          <p style="margin: 0 0 12px; line-height: 1.6; color: var(--color-text-primary);">
+            Depuis plusieurs mois, je travaille au sein d'un hôtel indépendant près de Paris, ce qui me permet de comprendre concrètement les contraintes du terrain : réception, demandes clients, outils vieillissants, réservations en ligne et décisions difficiles autour du site, du PMS ou du moteur de réservation.
+          </p>
+          <p style="margin: 0 0 12px; line-height: 1.6; color: var(--color-text-primary);">
+            J'ai déjà conçu et mis en place des solutions internes qui ont apporté une vraie valeur opérationnelle à l'hôtel. Cette expérience m'a naturellement amené à concentrer Rinzler Studio sur les petits hôtels indépendants.
+          </p>
+          <p style="margin: 0 0 20px; line-height: 1.6; color: var(--color-text-primary);">
+            Depuis près de trois ans, je me spécialise dans l'intelligence artificielle, l'automatisation et la création d'outils digitaux. Mon objectif est simple : aider les hôteliers à identifier les tâches qui coûtent du temps, clarifier leurs options technologiques et mettre en place des solutions utiles, progressives et rentables.
+          </p>
+
+          <p style="margin: 0; line-height: 1.8; color: var(--color-text-muted); font-size: 0.95rem;">
+            <a href="https://www.linkedin.com/in/sviatoslav-saraev-03a5b9215" target="_blank" rel="noopener noreferrer" style="color: var(--color-text-primary); text-decoration: underline; text-underline-offset: 3px;">→ LinkedIn</a>
+            <br>
+            <span>Paris / Île-de-France</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ROI Calculator Preview Section -->
   <section class="roi-preview" data-section="roi-preview">
@@ -652,7 +791,7 @@
           <input type="number" id="preview-employees" min="1" max="100" value="3" class="roi-input">
         </div>
         <div class="roi-input-group">
-          <label for="preview-hours">Temps moyen par demande (h)</label>
+          <label for="preview-hours">Temps par demande (h)</label>
           <input type="number" id="preview-hours" min="0.25" max="10" step="0.25" value="0.5" class="roi-input">
         </div>
         <div class="roi-input-group">

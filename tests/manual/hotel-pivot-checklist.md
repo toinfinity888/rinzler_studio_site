@@ -52,7 +52,8 @@ Run each section after the relevant story is implemented. Run end-to-end again i
 
 - [ ] 3 "Pourquoi nous" cards retitled (Connaissance terrain / MVP adapté petits hôtels / Accompagnement sur la durée).
 - [ ] Card bullets reference hotel vocabulary (réception, OTA, moteur de réservation, occupation, saisonnalité, parcours direct).
-- [ ] **Deferred** until founder asset + LinkedIn + bio ready: portrait visible with alt text "Sviatoslav Saraev, fondateur de Rinzler Studio"; bio mentions hands-on independent-hotel work near Paris; LinkedIn link opens in new tab with visible keyboard focus ring.
+- [ ] Founder block visible between Pourquoi nous and ROI preview. Portrait visible with alt text "Sviatoslav Saraev, fondateur de Rinzler Studio". Bio mentions hands-on work in an independent hotel near Paris. LinkedIn link opens https://www.linkedin.com/in/sviatoslav-saraev-03a5b9215 in a new tab. Location line reads "Paris / Île-de-France". Tabbing reaches the LinkedIn link with a visible focus state.
+- [ ] **Follow-up**: portrait `src/assets/images/Photo_profil.jpg` is 1.5 MB JPG — schedule a separate optimization pass to convert to WebP ≤ 80 KB and rename to `sviatoslav-portrait.webp` per data-model.md; until then `loading="lazy"` defers cost off the critical path.
 
 ## US5 — FAQ + Sécurité + Final CTA (quickstart §9)
 
