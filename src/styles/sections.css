@@ -520,7 +520,11 @@
 
 @media (max-width: 768px) {
   .hero {
-    min-height: auto;
+    /* Cancel base `height: 100vh` so the hero can grow with its content.
+       `min-height: 100vh` preserves the full-bleed feel; content above
+       this height is no longer clipped by the parent `overflow: hidden`. */
+    height: auto;
+    min-height: 100vh;
     padding: calc(var(--space-lg) + 60px) 0 var(--space-lg);
   }
 
@@ -532,6 +536,16 @@
     text-align: center;
     padding-left: var(--space-sm);
     padding-right: var(--space-sm);
+  }
+
+  /* Stack hero CTAs vertically on mobile and ensure both stay tappable
+     when the second (optional) CTA from FR-008 is rendered. */
+  .hero-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    align-items: stretch;
+    margin-top: var(--space-md);
   }
 }
 
