@@ -518,6 +518,46 @@
   }
 }
 
+/* ===== Founder block (feature 002 pivot — À propos / Pourquoi l'hôtellerie) ===== */
+.founder-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: 28px;
+  align-items: center;
+  padding: 24px;
+}
+
+.founder-card .founder-portrait {
+  display: flex;
+  justify-content: center;
+}
+
+.founder-card .founder-portrait img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  border-radius: var(--radius-xl);
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .founder-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding: 20px;
+    text-align: center;
+  }
+
+  .founder-card .founder-portrait img {
+    max-width: 200px;
+  }
+
+  .founder-card .founder-bio h3,
+  .founder-card .founder-bio p {
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     /* Cancel base `height: 100vh` so the hero can grow with its content.
