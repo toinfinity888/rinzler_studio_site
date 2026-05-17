@@ -10,19 +10,19 @@ Run each section after the relevant story is implemented. Run end-to-end again i
 
 ## US1 — Hero recognition (quickstart §2 + §3 + §10)
 
-- [ ] Hero H1 references "petits hôtels indépendants" or equivalent; no "transport", "logistique".
-- [ ] Hero sub-headline mentions digital stack / réservations directes / tâches manuelles; no "Mistral AI", no "souveraineté".
-- [ ] Hero primary CTA reads "Demander un diagnostic digital hôtel".
-- [ ] On 360 px viewport, hero H1 + sub + CTA fit above the fold.
-- [ ] Pour qui section visible just below hero; lists 4–5 profiles.
-- [ ] Ce que j'analyse section lists the diagnostic perimeter scannably.
-- [ ] 4 pain cards (Réservations directes / Tâches répétitives / Outils dispersés / Décisions coûteuses) replace the legacy 4.
-- [ ] Pain-bridge CTA reads "Estimer mes gains hôtel" and routes to `./calculator.html`.
-- [ ] Method 3 steps retitled: Diagnostic digital hôtel / Plan priorisé / Implémentation progressive.
-- [ ] Before/After items hotel-flavoured; no "Zéro erreur" / "100 % des leads".
-- [ ] ROI preview CTA reads "Calcul détaillé pour mon hôtel".
-- [ ] Title, meta description, meta keywords, OG, Twitter card all hotel-framed (view source).
-- [ ] Footer tagline reads "Modernisation digitale pour hôtels indépendants".
+- [x] Hero H1 references "petits hôtels indépendants" or equivalent; no "transport", "logistique".
+- [x] Hero sub-headline mentions digital stack / réservations directes / tâches manuelles; no "Mistral AI", no "souveraineté".
+- [x] Hero primary CTA reads "Demander un diagnostic digital hôtel".
+- [x] On 360 px viewport, hero H1 + sub + CTA fit above the fold.
+- [x] Pour qui section visible just below hero; lists 4–5 profiles.
+- [x] Ce que j'analyse section lists the diagnostic perimeter scannably.
+- [x] 4 pain cards (Réservations directes / Tâches répétitives / Outils dispersés / Décisions coûteuses) replace the legacy 4.
+- [x] Pain-bridge CTA reads "Estimer mes gains hôtel" and routes to `./calculator.html`.
+- [x] Method 3 steps retitled: Diagnostic digital hôtel / Plan priorisé / Implémentation progressive.
+- [x] Before/After items hotel-flavoured; no "Zéro erreur" / "100 % des leads".
+- [x] ROI preview CTA reads "Calcul détaillé pour mon hôtel".
+- [x] Title, meta description, meta keywords, OG, Twitter card all hotel-framed (view source).
+- [x] Footer tagline reads "Modernisation digitale pour hôtels indépendants".
 - [ ] OG link preview on Facebook / LinkedIn / opengraph.xyz shows hotel framing (SC-003).
 - [ ] Grep test (quickstart §3) returns zero disallowed phrases (SC-002).
 
@@ -52,8 +52,7 @@ Run each section after the relevant story is implemented. Run end-to-end again i
 
 - [ ] 3 "Pourquoi nous" cards retitled (Connaissance terrain / MVP adapté petits hôtels / Accompagnement sur la durée).
 - [ ] Card bullets reference hotel vocabulary (réception, OTA, moteur de réservation, occupation, saisonnalité, parcours direct).
-- [ ] Founder block visible between Pourquoi nous and ROI preview. Portrait visible with alt text "Sviatoslav Saraev, fondateur de Rinzler Studio". Bio mentions hands-on work in an independent hotel near Paris. LinkedIn link opens https://www.linkedin.com/in/sviatoslav-saraev-03a5b9215 in a new tab. Location line reads "Paris / Île-de-France". Tabbing reaches the LinkedIn link with a visible focus state.
-- [ ] **Follow-up**: portrait `src/assets/images/Photo_profil.jpg` is 1.5 MB JPG — schedule a separate optimization pass to convert to WebP ≤ 80 KB and rename to `sviatoslav-portrait.webp` per data-model.md; until then `loading="lazy"` defers cost off the critical path.
+- [ ] **Deferred** until founder asset + LinkedIn + bio ready: portrait visible with alt text "Sviatoslav Saraev, fondateur de Rinzler Studio"; bio mentions hands-on independent-hotel work near Paris; LinkedIn link opens in new tab with visible keyboard focus ring.
 
 ## US5 — FAQ + Sécurité + Final CTA (quickstart §9)
 
