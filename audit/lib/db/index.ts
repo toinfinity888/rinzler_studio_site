@@ -1,5 +1,5 @@
 import "server-only";
-import type { Pool } from "mysql2/promise";
+import type { Pool } from "pg";
 import { createDbClient, type Db } from "./client";
 
 declare global {
