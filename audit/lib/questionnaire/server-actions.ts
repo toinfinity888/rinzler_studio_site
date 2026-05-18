@@ -49,6 +49,8 @@ export interface LoadedProjectContext {
   project: Project;
   hotel: Hotel | null;
   submissionId: string;
+  /** Latest persisted completion-percentage; surfaced for autosave no-op returns. */
+  submissionCompletionPct: number;
   answersByslug: Record<string, unknown>;
   scanFindings: Record<string, unknown>;
   scanId: string | null;
@@ -115,6 +117,7 @@ async function loadProjectContextInternal(
     project,
     hotel: hotel ?? null,
     submissionId: submission.id,
+    submissionCompletionPct: submission.completionPct,
     answersByslug,
     scanFindings: scanFindingMap,
     scanId,

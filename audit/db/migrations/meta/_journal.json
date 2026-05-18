@@ -8,6 +8,13 @@
       "when": 1779103386416,
       "tag": "0000_opposite_micromax",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779145248265,
+      "tag": "0001_confused_goliath",
+      "breakpoints": true
     }
   ]
 }

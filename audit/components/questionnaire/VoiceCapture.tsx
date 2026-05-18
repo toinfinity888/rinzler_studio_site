@@ -141,75 +141,72 @@ export function VoiceCapture(props: VoiceCaptureProps) {
     );
   }
 
+  const isRecording = phase === "recording";
+  const isRequesting = phase === "requesting_session";
+
   return (
     <div className="space-y-3">
-      {phase === "idle" || phase === "error" ? (
-        <div className="flex flex-wrap items-center gap-3">
-          <Button onClick={startRecording} disabled={readOnly} size="sm">
-            ◉ Dicter ma réponse
+      {/* Textarea is ALWAYS available — the hotelier can type, dictate, or
+          dictate-then-edit. The "dictate" button below populates this field. */}
+      <label
+        htmlFor={`q-${question.slug}-transcript`}
+        className="block text-sm font-medium text-text-primary"
+      >
+        Saisissez votre réponse, ou cliquez sur «&nbsp;Dicter&nbsp;» pour la transcrire à la voix.
+      </label>
+      <Textarea
+        id={`q-${question.slug}-transcript`}
+        value={isRecording ? partial || transcript : transcript}
+        onChange={(e) => setTranscript(e.target.value)}
+        onBlur={() => {
+          // Autosave on blur so the typed answer commits without forcing
+          // the user to click "Use this answer".
+          if (transcript.trim()) onChange(transcript.trim());
+        }}
+        disabled={readOnly || isRecording}
+        placeholder="Tapez ici ou utilisez la dictée…"
+      />
+
+      <div className="flex flex-wrap items-center gap-2">
+        {!isRecording ? (
+          <Button
+            onClick={startRecording}
+            disabled={readOnly || isRequesting}
+            size="sm"
+            variant="outline"
+          >
+            {isRequesting ? "Connexion…" : "◉ Dicter ma réponse"}
           </Button>
-          <span className="text-xs text-text-muted">
-            Audio envoyé directement à Deepgram (EU). Aucun audio n&apos;est conservé.
-          </span>
-        </div>
-      ) : null}
-
-      {phase === "requesting_session" ? (
-        <p className="text-sm text-text-muted">Connexion au service de transcription…</p>
-      ) : null}
-
-      {phase === "recording" ? (
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
+        ) : (
+          <>
             <span className="inline-flex h-2 w-2 rounded-full bg-error animate-pulse" aria-hidden />
             <span className="text-sm text-text-primary">Enregistrement en cours…</span>
             <Button onClick={stopRecording} size="sm" variant="secondary">
               ■ Arrêter
             </Button>
-          </div>
-          <div className="rounded-md px-3 py-2 text-sm [background:var(--color-input-bg)] [border:1px_dashed_var(--color-input-border)] min-h-[3em] text-text-secondary">
-            {partial || transcript || "…"}
-          </div>
-        </div>
-      ) : null}
+          </>
+        )}
+        {transcript ? (
+          <Button onClick={commitTranscript} disabled={readOnly} size="sm">
+            ✓ Utiliser cette réponse
+          </Button>
+        ) : null}
+        {transcript && !isRecording ? (
+          <Button onClick={discard} disabled={readOnly} size="sm" variant="ghost">
+            ✕ Effacer
+          </Button>
+        ) : null}
+      </div>
 
-      {phase === "review" || (phase === "idle" && transcript) ? (
-        <div className="space-y-2">
-          <label
-            htmlFor={`q-${question.slug}-transcript`}
-            className="block text-sm font-medium text-text-primary"
-          >
-            Relisez et corrigez la transcription avant de valider :
-          </label>
-          <Textarea
-            id={`q-${question.slug}-transcript`}
-            value={transcript}
-            onChange={(e) => setTranscript(e.target.value)}
-            disabled={readOnly}
-          />
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={commitTranscript} disabled={readOnly} size="sm">
-              ✓ Utiliser cette réponse
-            </Button>
-            <Button
-              onClick={() => {
-                discard();
-                void startRecording();
-              }}
-              disabled={readOnly}
-              size="sm"
-              variant="outline"
-            >
-              ↻ Réenregistrer
-            </Button>
-            <Button onClick={discard} disabled={readOnly} size="sm" variant="ghost">
-              ✕ Annuler
-            </Button>
-          </div>
-        </div>
-      ) : null}
+      <p className="text-xs text-text-muted">
+        Audio (s&apos;il y en a) envoyé directement à Deepgram (EU). Aucun audio n&apos;est conservé.
+      </p>
 
-      {error ? <p className="text-xs text-error">Transcription indisponible : {error}</p> : null}
+      {error ? (
+        <p className="text-xs text-error">
+          Transcription indisponible : {error}. Vous pouvez toujours taper la réponse ci-dessus.
+        </p>
+      ) : null}
     </div>
   );
 }

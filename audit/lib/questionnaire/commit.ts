@@ -206,6 +206,24 @@ export async function commitAnswer(
   const now = new Date();
   const writeValue = iDontKnow ? null : normalizedValue;
 
+  // Autosave optimization: if the user produced no answer (empty string,
+  // undefined, empty array) AND they did NOT mark "I don't know", treat
+  // this as a no-op commit. Avoids littering the DB with empty rows and
+  // sidesteps writes that would otherwise have nothing meaningful to record.
+  const isEmptyValue =
+    !iDontKnow &&
+    (writeValue === undefined ||
+      writeValue === null ||
+      writeValue === "" ||
+      (Array.isArray(writeValue) && writeValue.length === 0));
+  if (isEmptyValue) {
+    return {
+      ok: true,
+      next_visibility_changed: false,
+      completion_pct: loaded.submissionCompletionPct ?? 0,
+    };
+  }
+
   // Compute the source + confidence per FR-018: "I don't know" → low.
   const confidence = iDontKnow ? "low" : "high";
   const source = voiceRowToWrite ? "voice_extracted" : "client";

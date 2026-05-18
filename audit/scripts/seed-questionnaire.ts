@@ -193,10 +193,11 @@ const SEED: SeedQuestion[] = [
   {
     slug: "primary_goal",
     block: "goal",
-    answer_type: "single",
+    answer_type: "multi",
     audit_levels: ["mini", "full", "consultant_assisted"],
     definition: {
       required: true,
+      maxItems: 3,
       options: [
         "profitability",
         "workload_reduction",
@@ -209,8 +210,8 @@ const SEED: SeedQuestion[] = [
       ],
     },
     fr: {
-      prompt: "Objectif principal de l’audit",
-      helper: "Choisissez l’angle d’attaque prioritaire — vous pourrez ajouter des objectifs secondaires.",
+      prompt: "Objectifs principaux de l’audit",
+      helper: "Sélectionnez jusqu’à 3 objectifs. Le premier coché sera traité comme prioritaire.",
       option_labels: {
         profitability: "Améliorer la rentabilité",
         workload_reduction: "Réduire la charge de travail",
@@ -223,8 +224,8 @@ const SEED: SeedQuestion[] = [
       },
     },
     en: {
-      prompt: "Primary audit goal",
-      helper: "Pick the leading objective — you can add secondary priorities next.",
+      prompt: "Primary audit goals",
+      helper: "Select up to 3 goals. The first one ticked is treated as the leading priority.",
       option_labels: {
         profitability: "Improve profitability",
         workload_reduction: "Reduce workload",

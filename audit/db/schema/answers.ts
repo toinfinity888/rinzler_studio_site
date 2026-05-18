@@ -38,7 +38,11 @@ export const answers = pgTable(
       .notNull()
       .references(() => submissions.id, { onDelete: "cascade" }),
     fieldId: text("field_id").notNull(),
-    valueJson: jsonb("value_json").notNull(),
+    // Nullable: "I don't know" (FR-018) and transient empty states from
+    // autosave have no meaningful value. Renderers must handle null as "no
+    // value yet"; the row's `confidence` distinguishes IDK (`low`) from
+    // an answered value (`high`).
+    valueJson: jsonb("value_json"),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
     source: text("source").$type<AnswerSource>().notNull().default("client"),
     questionVersionId: uuid("question_version_id").references(

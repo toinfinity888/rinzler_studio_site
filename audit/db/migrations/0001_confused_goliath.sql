@@ -1,0 +1,1 @@
+ALTER TABLE "answers" ALTER COLUMN "value_json" DROP NOT NULL;

@@ -43,6 +43,36 @@ function getClient() {
   return _client;
 }
 
+let _resolvedProjectId: string | null = null;
+
+/**
+ * Resolve the Deepgram project ID. Honors the `DEEPGRAM_PROJECT_ID` env var
+ * when set; otherwise looks the project up via the management API on first
+ * call and caches the result for the lifetime of the process.
+ *
+ * This avoids forcing users to manually copy a project ID from the Deepgram
+ * dashboard when their account has a single project (the common case).
+ */
+async function getProjectId(): Promise<string> {
+  if (process.env.DEEPGRAM_PROJECT_ID) return process.env.DEEPGRAM_PROJECT_ID;
+  if (_resolvedProjectId) return _resolvedProjectId;
+  const client = getClient();
+  const { result, error } = await client.manage.getProjects();
+  if (error) {
+    throw new Error(`Deepgram project lookup failed: ${error.message}`);
+  }
+  const projects = result?.projects ?? [];
+  if (projects.length === 0) {
+    throw new Error("Deepgram account has no projects — create one or set DEEPGRAM_PROJECT_ID.");
+  }
+  const firstId = projects[0]?.project_id;
+  if (!firstId) {
+    throw new Error("Deepgram project lookup returned no project_id.");
+  }
+  _resolvedProjectId = firstId;
+  return firstId;
+}
+
 /**
  * Issue a 60-second project-scoped session token.
  *
@@ -54,19 +84,25 @@ export async function issueDeepgramSession(
   language: string,
 ): Promise<DeepgramSession> {
   const client = getClient();
-  // Deepgram SDK v3 exposes `manage.createProjectKey`. We create a single-use
-  // key with `usage:write` scope and a TTL of 60 seconds.
-  const projectKey = process.env.DEEPGRAM_PROJECT_ID;
-  if (!projectKey) {
-    throw new Error("DEEPGRAM_PROJECT_ID not set");
-  }
+  const projectKey = await getProjectId();
   const { result, error } = await client.manage.createProjectKey(projectKey, {
     comment: `audit-voice ${projectId}`,
     scopes: ["usage:write"],
     time_to_live_in_seconds: 60,
     tags: [`project:${projectId}`, "keep_audio:false"],
   });
-  if (error) throw new Error(`Deepgram key issue failed: ${error.message}`);
+  if (error) {
+    // Common cause: the configured DEEPGRAM_API_KEY lacks `keys:write` scope.
+    // Re-issue a key from the Deepgram console with "Member" or "Admin" role
+    // so it can mint short-lived child keys for the browser.
+    const lower = error.message.toLowerCase();
+    if (lower.includes("scope") || lower.includes("permission")) {
+      throw new Error(
+        "Deepgram key cannot mint child keys — set DEEPGRAM_API_KEY to a key with `keys:write` scope (Member/Admin role).",
+      );
+    }
+    throw new Error(`Deepgram key issue failed: ${error.message}`);
+  }
   return {
     apiKey: result.key,
     expiresAtMs: Date.now() + 60_000,
