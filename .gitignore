@@ -198,6 +198,14 @@ audit/dist/
 audit/coverage/
 audit/.vercel/
 
+# Override the generic `lib/` Python-virtualenv ignore (line 28) for our
+# TypeScript source directories under audit/. The broad rule otherwise
+# silently skips audit/lib/* and audit/workers/lib/* on `git add`.
+!audit/lib
+!audit/lib/**
+!audit/workers/lib
+!audit/workers/lib/**
+
 # SQLite DB and WAL files (data is local; never committed)
 audit/data/*.sqlite
 audit/data/*.sqlite-journal
