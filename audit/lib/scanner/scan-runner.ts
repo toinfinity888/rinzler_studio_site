@@ -63,19 +63,28 @@ export interface RunScanResult {
 }
 
 export async function runScan(scanId: string, url: string): Promise<RunScanResult> {
+  // DIAG: per-step logging to pinpoint hang location. Remove once stable.
+  const t0 = Date.now();
+  const step = (name: string) =>
+    console.log(`[scan ${scanId.slice(0, 8)}] +${Date.now() - t0}ms ${name}`);
+  step("enter runScan");
   return withSpan("scan.run", async (span) => {
     span.setAttribute("scan_id", scanId);
 
     // 1. Lifecycle start.
+    step("set status=running");
     await db
       .update(scans)
       .set({ status: "running", startedAt: new Date() })
       .where(eq(scans.id, scanId));
+    step("audit-log scan_started");
     await writeAuditEntry({ action: "scan_started", targetType: "scan", targetId: scanId });
 
     // 2. Wipe any prior findings for idempotent retry.
+    step("wipe prior findings");
     await db.delete(scanFindings).where(eq(scanFindings.scanId, scanId));
 
+    step("import playwright");
     let chromium;
     try {
       chromium = (await import("playwright")).chromium;
@@ -83,6 +92,7 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
       return finalizeFailed(scanId, "scanner_error", `playwright not available: ${String(err)}`);
     }
 
+    step("launch chromium");
     const browser = await chromium.launch({ headless: true }).catch((err) => {
       captureException(err, { scope: "scan.runner.launch" });
       return null;
@@ -90,6 +100,7 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
     if (!browser) {
       return finalizeFailed(scanId, "scanner_error", "browser launch failed");
     }
+    step("chromium launched");
 
     try {
       // ---- Desktop pass ----
@@ -97,13 +108,16 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
       let desktopUrl = url;
       let domSignals: DomSignals | null = null;
       let desktopBlocker: ScanErrorClass | null = null;
+      step("desktop newContext");
       const desktopContext = await browser.newContext({
         viewport: DESKTOP_VIEWPORT,
         ignoreHTTPSErrors: true,
         bypassCSP: true,
       });
+      step("desktop newPage");
       const desktopPage = await desktopContext.newPage();
       try {
+        step("desktop goto");
         const response = await desktopPage.goto(url, {
           timeout: NAVIGATION_TIMEOUT_MS,
           waitUntil: "domcontentloaded",
@@ -112,31 +126,33 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
           return finalizeFailed(scanId, "unreachable", "no response from navigation");
         }
         if (response.status() >= 400 && response.status() < 600) {
-          // Treat 4xx/5xx as unreachable for the scanner's purposes; the visitor
-          // still gets a result page explaining the block.
           if (response.status() === 401 || response.status() === 403) {
             desktopBlocker = "login_wall";
           } else {
             return finalizeFailed(scanId, "unreachable", `http ${response.status()}`);
           }
         }
+        step("desktop content()");
         desktopHtml = await desktopPage.content();
         desktopUrl = desktopPage.url();
+        step(`desktop captured html=${desktopHtml.length}b`);
       } catch (err) {
         return finalizeFailed(scanId, "unreachable", String(err));
       } finally {
+        step("desktop close page");
         await desktopPage.close().catch(() => {});
       }
 
+      step("extractDomSignals");
       domSignals = extractDomSignals(desktopHtml, desktopUrl);
+      step("dom signals extracted");
 
-      // Captcha / login heuristic on the rendered HTML.
       if (!desktopBlocker) {
         if (detectCaptcha(desktopHtml)) desktopBlocker = "captcha_blocked";
         else if (detectLoginWall(desktopHtml)) desktopBlocker = "login_wall";
       }
 
-      // ---- Lighthouse passes ----
+      step("lighthouse desktop (bypassed)");
       let lhDesktop: LighthouseResult | null = null;
       let lhMobile: LighthouseResult | null = null;
       try {
@@ -145,7 +161,7 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
         captureException(err, { scope: "scan.runner.lighthouse.desktop" });
       }
 
-      // ---- Mobile pass ----
+      step("mobile newContext");
       const mobileContext = await browser.newContext({
         viewport: MOBILE_VIEWPORT,
         userAgent: MOBILE_USER_AGENT,
@@ -154,12 +170,15 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
         hasTouch: true,
         ignoreHTTPSErrors: true,
       });
+      step("mobile newPage");
       const mobilePage = await mobileContext.newPage();
       try {
+        step("mobile goto");
         await mobilePage.goto(desktopUrl, {
           timeout: NAVIGATION_TIMEOUT_MS,
           waitUntil: "domcontentloaded",
         });
+        step("mobile navigated");
         try {
           lhMobile = await runLighthouse(browser, desktopUrl, "mobile");
         } catch (err) {
@@ -168,9 +187,13 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
       } catch {
         // Mobile failure is non-fatal — desktop signals are sufficient.
       } finally {
+        step("mobile close page");
         await mobilePage.close().catch(() => {});
+        step("mobile close context");
         await mobileContext.close().catch(() => {});
+        step("desktop close context");
         await desktopContext.close().catch(() => {});
+        step("contexts closed");
       }
 
       // ---- Non-hotel guard ----
@@ -215,7 +238,7 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
         });
       }
 
-      // ---- Persist findings + lifecycle ----
+      step(`insert findings n=${rows.length}`);
       if (rows.length > 0) {
         await db.insert(scanFindings).values(
           rows.map((r) => ({
@@ -251,9 +274,12 @@ export async function runScan(scanId: string, url: string): Promise<RunScanResul
         metadata: { status, error_class: errorClass },
       });
 
+      step(`runScan returning status=${status}`);
       return { status, errorClass, findingsInserted: rows.length };
     } finally {
+      step("browser.close()");
       await browser.close().catch(() => {});
+      step("browser closed");
     }
   });
 }

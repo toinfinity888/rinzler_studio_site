@@ -109,8 +109,10 @@ export function domToFindings(signals: DomSignals): FindingRow[] {
       confidence: "high",
     },
     {
+      // value_json is NOT NULL in the schema; encode "no booking button found"
+      // as an empty string rather than null so the row still inserts.
       field: "booking_button_target",
-      valueJson: signals.bookingButtonHref,
+      valueJson: signals.bookingButtonHref ?? "",
       evidence: { external: signals.bookingButtonExternalDomain },
       confidence: signals.bookingButtonHref ? "high" : "low",
     },

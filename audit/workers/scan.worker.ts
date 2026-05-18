@@ -33,8 +33,13 @@ export function registerScanWorker() {
   return createWorker<ScanRunJob>(SCAN_QUEUE, async (job) => {
     const { scan_id, url } = job.data;
     console.log(`[scan] starting ${scan_id} -> ${url}`);
-    const result = await runScan(scan_id, url);
-    console.log(`[scan] finished ${scan_id} status=${result.status} error_class=${result.errorClass ?? "-"} findings=${result.findingsInserted}`);
-    return result;
+    try {
+      const result = await runScan(scan_id, url);
+      console.log(`[scan] finished ${scan_id} status=${result.status} error_class=${result.errorClass ?? "-"} findings=${result.findingsInserted}`);
+      return result;
+    } catch (err) {
+      console.error(`[scan] THREW ${scan_id}:`, err);
+      throw err;
+    }
   });
 }
