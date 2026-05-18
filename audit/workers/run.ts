@@ -11,10 +11,11 @@
 
 import { registerPurgeWorker } from "./purge.worker";
 import { registerScanWorker } from "./scan.worker";
+import { registerAiWorker } from "./ai.worker";
 
 async function main() {
   console.log("[workers] starting…");
-  const workers = [registerPurgeWorker(), registerScanWorker()];
+  const workers = [registerPurgeWorker(), registerScanWorker(), registerAiWorker()];
 
   const shutdown = async (signal: string) => {
     console.log(`[workers] received ${signal}, draining in-flight jobs…`);

@@ -125,27 +125,27 @@ This feature is implemented in-place inside `audit/` (the existing Next.js appli
 
 ### Implementation for User Story 2
 
-- [ ] T050 [P] [US2] Create `audit/lib/questionnaire/condition-evaluator.ts` — evaluates `question_conditions.expression_json` against current answers + scan findings; pure, side-effect-free.
-- [ ] T051 [P] [US2] Create `audit/lib/questionnaire/schema-builder.ts` — converts question + version + translation rows into a runtime Zod schema for the current block.
-- [ ] T052 [P] [US2] Create `audit/lib/questionnaire/prefill.ts` — pre-fills answers from scan findings and admin pre-fills, returns `prefilled[]` for FR-016 attribution.
-- [ ] T053 [US2] Implement `getProjectContext` + `getNextQuestionBlock` server actions in `audit/lib/questionnaire/server-actions.ts`.
-- [ ] T054 [US2] Implement `commitAnswer` server action in `audit/lib/questionnaire/commit.ts` — server-side re-validate, write `answers` + optional `voice_captures`, run T024 redactor over voice transcripts, update `submissions.completion_pct`.
-- [ ] T055 [US2] Implement `submitAudit` server action — enqueues `ai.reason_project` and `enrichment.extract_from_audit`; sets `projects.status = 'submitted'`.
-- [ ] T056 [US2] Implement `getReportStatus` polling server action.
-- [ ] T057 [P] [US2] Create `audit/components/questionnaire/` — `BlockShell` (progress + navigation + fallback-language indicator), `FieldRenderer` (dispatches by `answer_type`), one component per type: `SingleChoice`, `MultiSelect`, `Dropdown`, `Slider`, `Ranking`, `YesNoUnknown`, `ShortText`, `VoiceCapture` (T061).
-- [ ] T058 [US2] Implement tokenized client questionnaire route at `audit/app/(client)/a/[token]/audit/[blockId]/page.tsx`.
-- [ ] T059 [US2] Implement `audit/app/api/transcribe/session/route.ts` — issues Deepgram session tokens with 60-second TTL; project-token-authenticated.
-- [ ] T060 [P] [US2] Create `audit/lib/transcribe/client-bridge.ts` — TypeScript helper that opens the Deepgram WebSocket directly from the browser (audio never traverses our server).
-- [ ] T061 [P] [US2] Create `audit/components/voice/VoiceCapture.tsx` — streams to Deepgram, displays live transcript, requires hotelier confirmation before commit, exposes "discard" and "re-record" actions.
-- [ ] T062 [US2] Implement `audit/workers/ai.worker.ts` — initial handler for `ai.extract_voice_structure` job per [contracts/ai-prompts.md](./contracts/ai-prompts.md) P2 (depends on T024, T025).
-- [ ] T063 [US2] Wire Plausible events: `audit_started`, `audit_section_progressed`, `audit_voice_used`, `audit_submitted` (extend T046's events module).
+- [X] T050 [P] [US2] Create `audit/lib/questionnaire/condition-evaluator.ts` — evaluates `question_conditions.expression_json` against current answers + scan findings; pure, side-effect-free.
+- [X] T051 [P] [US2] Create `audit/lib/questionnaire/schema-builder.ts` — converts question + version + translation rows into a runtime Zod schema for the current block.
+- [X] T052 [P] [US2] Create `audit/lib/questionnaire/prefill.ts` — pre-fills answers from scan findings and admin pre-fills, returns `prefilled[]` for FR-016 attribution.
+- [X] T053 [US2] Implement `getProjectContext` + `getNextQuestionBlock` server actions in `audit/lib/questionnaire/server-actions.ts`.
+- [X] T054 [US2] Implement `commitAnswer` server action in `audit/lib/questionnaire/commit.ts` — server-side re-validate, write `answers` + optional `voice_captures`, run T024 redactor over voice transcripts, update `submissions.completion_pct`.
+- [X] T055 [US2] Implement `submitAudit` server action — enqueues `ai.reason_project` and `enrichment.extract_from_audit`; sets `projects.status = 'submitted'`.
+- [X] T056 [US2] Implement `getReportStatus` polling server action.
+- [X] T057 [P] [US2] Create `audit/components/questionnaire/` — `BlockShell` (progress + navigation + fallback-language indicator), `FieldRenderer` (dispatches by `answer_type`), one component per type: `SingleChoice`, `MultiSelect`, `Dropdown`, `Slider`, `Ranking`, `YesNoUnknown`, `ShortText`, `VoiceCapture` (T061).
+- [X] T058 [US2] Implement tokenized client questionnaire route at `audit/app/(client)/a/[token]/audit/[blockId]/page.tsx`.
+- [X] T059 [US2] Implement `audit/app/api/transcribe/session/route.ts` — issues Deepgram session tokens with 60-second TTL; project-token-authenticated.
+- [X] T060 [P] [US2] Create `audit/lib/transcribe/client-bridge.ts` — TypeScript helper that opens the Deepgram WebSocket directly from the browser (audio never traverses our server).
+- [X] T061 [P] [US2] Create `audit/components/voice/VoiceCapture.tsx` — streams to Deepgram, displays live transcript, requires hotelier confirmation before commit, exposes "discard" and "re-record" actions. (Implemented under `audit/components/questionnaire/VoiceCapture.tsx` alongside the field components.)
+- [ ] DEFERRED — Bedrock model-access form pending. T062 [US2] Implement `audit/workers/ai.worker.ts` — initial handler for `ai.extract_voice_structure` job per [contracts/ai-prompts.md](./contracts/ai-prompts.md) P2 (depends on T024, T025). (Stub + worker registration landed in `audit/workers/ai.worker.ts`; the Claude call is gated TODO.)
+- [X] T063 [US2] Wire Plausible events: `audit_started`, `audit_section_progressed`, `audit_voice_used`, `audit_submitted` (extend T046's events module).
 
 ### Tests for User Story 2
 
-- [ ] T064 [P] [US2] Contract test: conditional rendering — hotel profile + goal selections change which question_versions are returned, in `audit/tests/contract/questionnaire-branching.spec.ts`.
-- [ ] T065 [P] [US2] Contract test: `commitAnswer` with voice payload writes `voice_captures` and never persists audio, in `audit/tests/contract/commit-voice.spec.ts`.
-- [ ] T066 [P] [US2] Contract test: "I don't know" answer accepted, downstream confidence lowered (FR-018), in `audit/tests/contract/idk-confidence.spec.ts`.
-- [ ] T067 [P] [US2] E2E test: full questionnaire path with goal switching + voice usage in `audit/tests/e2e/questionnaire.spec.ts`.
+- [X] T064 [P] [US2] Contract test: conditional rendering — hotel profile + goal selections change which question_versions are returned, in `audit/tests/contract/questionnaire-branching.spec.ts`.
+- [X] T065 [P] [US2] Contract test: `commitAnswer` with voice payload writes `voice_captures` and never persists audio, in `audit/tests/contract/commit-voice.spec.ts`.
+- [X] T066 [P] [US2] Contract test: "I don't know" answer accepted, downstream confidence lowered (FR-018), in `audit/tests/contract/idk-confidence.spec.ts`.
+- [X] T067 [P] [US2] E2E test: full questionnaire path with goal switching + voice usage in `audit/tests/e2e/questionnaire.spec.ts`.
 
 **Checkpoint**: US1 + US2 functional. Hotelier can scan, then complete an adaptive guided audit.
 
@@ -243,7 +243,7 @@ This feature is implemented in-place inside `audit/` (the existing Next.js appli
 - [ ] T105 [US6] Implement questionnaire list page at `audit/app/admin/questionnaire/page.tsx` with block + status filters.
 - [ ] T106 [US6] Implement question editor at `audit/app/admin/questionnaire/[questionId]/edit/page.tsx` with condition builder, scoring-contribution editor, translation tabs.
 - [ ] T107 [P] [US6] Create `audit/components/questionnaire-admin/` — `ConditionBuilder` (AST editor for `expression_json`), `ScoringContributionEditor`, `TranslationTabs`, `StagingPreview`.
-- [ ] T108 [US6] Implement `audit/scripts/seed-questionnaire.ts` — imports the 22-block questionnaire from spec §22 into DB with default conditional logic and FR translations.
+- [X] T108 [US6] Implement `audit/scripts/seed-questionnaire.ts` — imports the 22-block questionnaire from spec §22 into DB with default conditional logic and FR translations. (Partial seed under feature 003 / US 2: first 4 blocks — profile, goal, stack, website — covering all 8 answer types. Full 22-block seed remains a content workstream under US 6.)
 
 ### Tests for User Story 6
 

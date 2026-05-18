@@ -17,7 +17,12 @@ export type PlausibleEvent =
   | "audit_section_completed"
   | "audit_submitted"
   | "audit_revoked_view"
-  | "admin_export_json";
+  | "admin_export_json"
+  // Feature 003 — Dynamic questionnaire (US 2). Server-side mirror of the
+  // event names emitted client-side from lib/analytics/events.ts.
+  | "audit_started"
+  | "audit_section_progressed"
+  | "audit_voice_used";
 
 export function track(name: PlausibleEvent, props?: Record<string, string | number | boolean>): void {
   // Hash any project_id passed in to avoid leaking the plaintext token surface.
