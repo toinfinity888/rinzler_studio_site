@@ -36,12 +36,20 @@ const NULL_RESULT: LighthouseResult = {
 };
 
 export async function runLighthouse(
-  browser: Browser,
-  url: string,
-  formFactor: "desktop" | "mobile",
+  _browser: Browser,
+  _url: string,
+  _formFactor: "desktop" | "mobile",
 ): Promise<LighthouseResult> {
-  // Lighthouse is loaded dynamically: it's a heavy dep we don't want pulled
-  // into the Next.js build graph (it's worker-only).
+  // NOTE: temporarily disabled. The agent's original integration passed
+  // `{ cdp }` as Lighthouse's 4th argument; that shape is wrong for the
+  // current Lighthouse Node API and causes the worker to hang indefinitely.
+  // Until the integration is rewritten to either (a) pass the Playwright
+  // Page directly OR (b) launch Lighthouse with its own chrome-launcher,
+  // we skip Lighthouse and let the scan complete with DOM-only findings.
+  // The DOM signals are the higher-value half of the diagnostic anyway.
+  return { ...NULL_RESULT, runtimeError: "lighthouse disabled pending re-integration" };
+
+  // eslint-disable-next-line no-unreachable
   let lighthouse: any;
   try {
     lighthouse = (await import("lighthouse")).default;

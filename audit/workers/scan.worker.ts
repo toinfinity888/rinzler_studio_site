@@ -23,7 +23,8 @@ export const SCAN_QUEUE: QueueName = "scan";
 export async function enqueueScanRun(job: ScanRunJob): Promise<string> {
   const queue = getQueue<ScanRunJob>(SCAN_QUEUE);
   const enqueued = await queue.add("scan.run", job, {
-    jobId: `scan.run:${job.scan_id}`,
+    // BullMQ disallows ":" in custom job IDs (it's a reserved key delimiter).
+    jobId: `scan-run-${job.scan_id}`,
   });
   return String(enqueued.id);
 }

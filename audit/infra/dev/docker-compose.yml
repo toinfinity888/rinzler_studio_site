@@ -20,7 +20,9 @@ services:
       POSTGRES_PASSWORD: audit_dev_only
       POSTGRES_DB: audit
     ports:
-      - "5432:5432"
+      # Host port 55432 to avoid clashing with local Postgres instances
+      # already listening on 5432 and 5433. Container port stays 5432.
+      - "55432:5432"
     volumes:
       - audit_pg_data:/var/lib/postgresql/data
     healthcheck:

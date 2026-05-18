@@ -13,12 +13,12 @@
     "test:e2e": "playwright test",
     "test:contract": "vitest run tests/contract",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx scripts/migrate.ts",
-    "db:migrate:mysql-to-postgres": "tsx scripts/migrate-mysql-to-postgres.ts",
-    "db:seed:admin": "tsx scripts/seed-admin.ts",
-    "db:seed:vendors": "tsx scripts/seed-vendor-db.ts",
-    "db:seed:questionnaire": "tsx scripts/seed-questionnaire.ts",
-    "workers:dev": "tsx workers/run.ts"
+    "db:migrate": "tsx --env-file=.env.local --conditions=react-server scripts/migrate.ts",
+    "db:migrate:mysql-to-postgres": "tsx --env-file=.env.local --conditions=react-server scripts/migrate-mysql-to-postgres.ts",
+    "db:seed:admin": "tsx --env-file=.env.local --conditions=react-server scripts/seed-admin.ts",
+    "db:seed:vendors": "tsx --env-file=.env.local --conditions=react-server scripts/seed-vendor-db.ts",
+    "db:seed:questionnaire": "tsx --env-file=.env.local --conditions=react-server scripts/seed-questionnaire.ts",
+    "workers:dev": "tsx --env-file=.env.local --conditions=react-server workers/run.ts"
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.654.0",

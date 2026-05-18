@@ -1,4 +1,8 @@
-import "server-only";
+// NOTE: this module is imported by both Next.js server code AND standalone
+// Node processes (workers, migration scripts, seeders). Do NOT add
+// `import "server-only"` here — it would crash workers at startup.
+// Client-bundle protection happens at the call sites (server-only routes,
+// server actions) instead.
 import type { Pool } from "pg";
 import { createDbClient, type Db } from "./client";
 
