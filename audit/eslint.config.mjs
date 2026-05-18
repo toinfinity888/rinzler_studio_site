@@ -10,9 +10,6 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  // Apply ignore patterns first as a global config so flat-config picks
-  // them up across all subsequent configs (including the next/typescript
-  // checks that walk the whole tree).
   {
     ignores: [
       "node_modules/**",
@@ -27,24 +24,22 @@ const eslintConfig = [
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    // Feature 003 — include the new workers and lib subtrees in lint scope.
+    files: [
+      "app/**/*.{ts,tsx}",
+      "components/**/*.{ts,tsx}",
+      "lib/**/*.{ts,tsx}",
+      "workers/**/*.{ts,tsx}",
+      "middleware.ts",
+      "db/**/*.ts",
+    ],
     rules: {
-      // Unhelpful for French content — apostrophes appear in nearly every
-      // sentence; HTML entity escaping makes the source unreadable.
       "react/no-unescaped-entities": "off",
-      // Allow leading-underscore for intentionally-unused parameters
-      // (e.g., scorer stubs in lib/scoring/index.ts).
       "@typescript-eslint/no-unused-vars": [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
     },
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
   },
 ];
 

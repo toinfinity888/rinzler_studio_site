@@ -1,7 +1,36 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.1.1 → 1.1.2
+Version change: 1.1.2 → 1.2.0
+Type: MINOR amendment — broadens an existing constraint in the Audit
+Platform Sub-Stack so that managed-questionnaire features (feature
+003-hotel-diagnostic-platform, User Story 6, FR-100..FR-104) can source
+the form schema from the database rather than only from a TypeScript file.
+  - Principle wording is preserved: the schema remains the single source
+    of truth, validation remains Zod, the runtime remains
+    `react-hook-form`.
+  - What changes: the Audit Platform Sub-Stack "Form runtime" bullet now
+    permits a DB-sourced declarative schema in addition to the legacy
+    `audit/lib/form-schema/sections.ts` TS-file path. When DB-sourced,
+    the runtime Zod schema MUST be derived from the same row set the
+    renderer consumes — preserving single-source-of-truth.
+  - Why MINOR (not PATCH): this materially expands what is permissible
+    under the sub-stack, even though no principle is removed or redefined
+    and no previously-compliant code becomes non-compliant.
+
+Templates requiring updates:
+  - all .specify/templates/*.md                ✅ compatible (no constitution-specific references)
+
+Dependent feature artifacts:
+  - specs/001-hotel-audit-platform/plan.md     ✅ aligned (the static TS-schema path remains permitted under the broadened wording)
+  - specs/001-hotel-audit-platform/tasks.md    ✅ aligned
+  - specs/002-hotel-marketing-pivot/plan.md    ✅ aligned (marketing site is unaffected)
+  - specs/003-hotel-diagnostic-platform/plan.md   ✅ unblocked by this amendment — pending pre-implementation action documented in plan.md is now satisfied
+  - specs/003-hotel-diagnostic-platform/research.md, data-model.md, contracts/, quickstart.md   ✅ already designed in line with the amended wording
+
+Follow-up TODOs: none.
+
+----- Earlier amendment (v1.1.1 → v1.1.2, 2026-05-13) -----
 Type: PATCH amendment — one wording clarification surfaced by
 `/speckit.analyze` of feature 002-hotel-marketing-pivot:
   - Principle II's parenthetical example named the legacy segment
@@ -196,8 +225,18 @@ change such as moving away from Node).
   hashed with Argon2id (`@node-rs/argon2`). Magic-link, OAuth, and SSO
   providers MAY be added later as alternative providers without
   amendment, but Credentials MUST remain available.
-- **Form runtime:** `react-hook-form` + Zod, fed by a single declarative
-  schema at `audit/lib/form-schema/sections.ts` (FR-023, FR-045).
+- **Form runtime:** `react-hook-form` + Zod, fed by a declarative schema
+  that is the single source of truth. The schema MAY be sourced either
+  from a TypeScript file (for fixed forms — e.g.,
+  `audit/lib/form-schema/sections.ts`, used by feature
+  `001-hotel-audit-platform`) OR from the database (for managed-
+  questionnaire features that require non-engineer editing, conditional
+  logic, versioning, and per-language translations — e.g., feature
+  `003-hotel-diagnostic-platform` User Story 6 / FR-100..FR-104). When
+  the schema is DB-sourced, a runtime Zod schema MUST be derived from
+  the same row set that the renderer consumes, preserving the single-
+  source-of-truth invariant: the renderer and the validator MUST NEVER
+  read from divergent sources.
 - **Hosting:** France-resident only. Default target is o2switch's cPanel
   Node.js Selector; documented sovereign fallback is Clever Cloud or
   Scaleway. Non-EU hosting (including non-EU control planes such as
@@ -262,4 +301,4 @@ constitution is amended first.
   `.specify/templates/`. This constitution is the source of truth only for the
   principles and constraints above.
 
-**Version**: 1.1.2 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-13
+**Version**: 1.2.0 | **Ratified**: 2026-04-14 | **Last Amended**: 2026-05-17
