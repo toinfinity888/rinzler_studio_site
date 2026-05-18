@@ -23,6 +23,7 @@ import {
   type QuestionVersion,
 } from "@/db/schema";
 import { QUESTION_BLOCKS, type QuestionBlock } from "@/db/schema";
+import { nextBlock } from "./blocks";
 
 import { evaluateAnyCondition, type ConditionContext } from "./condition-evaluator";
 import type {
@@ -42,14 +43,9 @@ const CANONICAL_LANGUAGE = "fr";
  * script can register fewer blocks. We surface a block to the renderer iff
  * at least one published question targets that block.
  */
-export const BLOCK_ORDER: readonly QuestionBlock[] = QUESTION_BLOCKS;
-
-export function nextBlock(current: QuestionBlock | null): QuestionBlock | null {
-  if (current === null) return BLOCK_ORDER[0] ?? null;
-  const idx = BLOCK_ORDER.indexOf(current);
-  if (idx < 0) return BLOCK_ORDER[0] ?? null;
-  return BLOCK_ORDER[idx + 1] ?? null;
-}
+// Re-exported from `./blocks` so existing server-side callers keep working.
+// The canonical source lives in `./blocks` (client-safe).
+export { BLOCK_ORDER, nextBlock } from "./blocks";
 
 /* ------------------------------------------------------------------ */
 /* Load questions in a block                                          */

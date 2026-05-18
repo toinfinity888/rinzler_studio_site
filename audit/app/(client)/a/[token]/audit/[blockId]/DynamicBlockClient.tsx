@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { BlockShell } from "@/components/questionnaire/BlockShell";
 import type { QuestionBlockPayload } from "@/lib/questionnaire/types";
-import { BLOCK_ORDER } from "@/lib/questionnaire/load-block";
+import { BLOCK_ORDER } from "@/lib/questionnaire/blocks";
 
 export interface DynamicBlockClientProps {
   token: string;

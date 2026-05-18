@@ -18,6 +18,7 @@
     "db:seed:admin": "tsx --env-file=.env.local --conditions=react-server scripts/seed-admin.ts",
     "db:seed:vendors": "tsx --env-file=.env.local --conditions=react-server scripts/seed-vendor-db.ts",
     "db:seed:questionnaire": "tsx --env-file=.env.local --conditions=react-server scripts/seed-questionnaire.ts",
+    "db:test-project": "tsx --env-file=.env.local --conditions=react-server scripts/create-test-project.ts",
     "workers:dev": "tsx --env-file=.env.local --conditions=react-server workers/run.ts"
   },
   "dependencies": {
