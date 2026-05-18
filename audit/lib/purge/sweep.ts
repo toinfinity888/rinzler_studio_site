@@ -83,7 +83,10 @@ export async function runPurgeSweep(opts: PurgeOptions = {}): Promise<PurgeResul
     await db
       .insert(meta)
       .values({ key: "last_purge_sweep_at", value: now.toISOString() })
-      .onDuplicateKeyUpdate({ set: { value: now.toISOString(), updatedAt: now } });
+      .onConflictDoUpdate({
+        target: meta.key,
+        set: { value: now.toISOString(), updatedAt: now },
+      });
   }
 
   return { purged, skipped, cutoffIso: cutoff.toISOString() };

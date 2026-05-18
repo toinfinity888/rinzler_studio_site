@@ -114,6 +114,19 @@ export const AUDIT_ACTIONS = [
   "role_revoked",
   "user_login",
   "user_logout",
+  // Legacy feature-001 action names (kept for backward compat with the
+  // existing admin/login + project lifecycle handlers. New code should
+  // prefer the snake_case forms above.)
+  "admin.login",
+  "admin.login_failed",
+  "project.create",
+  "project.update_priority",
+  "project.revoke",
+  "project.reopen",
+  "project.mark_ongoing",
+  "project.delete",
+  "project.export_json",
+  "project.purge",
 ] as const;
 export type AuditAction = (typeof AUDIT_ACTIONS)[number];
 

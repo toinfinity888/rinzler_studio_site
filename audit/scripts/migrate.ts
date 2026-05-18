@@ -1,4 +1,4 @@
-import { migrate } from "drizzle-orm/mysql2/migrator";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { createDbClient } from "../lib/db/client";
 import path from "node:path";
 

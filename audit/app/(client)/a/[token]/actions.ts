@@ -99,7 +99,8 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
           updatedAt: now,
           source: "client",
         })
-        .onDuplicateKeyUpdate({
+        .onConflictDoUpdate({
+          target: [answers.submissionId, answers.fieldId],
           set: { valueJson, updatedAt: now, source: "client" },
         });
     }

@@ -33,6 +33,20 @@ export const SCORE_DIMENSIONS = [
 export type ScoreDimension = (typeof SCORE_DIMENSIONS)[number];
 
 export const SCORE_BANDS = ["low", "medium", "high"] as const;
+export type ScoreBand = (typeof SCORE_BANDS)[number];
+
+/**
+ * Legacy stub score names from feature 001 (kept so lib/scoring/index.ts
+ * keeps producing a fixed result set). Feature 003's recommendation engine
+ * uses the wider `SCORE_DIMENSIONS` enum above for readiness scoring.
+ */
+export const SCORE_NAMES = [
+  "automation_opportunity",
+  "operational_complexity",
+  "modernization_readiness",
+  "digital_maturity",
+] as const;
+export type ScoreName = (typeof SCORE_NAMES)[number];
 
 export const ROADMAP_BUCKETS = [
   "immediate",
