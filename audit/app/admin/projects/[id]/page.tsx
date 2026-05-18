@@ -83,9 +83,10 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
     : [];
   const byField = new Map(answerRows.map((a) => [a.fieldId, a]));
 
-  const scoreRows = submission
-    ? await db.select().from(scores).where(eq(scores.submissionId, submission.id))
-    : [];
+  // Feature-001 stub scores are no longer written on submit (see
+  // app/(client)/a/[token]/actions.ts). Feature 003 US 3 will populate
+  // readinessScores; until then this card is hidden.
+  const scoreRows: { id: string; dimension: string; value: number; band: string }[] = [];
 
   const notes = await db
     .select({
@@ -131,7 +132,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
                 {scoreRows.map((s) => (
                   <li key={s.id} className="rounded-md p-3 [background:var(--color-bg-tertiary)]">
                     <div className="flex items-baseline justify-between">
-                      <span className="text-sm text-text-secondary">{SCORE_LABELS[s.name] ?? s.name}</span>
+                      <span className="text-sm text-text-secondary">{SCORE_LABELS[s.dimension as keyof typeof SCORE_LABELS] ?? s.dimension}</span>
                       <span className={["text-lg font-semibold", BAND_COLOR[s.band] ?? ""].join(" ")}>
                         {s.value}
                       </span>
@@ -150,7 +151,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
                   const fid = systemFieldId(field.id, sub);
                   const a = byField.get(fid);
                   if (!a) continue;
-                  sectionAnswers.push({ fieldId: fid, label: t(fid).label, value: parseValue(a.valueJson) });
+                  sectionAnswers.push({ fieldId: fid, label: t(fid).label, value: a.valueJson });
                 }
                 continue;
               }
@@ -160,7 +161,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailProps) 
               sectionAnswers.push({
                 fieldId: field.id,
                 label: entry.label,
-                value: formatValue(parseValue(a.valueJson), entry.options),
+                value: formatValue(a.valueJson, entry.options),
               });
             }
             if (sectionAnswers.length === 0) {

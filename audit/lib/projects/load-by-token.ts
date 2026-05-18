@@ -33,6 +33,7 @@ export async function loadProjectByToken(
   if (!project) return null;
   if (project.tokenRevokedAt) return null;
   if (project.status === "purged") return null;
+  if (!project.tokenHash) return null;
   if (!verifyToken(plaintext, project.tokenHash)) return null;
 
   const [submission] = await db
@@ -47,13 +48,10 @@ export async function loadProjectByToken(
     .from(answers)
     .where(eq(answers.submissionId, submission.id));
 
+  // Postgres jsonb values arrive already-parsed; no JSON.parse step.
   const answerMap: Record<string, unknown> = {};
   for (const r of rows) {
-    try {
-      answerMap[r.fieldId] = JSON.parse(r.valueJson);
-    } catch {
-      answerMap[r.fieldId] = r.valueJson;
-    }
+    answerMap[r.fieldId] = r.valueJson;
   }
 
   if (!project.sentAt) {

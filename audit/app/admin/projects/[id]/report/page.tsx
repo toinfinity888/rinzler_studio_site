@@ -57,10 +57,9 @@ export default async function ReportPage({ params }: ReportPageProps) {
     .from(answers)
     .where(eq(answers.submissionId, submission.id));
   const byField = new Map(answerRows.map((a) => [a.fieldId, a]));
-  const scoreRows = await db
-    .select()
-    .from(scores)
-    .where(eq(scores.submissionId, submission.id));
+  // Feature-001 stub scores are no longer written; see feature 003 US 3
+  // (ai.reason_project worker) for the new readinessScores producer.
+  const scoreRows: { id: string; dimension: string; value: number; band: string }[] = [];
 
   const fmt = (d: Date | null): string =>
     d
@@ -88,7 +87,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
           <ul className="scores">
             {scoreRows.map((s) => (
               <li key={s.id}>
-                <span className="score-name">{SCORE_LABELS[s.name] ?? s.name}</span>
+                <span className="score-name">{SCORE_LABELS[s.dimension as keyof typeof SCORE_LABELS] ?? s.dimension}</span>
                 <span className={`score-value band-${s.band}`}>{s.value}</span>
               </li>
             ))}
@@ -104,7 +103,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
               const fid = systemFieldId(field.id, sub);
               const a = byField.get(fid);
               if (!a) continue;
-              items.push({ id: fid, label: t(fid).label, value: fmtValue(parseValue(a.valueJson)) });
+              items.push({ id: fid, label: t(fid).label, value: fmtValue(a.valueJson) });
             }
             continue;
           }
@@ -114,7 +113,7 @@ export default async function ReportPage({ params }: ReportPageProps) {
           items.push({
             id: field.id,
             label: entry.label,
-            value: fmtValue(parseValue(a.valueJson), entry.options),
+            value: fmtValue(a.valueJson, entry.options),
           });
         }
         return (

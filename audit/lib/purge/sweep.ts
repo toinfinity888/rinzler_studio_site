@@ -1,7 +1,7 @@
 import "server-only";
 import { and, eq, lt } from "drizzle-orm";
 import { db } from "@/lib/db";
-import { projects, answers, scores, internalNotes, submissions, meta } from "@/db/schema";
+import { projects, answers, readinessScores, internalNotes, submissions, meta } from "@/db/schema";
 import { writeAuditEntry } from "@/lib/audit-log";
 
 const THIRTY_SIX_MONTHS_MS = 36 * 30 * 24 * 60 * 60 * 1000; // ≈ 1080 days
@@ -54,8 +54,9 @@ export async function runPurgeSweep(opts: PurgeOptions = {}): Promise<PurgeResul
         .from(submissions)
         .where(eq(submissions.projectId, p.id))
         .limit(1);
+      // Cascade scores by projectId (new readinessScores shape — feature 003).
+      await tx.delete(readinessScores).where(eq(readinessScores.projectId, p.id));
       if (sub) {
-        await tx.delete(scores).where(eq(scores.submissionId, sub.id));
         await tx.delete(answers).where(eq(answers.submissionId, sub.id));
         await tx.delete(submissions).where(eq(submissions.id, sub.id));
       }

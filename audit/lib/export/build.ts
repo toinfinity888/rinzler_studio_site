@@ -5,7 +5,6 @@ import {
   projects,
   submissions,
   answers,
-  scores,
   internalNotes,
   admins,
 } from "@/db/schema";
@@ -59,8 +58,8 @@ export async function buildExport(
           rendered.push({
             fieldId: id,
             label: t(id).label,
-            value: parseValue(a.valueJson),
-            source: a.source,
+            value: a.valueJson,
+            source: legacySource(a.source),
             updatedAt: new Date(a.updatedAt).toISOString(),
           });
         }
@@ -71,25 +70,25 @@ export async function buildExport(
       rendered.push({
         fieldId: field.id,
         label: t(field.id).label,
-        value: parseValue(a.valueJson),
-        source: a.source,
+        value: a.valueJson,
+        source: legacySource(a.source),
         updatedAt: new Date(a.updatedAt).toISOString(),
       });
     }
     return { id: section.id, title: sectionTitle(section.id), answers: rendered };
   });
 
-  const scoreRows = await db
-    .select()
-    .from(scores)
-    .where(eq(scores.submissionId, submission.id));
-  const scoreOut = scoreRows.map((s) => ({
-    name: s.name,
-    value: s.value,
-    band: s.band,
-    basis: parseBasis(s.basisJson),
-    computedAt: new Date(s.computedAt).toISOString(),
-  }));
+  // Feature-001 stub scores were always [{0,0,0,0}]; feature 003's new
+  // readinessScores table has a different shape (projectId, dimension)
+  // and is populated by the ai.reason_project worker (US 3). Until US 3
+  // lands, the export emits an empty score array.
+  const scoreOut: {
+    name: "automation_opportunity" | "operational_complexity" | "modernization_readiness" | "digital_maturity";
+    value: number;
+    band: "low" | "medium" | "high";
+    basis?: string[];
+    computedAt?: string;
+  }[] = [];
 
   const result: ExportV1Type = {
     schemaVersion: "audit-export.v1",
@@ -98,9 +97,9 @@ export async function buildExport(
       id: project.id,
       label: project.label,
       hotelName: project.hotelName ?? null,
-      contactEmail: project.contactEmail,
+      contactEmail: project.contactEmail ?? "",
       priority: project.priority,
-      status: project.status,
+      status: legacyStatus(project.status),
       ongoingEngagement: Boolean(project.ongoingEngagement),
       createdAt: new Date(project.createdAt).toISOString(),
       sentAt: isoOrNull(project.sentAt),
@@ -143,19 +142,48 @@ export async function buildExport(
   return parsed.data;
 }
 
-function parseValue(raw: string): unknown {
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return raw;
-  }
+/**
+ * Map the wider feature-003 `answers.source` enum back to the narrower
+ * legacy export shape. `consultant_override` is treated as client-supplied
+ * (the consultant authored it on behalf of the client); `voice_extracted`
+ * is treated as client (the hotelier confirmed the transcript before
+ * commit); `scan_inferred` is treated as admin_prefill (machine-supplied,
+ * akin to admin pre-fill).
+ */
+function legacySource(
+  source: "client" | "admin_prefill" | "consultant_override" | "voice_extracted" | "scan_inferred",
+): "client" | "admin_prefill" {
+  if (source === "admin_prefill" || source === "scan_inferred") return "admin_prefill";
+  return "client";
 }
 
-function parseBasis(raw: string): string[] {
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.filter((x): x is string => typeof x === "string") : [];
-  } catch {
-    return [];
+/**
+ * Map the wider feature-003 project status enum back to the legacy export
+ * shape. New states without a direct legacy equivalent collapse to the
+ * closest analog: `awaiting_client` → `awaiting`, `consultant_finalized`
+ * and `published` → `submitted`, `archived` → `purged`.
+ */
+function legacyStatus(
+  status:
+    | "draft"
+    | "awaiting_client"
+    | "in_progress"
+    | "submitted"
+    | "consultant_finalized"
+    | "published"
+    | "archived"
+    | "reopened"
+    | "purged",
+): "draft" | "in_progress" | "submitted" | "reopened" | "purged" | "awaiting" {
+  switch (status) {
+    case "awaiting_client":
+      return "awaiting";
+    case "consultant_finalized":
+    case "published":
+      return "submitted";
+    case "archived":
+      return "purged";
+    default:
+      return status;
   }
 }

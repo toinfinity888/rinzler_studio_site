@@ -51,7 +51,7 @@ export async function createProject(rawInput: CreateProjectInput): Promise<Creat
       hotelName: input.hotelName?.trim() || null,
       contactEmail: input.contactEmail,
       priority: input.priority ?? "medium",
-      status: "awaiting",
+      status: "awaiting_client",
       tokenHash: hash,
       ongoingEngagement: false,
       createdAt: now,
@@ -140,6 +140,8 @@ export async function appendInternalNote(projectId: string, body: string) {
   await db.insert(internalNotes).values({
     id: randomUUID(),
     projectId,
+    targetType: "project",
+    targetId: projectId,
     authorId: admin.id,
     body: trimmed,
     createdAt: now,

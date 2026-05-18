@@ -3,7 +3,7 @@
 import { eq, and } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 import { db } from "@/lib/db";
-import { projects, submissions, answers, scores as scoresTable } from "@/db/schema";
+import { projects, submissions, answers } from "@/db/schema";
 import { hashToken } from "@/lib/tokens";
 import { SECTIONS } from "@/lib/form-schema/sections";
 import { buildZodSchema, validatePartial } from "@/lib/form-schema/validation";
@@ -112,11 +112,8 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
       .where(eq(answers.submissionId, submission.id));
     const map: Record<string, unknown> = {};
     for (const r of allRows) {
-      try {
-        map[r.fieldId] = JSON.parse(r.valueJson);
-      } catch {
-        map[r.fieldId] = r.valueJson;
-      }
+      // Postgres jsonb arrives already-parsed.
+      map[r.fieldId] = r.valueJson;
     }
     const pct = computeCompletionPct(map, SECTIONS);
     await tx
@@ -124,8 +121,8 @@ export async function saveAnswers(input: SaveAnswersInput): Promise<SaveAnswersR
       .set({ updatedAt: now, completionPct: pct })
       .where(eq(submissions.id, submission.id));
 
-    // Status transition: awaiting → in_progress on first client save.
-    if (project.status === "awaiting" || project.status === "draft") {
+    // Status transition: awaiting_client → in_progress on first client save.
+    if (project.status === "awaiting_client" || project.status === "draft") {
       await tx
         .update(projects)
         .set({ status: "in_progress", lastEditedAt: now })
@@ -189,11 +186,7 @@ export async function submitAudit(token: string): Promise<SubmitAuditResult> {
     .where(eq(answers.submissionId, submission.id));
   const map: Record<string, unknown> = {};
   for (const r of allRows) {
-    try {
-      map[r.fieldId] = JSON.parse(r.valueJson);
-    } catch {
-      map[r.fieldId] = r.valueJson;
-    }
+    map[r.fieldId] = r.valueJson;
   }
 
   const missingRequired: string[] = [];
@@ -216,19 +209,11 @@ export async function submitAudit(token: string): Promise<SubmitAuditResult> {
     if (!project.submittedAt) setOnSubmit.submittedAt = now;
     await tx.update(projects).set(setOnSubmit).where(eq(projects.id, project.id));
 
-    const computed = runAllScores(map);
-    await tx.delete(scoresTable).where(eq(scoresTable.submissionId, submission.id));
-    for (const s of computed) {
-      await tx.insert(scoresTable).values({
-        id: randomUUID(),
-        submissionId: submission.id,
-        name: s.name,
-        value: s.value,
-        band: s.band,
-        basisJson: JSON.stringify(s.basis),
-        computedAt: now,
-      });
-    }
+    // Feature-001 stub scoring is disabled on submit. Feature 003 US 3
+    // (ai.reason_project worker) replaces this with readinessScores writes
+    // against the new (projectId, dimension) shape. For now we keep the
+    // legacy runAllScores() call so analytics can still observe it.
+    void runAllScores(map);
   });
 
   track("audit_submitted", { project_id: project.id });
