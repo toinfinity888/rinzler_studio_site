@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rinzlerstudio.com/schemas/hotel-diagnostic-report.v1.json",
+  "title": "Hotel Diagnostic Report Export",
+  "description": "Versioned JSON contract for the exportable Hotel Diagnostic report (FR-093). Frozen at publication; identical to report_snapshots.rendered_json.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "project",
+    "executive_summary",
+    "readiness_scores",
+    "opportunity_map",
+    "bottleneck_analysis",
+    "tool_stack_overview",
+    "scenarios",
+    "recommendations",
+    "tool_shortlist",
+    "what_not_to_do_now",
+    "impact_analysis",
+    "roadmap",
+    "compliance_checklist",
+    "next_steps",
+    "metadata"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "hotel-diagnostic-report.v1"
+    },
+    "project": {
+      "type": "object",
+      "required": ["id", "tier", "language", "published_at", "goal_primary"],
+      "properties": {
+        "id":            { "type": "string", "format": "uuid" },
+        "hotel_id":      { "type": ["string", "null"], "format": "uuid" },
+        "tier":          { "enum": ["mini", "full", "consultant_assisted", "implementation"] },
+        "language":      { "type": "string" },
+        "published_at":  { "type": "string", "format": "date-time" },
+        "goal_primary":  { "type": "string" },
+        "goal_secondary":{ "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "executive_summary": { "type": "string", "maxLength": 1200 },
+    "readiness_scores": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "value", "band"],
+        "properties": {
+          "dimension": {
+            "enum": [
+              "website", "ai_search", "direct_booking", "guest_communication",
+              "automation", "tool_stack_coherence", "data_integration",
+              "compliance", "operational_workload"
+            ]
+          },
+          "value": { "type": "integer", "minimum": 0, "maximum": 100 },
+          "band":  { "enum": ["low", "medium", "high"] },
+          "basis": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "opportunity_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "headline", "severity"],
+        "properties": {
+          "category": { "type": "string" },
+          "headline": { "type": "string" },
+          "detail":   { "type": "string" },
+          "severity": { "enum": ["info", "opportunity", "risk"] }
+        }
+      }
+    },
+    "bottleneck_analysis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bottleneck", "description"],
+        "properties": {
+          "bottleneck":  { "type": "string" },
+          "description": { "type": "string" },
+          "evidence":    { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "tool_stack_overview": {
+      "type": "object",
+      "properties": {
+        "current":   { "type": "array", "items": { "type": "object" } },
+        "missing":   { "type": "array", "items": { "type": "string" } },
+        "redundant": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "title", "summary", "tradeoffs", "recommendation_ids"],
+        "properties": {
+          "kind":               { "enum": ["minimal", "balanced", "advanced", "custom"] },
+          "title":              { "type": "string" },
+          "summary":            { "type": "string" },
+          "tradeoffs":          { "type": "object" },
+          "recommendation_ids": { "type": "array", "items": { "type": "string", "format": "uuid" } }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "action", "explanation", "impact", "confidence", "do_not_do_now", "signals_consulted"],
+        "properties": {
+          "id":              { "type": "string", "format": "uuid" },
+          "action":          { "type": "string" },
+          "vendor": {
+            "type": ["object", "null"],
+            "properties": {
+              "id":            { "type": "string", "format": "uuid" },
+              "version_id":    { "type": "string", "format": "uuid" },
+              "name":          { "type": "string" },
+              "category":      { "type": "string" }
+            }
+          },
+          "explanation":     { "type": "object" },
+          "impact":          { "type": "object" },
+          "confidence":      { "enum": ["low", "medium", "high"] },
+          "do_not_do_now":   { "type": "boolean" },
+          "do_not_do_reason":{ "type": ["string", "null"] },
+          "signals_consulted": {
+            "type": "object",
+            "required": ["answers", "scan_findings", "vendor_fields"],
+            "properties": {
+              "answers":        { "type": "array", "items": { "type": "string" } },
+              "scan_findings":  { "type": "array", "items": { "type": "string" } },
+              "vendor_fields":  { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "tool_shortlist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["vendor_id", "vendor_version_id", "name", "reason", "confidence"],
+        "properties": {
+          "vendor_id":         { "type": "string", "format": "uuid" },
+          "vendor_version_id": { "type": "string", "format": "uuid" },
+          "name":              { "type": "string" },
+          "category":          { "type": "string" },
+          "reason":            { "type": "string" },
+          "confidence":        { "enum": ["low", "medium", "high"] }
+        }
+      }
+    },
+    "what_not_to_do_now": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["action", "reason"],
+        "properties": {
+          "action":             { "type": "string" },
+          "reason":             { "type": "string" },
+          "reconsider_when":    { "type": "string" }
+        }
+      }
+    },
+    "impact_analysis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["recommendation_id", "dimensions"],
+        "properties": {
+          "recommendation_id": { "type": "string", "format": "uuid" },
+          "dimensions":        { "type": "object" }
+        }
+      }
+    },
+    "roadmap": {
+      "type": "object",
+      "required": ["immediate", "thirty_day", "sixty_day", "ninety_day"],
+      "properties": {
+        "immediate":  { "type": "array", "items": { "$ref": "#/$defs/RoadmapItem" } },
+        "thirty_day": { "type": "array", "items": { "$ref": "#/$defs/RoadmapItem" } },
+        "sixty_day":  { "type": "array", "items": { "$ref": "#/$defs/RoadmapItem" } },
+        "ninety_day": { "type": "array", "items": { "$ref": "#/$defs/RoadmapItem" } },
+        "postponed":  { "type": "array", "items": { "$ref": "#/$defs/RoadmapItem" } }
+      }
+    },
+    "compliance_checklist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["topic", "severity", "explanation", "checklist_item"],
+        "properties": {
+          "topic":          { "type": "string" },
+          "severity":       { "enum": ["info", "advisory", "risk"] },
+          "explanation":    { "type": "string" },
+          "checklist_item": { "type": "string" }
+        }
+      }
+    },
+    "next_steps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["rule_engine_version", "referenced_vendor_versions", "referenced_question_versions"],
+      "properties": {
+        "rule_engine_version":          { "type": "string" },
+        "scoring_rubric_version":       { "type": "string" },
+        "referenced_vendor_versions":   { "type": "array", "items": { "type": "string", "format": "uuid" } },
+        "referenced_question_versions": { "type": "array", "items": { "type": "string", "format": "uuid" } },
+        "disclaimer":                   { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "RoadmapItem": {
+      "type": "object",
+      "required": ["recommendation_id", "expected_effort", "expected_impact"],
+      "properties": {
+        "recommendation_id":    { "type": "string", "format": "uuid" },
+        "expected_effort":      { "enum": ["low", "medium", "high"] },
+        "expected_impact":      { "enum": ["low", "medium", "high"] },
+        "dependencies":         { "type": "array", "items": { "type": "string", "format": "uuid" } },
+        "recommended_owner":    { "enum": ["hotelier", "consultant", "external", "shared"] },
+        "implementation_risk":  { "enum": ["low", "medium", "high"] },
+        "decision_points":      { "type": "array", "items": { "type": "object" } }
+      }
+    }
+  }
+}
