@@ -20,7 +20,7 @@
  */
 /* eslint-disable no-console */
 
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { randomUUID } from "node:crypto";
 
 import { createDbClient } from "../lib/db/client";
@@ -29,6 +29,8 @@ import {
   questionVersions,
   questionTranslations,
   questionConditions,
+  answers,
+  voiceCaptures,
   type QuestionBlock,
   type AnswerType,
 } from "../db/schema";
@@ -419,28 +421,61 @@ const SEED: SeedQuestion[] = [
     audit_levels: ["full", "consultant_assisted"],
     definition: {
       required: false,
-      options: ["siteminder", "d_edge", "cubilis", "myhotelpms_in_pms", "other", "none"],
+      options: [
+        "d_edge",
+        "siteminder",
+        "cubilis",
+        "hotelrunner",
+        "myallocator",
+        "availpro",
+        "rategain",
+        "misterbooking",
+        "vertical_booking",
+        "erevmax",
+        "myhotelpms_in_pms",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
     },
     fr: {
       prompt: "Channel manager",
+      helper: "Si vous ne gérez qu’une seule plateforme de réservation, cochez « Aucun ».",
       option_labels: {
-        siteminder: "SiteMinder",
         d_edge: "D-EDGE",
+        siteminder: "SiteMinder",
         cubilis: "Cubilis (Stardekk)",
+        hotelrunner: "HotelRunner",
+        myallocator: "MyAllocator",
+        availpro: "Availpro",
+        rategain: "RateGain",
+        misterbooking: "Mister Booking",
+        vertical_booking: "Vertical Booking",
+        erevmax: "eRevMax",
         myhotelpms_in_pms: "Intégré au PMS",
         other: "Autre",
         none: "Aucun",
+        i_dont_know: "Je ne sais pas",
       },
     },
     en: {
       prompt: "Channel manager",
+      helper: "If you only sell on a single platform, pick “None”.",
       option_labels: {
-        siteminder: "SiteMinder",
         d_edge: "D-EDGE",
+        siteminder: "SiteMinder",
         cubilis: "Cubilis (Stardekk)",
+        hotelrunner: "HotelRunner",
+        myallocator: "MyAllocator",
+        availpro: "Availpro",
+        rategain: "RateGain",
+        misterbooking: "Mister Booking",
+        vertical_booking: "Vertical Booking",
+        erevmax: "eRevMax",
         myhotelpms_in_pms: "Bundled with PMS",
         other: "Other",
         none: "None",
+        i_dont_know: "I don’t know",
       },
     },
   },
@@ -451,30 +486,244 @@ const SEED: SeedQuestion[] = [
     audit_levels: ["mini", "full", "consultant_assisted"],
     definition: {
       required: false,
-      options: ["d_edge", "amenitiz", "availpro", "bookassist", "reservit", "other", "none"],
+      options: [
+        "d_edge",
+        "reservit",
+        "misterbooking",
+        "availpro",
+        "siteminder",
+        "cubilis",
+        "vertical_booking",
+        "bookassist",
+        "hotello",
+        "guestcentric",
+        "amenitiz",
+        "eviivo",
+        "thinkreservations",
+        "fastbooking",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
     },
     fr: {
       prompt: "Moteur de réservation",
+      helper: "Le moteur intégré à votre site web pour les réservations directes.",
       option_labels: {
         d_edge: "D-EDGE",
-        amenitiz: "Amenitiz",
-        availpro: "Availpro",
-        bookassist: "BookAssist",
         reservit: "Reservit",
+        misterbooking: "Mister Booking",
+        availpro: "Availpro",
+        siteminder: "SiteMinder",
+        cubilis: "Cubilis (Stardekk)",
+        vertical_booking: "Vertical Booking",
+        bookassist: "Bookassist",
+        hotello: "Hotello",
+        guestcentric: "GuestCentric",
+        amenitiz: "Amenitiz",
+        eviivo: "eviivo",
+        thinkreservations: "ThinkReservations",
+        fastbooking: "FastBooking",
         other: "Autre",
         none: "Aucun",
+        i_dont_know: "Je ne sais pas",
       },
     },
     en: {
       prompt: "Booking engine",
+      helper: "The engine embedded on your website for direct bookings.",
       option_labels: {
         d_edge: "D-EDGE",
-        amenitiz: "Amenitiz",
-        availpro: "Availpro",
-        bookassist: "BookAssist",
         reservit: "Reservit",
+        misterbooking: "Mister Booking",
+        availpro: "Availpro",
+        siteminder: "SiteMinder",
+        cubilis: "Cubilis (Stardekk)",
+        vertical_booking: "Vertical Booking",
+        bookassist: "Bookassist",
+        hotello: "Hotello",
+        guestcentric: "GuestCentric",
+        amenitiz: "Amenitiz",
+        eviivo: "eviivo",
+        thinkreservations: "ThinkReservations",
+        fastbooking: "FastBooking",
         other: "Other",
         none: "None",
+        i_dont_know: "I don’t know",
+      },
+    },
+  },
+  {
+    slug: "crm_vendor",
+    block: "stack",
+    answer_type: "dropdown",
+    audit_levels: ["full", "consultant_assisted"],
+    definition: {
+      required: false,
+      options: [
+        "experience_hotel",
+        "revinate",
+        "cendyn",
+        "guestrevu",
+        "hubspot",
+        "pipedrive",
+        "salesforce",
+        "zoho",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
+    },
+    fr: {
+      prompt: "Outil CRM / fidélisation",
+      helper: "L’outil qui centralise vos contacts clients et campagnes marketing.",
+      option_labels: {
+        experience_hotel: "Experience Hotel",
+        revinate: "Revinate",
+        cendyn: "Cendyn",
+        guestrevu: "GuestRevu",
+        hubspot: "HubSpot",
+        pipedrive: "Pipedrive",
+        salesforce: "Salesforce",
+        zoho: "Zoho",
+        other: "Autre",
+        none: "Aucun",
+        i_dont_know: "Je ne sais pas",
+      },
+    },
+    en: {
+      prompt: "CRM / loyalty tool",
+      helper: "The tool centralizing guest contacts and marketing campaigns.",
+      option_labels: {
+        experience_hotel: "Experience Hotel",
+        revinate: "Revinate",
+        cendyn: "Cendyn",
+        guestrevu: "GuestRevu",
+        hubspot: "HubSpot",
+        pipedrive: "Pipedrive",
+        salesforce: "Salesforce",
+        zoho: "Zoho",
+        other: "Other",
+        none: "None",
+        i_dont_know: "I don’t know",
+      },
+    },
+  },
+  {
+    slug: "guest_messaging_vendor",
+    block: "stack",
+    answer_type: "dropdown",
+    audit_levels: ["full", "consultant_assisted"],
+    definition: {
+      required: false,
+      options: [
+        "hijiffy",
+        "quicktext",
+        "asksuite",
+        "akia",
+        "easyway",
+        "whistle",
+        "duve",
+        "operto",
+        "cendyn_guestrev",
+        "whatsapp_business",
+        "manual_reception",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
+    },
+    fr: {
+      prompt: "Messagerie client / concierge IA",
+      helper: "Outils utilisés pour répondre aux questions des clients avant, pendant et après le séjour.",
+      option_labels: {
+        hijiffy: "HiJiffy",
+        quicktext: "Quicktext",
+        asksuite: "Asksuite",
+        akia: "Akia",
+        easyway: "EasyWay",
+        whistle: "Whistle",
+        duve: "Duve",
+        operto: "Operto",
+        cendyn_guestrev: "Cendyn Guestrev",
+        whatsapp_business: "WhatsApp Business (sans plateforme dédiée)",
+        manual_reception: "Réception manuelle (e-mail / téléphone)",
+        other: "Autre",
+        none: "Aucun",
+        i_dont_know: "Je ne sais pas",
+      },
+    },
+    en: {
+      prompt: "Guest messaging / AI concierge",
+      helper: "Tools used to answer guest questions before, during, and after the stay.",
+      option_labels: {
+        hijiffy: "HiJiffy",
+        quicktext: "Quicktext",
+        asksuite: "Asksuite",
+        akia: "Akia",
+        easyway: "EasyWay",
+        whistle: "Whistle",
+        duve: "Duve",
+        operto: "Operto",
+        cendyn_guestrev: "Cendyn Guestrev",
+        whatsapp_business: "WhatsApp Business (no dedicated platform)",
+        manual_reception: "Manual reception (email / phone)",
+        other: "Other",
+        none: "None",
+        i_dont_know: "I don’t know",
+      },
+    },
+  },
+  {
+    slug: "review_management_vendor",
+    block: "stack",
+    answer_type: "dropdown",
+    audit_levels: ["full", "consultant_assisted"],
+    definition: {
+      required: false,
+      options: [
+        "trustyou",
+        "customer_alliance",
+        "revinate",
+        "guestrevu",
+        "reviewpro",
+        "mara_ai",
+        "quicktext_reviews",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
+    },
+    fr: {
+      prompt: "Outil de gestion des avis (e-réputation)",
+      helper: "L’outil qui agrège et vous aide à répondre aux avis Tripadvisor / Booking / Google.",
+      option_labels: {
+        trustyou: "TrustYou",
+        customer_alliance: "Customer Alliance",
+        revinate: "Revinate",
+        guestrevu: "GuestRevu",
+        reviewpro: "ReviewPro",
+        mara_ai: "MARA AI",
+        quicktext_reviews: "Quicktext (module avis)",
+        other: "Autre",
+        none: "Aucun",
+        i_dont_know: "Je ne sais pas",
+      },
+    },
+    en: {
+      prompt: "Review management tool",
+      helper: "The tool that aggregates Tripadvisor / Booking / Google reviews and helps you reply.",
+      option_labels: {
+        trustyou: "TrustYou",
+        customer_alliance: "Customer Alliance",
+        revinate: "Revinate",
+        guestrevu: "GuestRevu",
+        reviewpro: "ReviewPro",
+        mara_ai: "MARA AI",
+        quicktext_reviews: "Quicktext (reviews module)",
+        other: "Other",
+        none: "None",
+        i_dont_know: "I don’t know",
       },
     },
   },
@@ -566,6 +815,65 @@ const SEED: SeedQuestion[] = [
         internal: "In-house team",
         vendor_template: "Vendor-provided template",
         unknown: "Unsure",
+      },
+    },
+  },
+  {
+    slug: "website_provider",
+    block: "website",
+    answer_type: "dropdown",
+    audit_levels: ["full", "consultant_assisted"],
+    definition: {
+      required: false,
+      options: [
+        "amenitiz",
+        "eviivo",
+        "guestcentric",
+        "hotello",
+        "squarespace",
+        "wordpress",
+        "wix",
+        "webflow",
+        "custom",
+        "other",
+        "none",
+        "i_dont_know",
+      ],
+    },
+    fr: {
+      prompt: "Sur quelle technologie / plateforme votre site web est-il construit ?",
+      helper: "Si le site a été fait sur-mesure par un développeur, choisissez « Site sur-mesure ».",
+      option_labels: {
+        amenitiz: "Amenitiz",
+        eviivo: "eviivo",
+        guestcentric: "GuestCentric",
+        hotello: "Hotello",
+        squarespace: "Squarespace",
+        wordpress: "WordPress",
+        wix: "Wix",
+        webflow: "Webflow",
+        custom: "Site sur-mesure (développeur dédié)",
+        other: "Autre",
+        none: "Pas de site web",
+        i_dont_know: "Je ne sais pas",
+      },
+    },
+    en: {
+      prompt: "What platform is your website built on?",
+      helper: "If a developer built it from scratch, pick “Custom build”.",
+      option_labels: {
+        amenitiz: "Amenitiz",
+        eviivo: "eviivo",
+        guestcentric: "GuestCentric",
+        hotello: "Hotello",
+        squarespace: "Squarespace",
+        wordpress: "WordPress",
+        wix: "Wix",
+        webflow: "Webflow",
+        custom: "Custom build (dedicated developer)",
+        other: "Other",
+        none: "No website",
+        i_dont_know: "I don’t know",
       },
     },
   },
@@ -662,10 +970,45 @@ async function main() {
   try {
     if (reset) {
       console.log("[seed-questionnaire] --reset: deleting prior questions…");
-      // Cascades: question_versions → question_translations + question_conditions.
+      // Order matters because of FK constraints:
+      //   voice_captures (CASCADE on answers)
+      //   answers        (RESTRICT on question_versions)  ← must clear first
+      //   question_versions (RESTRICT on questions)        ← cascades own translations + conditions
+      //   questions
+      // We clear `answers` rows that reference *seed* question_versions; we
+      // leave any orphan rows (no question_version pinned) alone.
       const slugs = SEED.map((q) => q.slug);
-      for (const slug of slugs) {
-        await db.delete(questions).where(eq(questions.slug, slug));
+      const seedQuestionIds = (
+        await db.select({ id: questions.id })
+          .from(questions)
+          .where(inArray(questions.slug, slugs))
+      ).map((r) => r.id);
+      if (seedQuestionIds.length > 0) {
+        const seedVersionIds = (
+          await db.select({ id: questionVersions.id })
+            .from(questionVersions)
+            .where(inArray(questionVersions.questionId, seedQuestionIds))
+        ).map((r) => r.id);
+        if (seedVersionIds.length > 0) {
+          // Drop voice_captures for answers pinned to these versions.
+          const dependentAnswerIds = (
+            await db
+              .select({ id: answers.id })
+              .from(answers)
+              .where(inArray(answers.questionVersionId, seedVersionIds))
+          ).map((r) => r.id);
+          if (dependentAnswerIds.length > 0) {
+            await db
+              .delete(voiceCaptures)
+              .where(inArray(voiceCaptures.answerId, dependentAnswerIds));
+            await db.delete(answers).where(inArray(answers.id, dependentAnswerIds));
+          }
+        }
+        // question_versions → cascades translations + conditions.
+        await db
+          .delete(questionVersions)
+          .where(inArray(questionVersions.questionId, seedQuestionIds));
+        await db.delete(questions).where(inArray(questions.id, seedQuestionIds));
       }
     }
 

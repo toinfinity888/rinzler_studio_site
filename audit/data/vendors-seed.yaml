@@ -1,0 +1,590 @@
+# T100 — curated vendor-database seed (FR-market focused).
+#
+# Each entry is intentionally terse on long fields (strengths / limitations /
+# when-to-recommend / when-not-to) — the team's content workstream will fill
+# them in via the admin UI. The seed bootstraps category coverage and core
+# decision-relevant fields (target sizes, languages, GDPR posture, EU hosting,
+# implementation complexity, price tier, French-market relevance).
+#
+# Fields treated as `ai_inferred` source are marked with `confidence: low`
+# at the entry level; that's exactly what the governance layer (US 10) is
+# designed to surface.
+
+vendors:
+  # ============================== PMS ============================== #
+  - slug: mews
+    category: pms
+    official_url: https://www.mews.com
+    target_hotel_sizes: [small, medium, large]
+    target_property_types: [independent, boutique, small_group]
+    countries_served: [FR, BE, CH, NL, DE, ES, IT, GB, US]
+    languages_supported: [fr, en, de, es, it, nl]
+    independent_hotel_suitability: strong
+    small_hotel_suitability: fair
+    api_availability: yes
+    implementation_complexity: medium
+    price_tier: mid
+    support_availability: business_hours
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    tags: [cloud_pms, open_api, marketplace]
+    confidence: high
+    fr:
+      description_short: "PMS cloud avec marketplace et API ouverte, populaire en boutique-hôtellerie européenne."
+      strengths: ["API ouverte mature", "Marketplace intégrations", "UX moderne"]
+      limitations: ["Coût hors entrée", "Complexité paramétrage initial"]
+      when_to_recommend: ["Hôtels indépendants modernes 20-150 chambres", "Stack cloud"]
+      when_not_to_recommend: ["Très petite structure < 10 chambres avec budget contraint"]
+    en:
+      description_short: "Cloud PMS with marketplace and open API, popular in European boutique hospitality."
+
+  - slug: medialog
+    category: pms
+    official_url: https://www.medialog-hotel.com
+    target_hotel_sizes: [small, medium]
+    target_property_types: [independent, family, boutique]
+    countries_served: [FR]
+    languages_supported: [fr]
+    independent_hotel_suitability: strong
+    small_hotel_suitability: strong
+    api_availability: partial
+    implementation_complexity: medium
+    price_tier: entry
+    support_availability: business_hours
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    tags: [french_market, native_fr]
+    confidence: high
+    fr:
+      description_short: "PMS français bien implanté chez les indépendants 2-4 étoiles."
+    en:
+      description_short: "French PMS widely deployed among independent 2–4-star hotels."
+
+  - slug: misterbooking
+    category: pms
+    official_url: https://www.misterbooking.net
+    target_hotel_sizes: [small, medium]
+    target_property_types: [independent, boutique, small_group]
+    countries_served: [FR, BE, CH]
+    languages_supported: [fr, en]
+    independent_hotel_suitability: strong
+    small_hotel_suitability: strong
+    api_availability: yes
+    implementation_complexity: medium
+    price_tier: entry
+    support_availability: business_hours
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    tags: [french_market, cloud_pms, all_in_one]
+    confidence: medium
+    fr:
+      description_short: "Suite cloud française PMS+CM+booking engine, taillée pour les indépendants."
+    en:
+      description_short: "French cloud PMS+CM+booking engine suite, geared to independents."
+
+  - slug: d_edge
+    category: pms
+    official_url: https://www.d-edge.com
+    target_hotel_sizes: [small, medium, large]
+    target_property_types: [independent, boutique, small_group]
+    countries_served: [FR, BE, CH, ES, IT, DE, GB]
+    languages_supported: [fr, en, es, it, de]
+    independent_hotel_suitability: fair
+    small_hotel_suitability: fair
+    api_availability: yes
+    implementation_complexity: high
+    price_tier: mid
+    support_availability: business_hours
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    tags: [french_market, ecommerce, multi_module]
+    confidence: medium
+    fr:
+      description_short: "Suite e-commerce hôtelière française : CRS, booking engine, channel manager, métasites."
+    en:
+      description_short: "French hotel e-commerce suite: CRS, booking engine, channel manager, metasearch."
+
+  - slug: amenitiz
+    category: pms
+    official_url: https://www.amenitiz.com
+    target_hotel_sizes: [small]
+    target_property_types: [independent, guesthouse, family]
+    countries_served: [FR, ES, IT, GB]
+    languages_supported: [fr, en, es, it]
+    independent_hotel_suitability: strong
+    small_hotel_suitability: strong
+    api_availability: partial
+    implementation_complexity: low
+    price_tier: entry
+    support_availability: business_hours
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    tags: [small_hotels, website_included, all_in_one]
+    confidence: medium
+
+  - slug: octorate
+    category: pms
+    target_hotel_sizes: [small, medium]
+    countries_served: [IT, FR, ES, DE]
+    languages_supported: [fr, en, it, es, de]
+    implementation_complexity: medium
+    price_tier: entry
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: low
+    tags: [italian, channel_manager_bundle]
+
+  - slug: cloudbeds
+    category: pms
+    official_url: https://www.cloudbeds.com
+    target_hotel_sizes: [small, medium]
+    target_property_types: [independent, boutique, guesthouse]
+    countries_served: [US, FR, ES, IT, BR]
+    languages_supported: [fr, en, es, pt]
+    independent_hotel_suitability: strong
+    small_hotel_suitability: strong
+    api_availability: yes
+    implementation_complexity: medium
+    price_tier: mid
+    support_availability: 24x7
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: high
+    tags: [global, all_in_one]
+
+  - slug: opera
+    category: pms
+    official_url: https://www.oracle.com/industries/hospitality/products/opera-cloud/
+    target_hotel_sizes: [medium, large]
+    countries_served: [FR, US, GB, AE, DE]
+    languages_supported: [fr, en, de, ar]
+    independent_hotel_suitability: weak
+    small_hotel_suitability: weak
+    api_availability: yes
+    implementation_complexity: high
+    price_tier: enterprise
+    support_availability: 24x7
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: high
+    tags: [enterprise]
+
+  - slug: protel
+    category: pms
+    target_hotel_sizes: [medium, large]
+    languages_supported: [fr, en, de]
+    implementation_complexity: high
+    price_tier: premium
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: hotello
+    category: pms
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    implementation_complexity: medium
+    price_tier: entry
+    french_market_relevance: present
+    gdpr_posture: dpa_on_request
+    eu_hosting: unknown
+    confidence: low
+
+  - slug: reservit
+    category: pms
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    implementation_complexity: medium
+    price_tier: entry
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: thais
+    category: pms
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    implementation_complexity: medium
+    price_tier: entry
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: vega
+    category: pms
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    implementation_complexity: medium
+    price_tier: entry
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  # ========================== Booking engine =========================== #
+  - slug: availpro
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+    tags: [french_market]
+
+  - slug: bookassist
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, de, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: vertical_booking
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, it]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: guestcentric
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, pt]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: eviivo
+    category: booking_engine
+    target_hotel_sizes: [small]
+    languages_supported: [fr, en]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: thinkreservations
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en]
+    french_market_relevance: weak
+    gdpr_posture: unclear
+    eu_hosting: non_eu
+    confidence: low
+
+  - slug: fastbooking
+    category: booking_engine
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  # ========================== Channel manager ========================== #
+  - slug: siteminder
+    category: channel_manager
+    target_hotel_sizes: [small, medium, large]
+    languages_supported: [fr, en, es, de]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: high
+    tags: [global]
+
+  - slug: cubilis
+    category: channel_manager
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, nl]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: hotelrunner
+    category: channel_manager
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, tr, fr]
+    french_market_relevance: weak
+    gdpr_posture: unclear
+    eu_hosting: unknown
+    confidence: low
+
+  - slug: myallocator
+    category: channel_manager
+    target_hotel_sizes: [small]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: rategain
+    category: channel_manager
+    target_hotel_sizes: [medium, large]
+    languages_supported: [en]
+    french_market_relevance: weak
+    gdpr_posture: unclear
+    eu_hosting: mixed
+    confidence: low
+
+  - slug: erevmax
+    category: channel_manager
+    target_hotel_sizes: [medium, large]
+    languages_supported: [en]
+    french_market_relevance: weak
+    gdpr_posture: unclear
+    eu_hosting: mixed
+    confidence: low
+
+  # ============================== CRM ============================== #
+  - slug: experience_hotel
+    category: crm
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+    tags: [french_market]
+
+  - slug: revinate
+    category: crm
+    target_hotel_sizes: [medium, large]
+    languages_supported: [en]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: high
+
+  - slug: cendyn
+    category: crm
+    target_hotel_sizes: [medium, large]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: guestrevu
+    category: crm
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: hubspot
+    category: crm
+    target_hotel_sizes: [small, medium, large]
+    languages_supported: [fr, en, de, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+
+  - slug: pipedrive
+    category: crm
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, de, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+
+  - slug: salesforce
+    category: crm
+    target_hotel_sizes: [large]
+    languages_supported: [fr, en]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+
+  - slug: zoho
+    category: crm
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  # ========================== Guest messaging ========================== #
+  - slug: hijiffy
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, es, pt]
+    french_market_relevance: strong
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+    tags: [ai_concierge, whatsapp]
+
+  - slug: quicktext
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en]
+    french_market_relevance: native_fr
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+    tags: [french_market, ai_concierge]
+
+  - slug: asksuite
+    category: guest_messaging
+    target_hotel_sizes: [small, medium, large]
+    languages_supported: [en, pt, es, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: akia
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en]
+    french_market_relevance: weak
+    gdpr_posture: dpa_published
+    eu_hosting: non_eu
+    confidence: medium
+
+  - slug: easyway
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, he]
+    french_market_relevance: weak
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: whistle
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, es]
+    french_market_relevance: weak
+    gdpr_posture: dpa_published
+    eu_hosting: non_eu
+    confidence: medium
+
+  - slug: duve
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, fr, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+
+  - slug: operto
+    category: guest_messaging
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  # ======================== Review management ========================= #
+  - slug: trustyou
+    category: review_management
+    target_hotel_sizes: [small, medium, large]
+    languages_supported: [fr, en, de, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+
+  - slug: customer_alliance
+    category: review_management
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, de]
+    french_market_relevance: strong
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: high
+    tags: [french_market, eu]
+
+  - slug: reviewpro
+    category: review_management
+    target_hotel_sizes: [small, medium, large]
+    languages_supported: [fr, en, es]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: mara_ai
+    category: review_management
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, de, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: confirmed_eu
+    confidence: medium
+    tags: [ai_review_responses]
+
+  # =========================== Website provider ======================= #
+  - slug: squarespace
+    category: website
+    target_hotel_sizes: [small]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: high
+
+  - slug: wordpress
+    category: website
+    target_hotel_sizes: [small, medium]
+    languages_supported: [fr, en, de, es]
+    french_market_relevance: strong
+    gdpr_posture: unclear
+    eu_hosting: unknown
+    confidence: medium
+    tags: [open_source, self_host_possible]
+
+  - slug: wix
+    category: website
+    target_hotel_sizes: [small]
+    languages_supported: [fr, en]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
+
+  - slug: webflow
+    category: website
+    target_hotel_sizes: [small, medium]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: non_eu
+    confidence: medium
+
+  # =========================== AI concierge =========================== #
+  - slug: cendyn_guestrev
+    category: ai_concierge
+    target_hotel_sizes: [medium, large]
+    languages_supported: [en, fr]
+    french_market_relevance: present
+    gdpr_posture: dpa_published
+    eu_hosting: mixed
+    confidence: medium
