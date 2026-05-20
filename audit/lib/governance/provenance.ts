@@ -8,6 +8,12 @@ import {
   type ProvenanceSource,
 } from "@/db/schema";
 
+export {
+  DEFAULT_FRESHNESS_DAYS,
+  freshnessStatus,
+  type FreshnessStatus,
+} from "./freshness";
+
 /**
  * Provenance helpers (T023 — FR-110, FR-111, FR-112).
  *
@@ -23,8 +29,6 @@ import {
  * "stale" — the render layer surfaces this to consultants and admins, and a
  * softer caveat to clients (FR-111).
  */
-
-export const DEFAULT_FRESHNESS_DAYS = 180;
 
 export interface WriteProvenanceArgs {
   entityType: string;
@@ -67,21 +71,6 @@ export async function readProvenance(
         eq(provenanceRecords.entityId, entityId),
       );
   return db.select().from(provenanceRecords).where(where);
-}
-
-export interface FreshnessStatus {
-  isStale: boolean;
-  ageDays: number | null;
-}
-
-export function freshnessStatus(
-  lastVerifiedAt: Date | null,
-  windowDays: number = DEFAULT_FRESHNESS_DAYS,
-): FreshnessStatus {
-  if (!lastVerifiedAt) return { isStale: true, ageDays: null };
-  const ms = Date.now() - lastVerifiedAt.getTime();
-  const ageDays = ms / (1000 * 60 * 60 * 24);
-  return { isStale: ageDays > windowDays, ageDays };
 }
 
 /**
