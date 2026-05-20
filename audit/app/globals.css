@@ -127,3 +127,46 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Print styles — used by the funding-brief page so Cmd+P → "Save as PDF"
+   produces a clean, light-themed document. Marked-up elements opt out of
+   printing with the `.no-print` utility. The `.print-doc` wrapper switches
+   the funding brief to a white-paper aesthetic only when printing. */
+@media print {
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-doc {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .print-doc * {
+    color: #111 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-color: #ddd !important;
+  }
+  .print-doc .print-keep-accent {
+    color: #0a6e8c !important;
+  }
+  .print-doc h1,
+  .print-doc h2,
+  .print-doc h3 {
+    color: #000 !important;
+    page-break-after: avoid;
+  }
+  .print-doc section,
+  .print-doc article,
+  .print-doc [data-print-block] {
+    page-break-inside: avoid;
+  }
+  @page {
+    margin: 18mm 14mm;
+  }
+}
