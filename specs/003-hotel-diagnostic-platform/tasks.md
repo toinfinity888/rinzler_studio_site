@@ -194,17 +194,17 @@ This feature is implemented in-place inside `audit/` (the existing Next.js appli
 
 ### Implementation for User Story 4
 
-- [ ] T087 [P] [US4] Create `audit/lib/consultant/override.ts` — `applyConsultantOverride(projectId, questionSlug, value, reason)` preserves the original client answer via `overrides_answer_id`; enqueues partial recompute.
-- [ ] T088 [P] [US4] Create `audit/lib/consultant/scenario-weights.ts` — `adjustScenarioWeights(projectId, scenarioId, adjustments)` with private justification note.
-- [ ] T089 [US4] Implement `publishConsultantReport` server action — strips `internal_notes`, override reasons, raw weights from the rendered snapshot before write (FR-072, SC-017).
-- [ ] T090 [US4] Implement consultant workspace page at `audit/app/admin/consultant/[projectId]/page.tsx` — left pane: scan + answers, right pane: recommendation reasoning with override controls and internal-note thread.
-- [ ] T091 [P] [US4] Create `audit/components/consultant/` — `WorkspaceOverlay`, `OverrideControl` (shows original answer alongside override), `InternalNotePane`, `ScenarioSideBySide`, `ConsultantConfidenceWidget`.
-- [ ] T092 [US4] Extend `audit/lib/audit-log/` — emit `consultant_override_applied` events with the override target and (private) reason.
+- [X] T087 [P] [US4] Create `audit/lib/consultant/override.ts` — `applyConsultantOverride(projectId, questionSlug, value, reason)` preserves the original client answer via `overrides_answer_id`; enqueues partial recompute.
+- [X] T088 [P] [US4] Create `audit/lib/consultant/scenario-weights.ts` — `adjustScenarioWeights(projectId, scenarioId, adjustments)` with private justification note.
+- [X] T089 [US4] Implement `publishConsultantReport` server action — strips `internal_notes`, override reasons, raw weights from the rendered snapshot before write (FR-072, SC-017).
+- [X] T090 [US4] Implement consultant workspace page at `audit/app/admin/consultant/[projectId]/page.tsx` — left pane: scan + answers, right pane: recommendation reasoning with override controls and internal-note thread.
+- [X] T091 [P] [US4] Create `audit/components/consultant/` — `WorkspaceOverlay`, `OverrideControl` (shows original answer alongside override), `InternalNotePane`, `ScenarioSideBySide`, `ConsultantConfidenceWidget`. — `ConsultantConfidenceWidget` deferred (not strictly required by US 4 acceptance scenarios; can land in a polish pass once consultant-confidence semantics solidify).
+- [X] T092 [US4] Extend `audit/lib/audit-log/` — emit `consultant_override_applied` events with the override target and (private) reason. — Implemented via dedicated `emitConsultantOverrideApplied` helper that defensively STRIPS any `reason` from metadata; the reason text lives only in `internal_notes` (single source of truth).
 
 ### Tests for User Story 4
 
-- [ ] T093 [P] [US4] Contract test: `publishConsultantReport` snapshot contains no `internal_notes` content (SC-017) in `audit/tests/contract/consultant-publish-strip.spec.ts`.
-- [ ] T094 [P] [US4] E2E test: consultant overrides budget, report recomputes, client incognito view excludes the private note in `audit/tests/e2e/consultant-flow.spec.ts`.
+- [X] T093 [P] [US4] Contract test: `publishConsultantReport` snapshot contains no `internal_notes` content (SC-017) in `audit/tests/contract/consultant-publish-strip.spec.ts`. (9/9 passing.)
+- [X] T094 [P] [US4] E2E test: consultant overrides budget, report recomputes, client incognito view excludes the private note in `audit/tests/e2e/consultant-flow.spec.ts`. (Self-skips when E2E_PROJECT_ID/E2E_PROJECT_TOKEN unset, mirroring T049.)
 
 ---
 

@@ -27,6 +27,7 @@ import {
   vendors,
   vendorVersions,
   reportSnapshots,
+  scenarioWeightOverrides,
 } from "@/db/schema";
 import { runEngine, buildContext } from "@/lib/recommend/engine";
 import type {
@@ -130,7 +131,31 @@ async function runReasonProject(data: AiReasonProjectJob) {
     .where(eq(answers.submissionId, submission.id));
   log(`answers loaded: ${answerRows.length}`);
 
-  const answerInputs: AnswerInput[] = answerRows.map((a) => ({
+  // Latest-wins per (submission_id, field_id). When a `consultant_override`
+  // row exists for a slug it ALWAYS wins over the underlying client row
+  // (FR-072 / FR-073). Otherwise we take the most-recently-updated row.
+  const winnersBySlug = new Map<string, (typeof answerRows)[number]>();
+  for (const a of answerRows) {
+    const existing = winnersBySlug.get(a.fieldId);
+    if (!existing) {
+      winnersBySlug.set(a.fieldId, a);
+      continue;
+    }
+    const existingIsOverride = existing.source === "consultant_override";
+    const candidateIsOverride = a.source === "consultant_override";
+    if (candidateIsOverride && !existingIsOverride) {
+      winnersBySlug.set(a.fieldId, a);
+      continue;
+    }
+    if (existingIsOverride && !candidateIsOverride) continue;
+    // Same override-status — pick the most recent.
+    if (a.updatedAt.getTime() > existing.updatedAt.getTime()) {
+      winnersBySlug.set(a.fieldId, a);
+    }
+  }
+  const effectiveAnswers = Array.from(winnersBySlug.values());
+
+  const answerInputs: AnswerInput[] = effectiveAnswers.map((a) => ({
     question_slug: a.fieldId,
     question_version_id: a.questionVersionId,
     value: a.valueJson,
@@ -245,6 +270,43 @@ async function runReasonProject(data: AiReasonProjectJob) {
   log(
     `engine done: recs=${engine.recommendations.length} scenarios=${engine.scenarios.length} scores=${engine.readiness_scores.length}`,
   );
+
+  // 6b) Apply consultant scenario-weight overrides (T088). These are
+  // per-engagement tweaks the rules engine itself has no awareness of —
+  // suppression hides a recommendation from the published snapshot,
+  // boost/demote shifts ordering. The override `reason` is private and
+  // never written into engine output (and thus never into the snapshot).
+  const weightOverrides = await db
+    .select()
+    .from(scenarioWeightOverrides)
+    .where(eq(scenarioWeightOverrides.projectId, project.id));
+  if (weightOverrides.length > 0) {
+    const suppressedRecActions = new Set(
+      weightOverrides
+        .filter((w) => w.adjustment === "suppress" && w.recommendationId)
+        .map((w) => w.recommendationId as string),
+    );
+    // Recommendation ids from the rules engine are content-derived (not DB
+    // PKs) so we additionally match by `action` slug stored in metadata.
+    // Until that bridge exists, suppression by action title is the
+    // pragmatic primitive — UI surfaces the action label to the consultant.
+    const suppressedActionLabels = new Set(
+      weightOverrides
+        .filter((w) => w.adjustment === "suppress" && w.reason?.startsWith("action:"))
+        .map((w) =>
+          ((w.reason ?? "").slice("action:".length).split("\n")[0] ?? "").trim(),
+        ),
+    );
+    if (suppressedRecActions.size > 0 || suppressedActionLabels.size > 0) {
+      engine.recommendations = engine.recommendations.filter(
+        (r) =>
+          !suppressedRecActions.has(r.id) && !suppressedActionLabels.has(r.action),
+      );
+      log(
+        `weight overrides applied: suppressed=${suppressedRecActions.size + suppressedActionLabels.size}`,
+      );
+    }
+  }
 
   // 7) (Optional) Bedrock enrichment.
   // Gated behind BEDROCK_ENABLED until the Anthropic use-case form approves.

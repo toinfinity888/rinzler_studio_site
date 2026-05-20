@@ -13,7 +13,7 @@ import {
   index,
 } from "drizzle-orm/pg-core";
 
-import { projects } from "./identity";
+import { projects, users } from "./identity";
 import { vendors, vendorVersions } from "./vendor";
 
 export const SCENARIO_KINDS = ["minimal", "balanced", "advanced", "custom"] as const;
@@ -149,6 +149,60 @@ export const complianceFindings = pgTable("compliance_findings", {
   checklistItem: text("checklist_item").notNull(),
   vendorId: uuid("vendor_id").references(() => vendors.id, { onDelete: "set null" }),
 });
+
+/**
+ * Consultant scenario-weight overrides (US 4 / T088).
+ *
+ * Records per-(project, scenario, optional recommendation) consultant tweaks:
+ *  - `adjustment = 'suppress'` removes a recommendation from the rendered
+ *    public report on the next snapshot rebuild.
+ *  - `adjustment = 'boost' | 'demote'` shifts ordering (via `weight_delta`,
+ *    expressed as positive = surface higher, negative = bury).
+ *  - `adjustment = 'pin_scenario'` flags a scenario as the consultant-
+ *    preferred default.
+ * The justification (`reason`) is consultant-private and MUST be stripped
+ * from any public snapshot — same rule as override reasons.
+ */
+export const SCENARIO_WEIGHT_ADJUSTMENTS = [
+  "suppress",
+  "boost",
+  "demote",
+  "pin_scenario",
+] as const;
+export type ScenarioWeightAdjustment =
+  (typeof SCENARIO_WEIGHT_ADJUSTMENTS)[number];
+
+export const scenarioWeightOverrides = pgTable(
+  "scenario_weight_overrides",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    projectId: uuid("project_id")
+      .notNull()
+      .references(() => projects.id, { onDelete: "cascade" }),
+    scenarioId: uuid("scenario_id").references(() => scenarios.id, {
+      onDelete: "cascade",
+    }),
+    recommendationId: uuid("recommendation_id").references(
+      () => recommendations.id,
+      { onDelete: "cascade" },
+    ),
+    adjustment: text("adjustment")
+      .$type<ScenarioWeightAdjustment>()
+      .notNull(),
+    weightDelta: smallint("weight_delta"),
+    reason: text("reason"),
+    authorId: uuid("author_id").references(() => users.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index("scenario_weight_overrides_project_idx").on(t.projectId, t.scenarioId),
+  ],
+);
+export type ScenarioWeightOverride = typeof scenarioWeightOverrides.$inferSelect;
 
 export const fundingBriefs = pgTable("funding_briefs", {
   id: uuid("id").primaryKey().defaultRandom(),
