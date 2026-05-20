@@ -1,5 +1,6 @@
 import { Card, CardHeader } from "@/components/ui/Card";
 import { GradientText } from "@/components/brand/GradientText";
+import { traceRecommendation } from "@/lib/governance/traceability";
 
 import {
   BAND_COLOR,
@@ -258,6 +259,13 @@ export function ReportView({ data, pdfUrl }: Props) {
 }
 
 function RecommendationBlock({ r }: { r: ReportRendered["recommendations"][number] }) {
+  const trace = traceRecommendation({
+    id: r.id,
+    vendor_id: r.vendor?.id ?? null,
+    signals_consulted: r.signals_consulted,
+  });
+  const totalSignals =
+    trace.answers.length + trace.scan_findings.length + trace.vendor_fields.length;
   return (
     <div className="rounded-md p-4 [background:var(--color-bg-tertiary)] space-y-2">
       <div className="flex items-baseline gap-2">
@@ -288,6 +296,47 @@ function RecommendationBlock({ r }: { r: ReportRendered["recommendations"][numbe
           ) : null}
         </dl>
       </details>
+      {totalSignals > 0 ? (
+        <details className="text-sm">
+          <summary className="cursor-pointer text-text-muted">
+            Pourquoi cette recommandation ? ({totalSignals} signaux)
+          </summary>
+          <div className="mt-2 space-y-2 text-xs">
+            <SignalGroup label="Réponses du questionnaire" entries={trace.answers} />
+            <SignalGroup label="Findings du scan" entries={trace.scan_findings} />
+            <SignalGroup
+              label="Champs vendor consultés"
+              entries={trace.vendor_fields}
+            />
+          </div>
+        </details>
+      ) : null}
+    </div>
+  );
+}
+
+function SignalGroup({
+  label,
+  entries,
+}: {
+  label: string;
+  entries: ReturnType<typeof traceRecommendation>["answers"];
+}) {
+  if (entries.length === 0) return null;
+  return (
+    <div>
+      <p className="text-text-muted uppercase tracking-wide text-[10px]">{label}</p>
+      <ul className="mt-1 flex flex-wrap gap-1">
+        {entries.map((e) => (
+          <li
+            key={e.key}
+            className="inline-flex items-center px-2 py-0.5 rounded-sm text-[11px] [background:rgba(255,255,255,0.06)] [border:1px_solid_rgba(255,255,255,0.10)] text-text-secondary"
+            title={e.label}
+          >
+            {e.key}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
