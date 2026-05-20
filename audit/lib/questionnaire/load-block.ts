@@ -31,8 +31,11 @@ import type {
   QuestionOption,
   RenderableQuestion,
 } from "./types";
-
-const CANONICAL_LANGUAGE = "fr";
+import {
+  CANONICAL_LANGUAGE,
+  isQuestionRenderableInNewAudit,
+  pickTranslation,
+} from "./eligibility";
 
 /* ------------------------------------------------------------------ */
 /* Block order                                                        */
@@ -111,13 +114,16 @@ export async function loadBlock(args: LoadBlockArgs): Promise<LoadedBlock> {
     .from(questionsT)
     .where(and(eq(questionsT.block, args.block), eq(questionsT.status, "published")));
 
-  const eligible = allInBlock.filter((q) => {
-    if (!q.auditLevels.includes(args.tier)) return false;
-    if (q.hotelTypes && q.hotelTypes.length > 0) {
-      if (!args.hotelType || !q.hotelTypes.includes(args.hotelType)) return false;
-    }
-    return true;
-  });
+  // Filter by tier + hotel-type using the same pure predicate the contract
+  // tests pin (FR-103). Status is already filtered by the SQL above; the
+  // helper re-asserts it as a safety net if a future caller removes the
+  // SQL filter.
+  const eligible = allInBlock.filter((q) =>
+    isQuestionRenderableInNewAudit(
+      { status: q.status, auditLevels: q.auditLevels, hotelTypes: q.hotelTypes },
+      { tier: args.tier, hotelType: args.hotelType },
+    ),
+  );
 
   if (eligible.length === 0) {
     return { block: args.block, questions: [], anyFallback: false };
@@ -184,19 +190,11 @@ export async function loadBlock(args: LoadBlockArgs): Promise<LoadedBlock> {
     const v = activeByQid.get(q.id);
     if (!v) continue;
     const versionTranslations = byVersion[v.id] ?? [];
-    const wanted = versionTranslations.find((t) => t.language === args.language);
-    const fallback = versionTranslations.find((t) => t.language === CANONICAL_LANGUAGE);
-    let translation: typeof versionTranslations[number] | null = null;
-    let languageUsed = args.language;
-    let fallbackUsed = false;
-    if (wanted) {
-      translation = wanted;
-    } else if (fallback) {
-      translation = fallback;
-      languageUsed = CANONICAL_LANGUAGE;
-      fallbackUsed = true;
-      anyFallback = true;
-    }
+    const picked = pickTranslation(versionTranslations, args.language);
+    const translation = picked.translation;
+    const languageUsed = picked.languageUsed;
+    const fallbackUsed = picked.fallbackUsed;
+    if (fallbackUsed) anyFallback = true;
     const hydrated = hydrate(
       q,
       v,
