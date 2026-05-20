@@ -26,6 +26,7 @@ import {
 } from "@/db/schema";
 import { hashToken, verifyToken } from "@/lib/tokens";
 import { writeAuditEntry } from "@/lib/audit-log";
+import { track } from "@/lib/analytics/plausible";
 
 import { generateBrief, type BriefGeneratorInput } from "./brief-generator";
 import type {
@@ -271,6 +272,13 @@ export async function generateFundingBrief(
       language,
       schema_version: content.schema_version,
     },
+  });
+  track("funding_brief_generated", {
+    project_id: project.id,
+    language,
+    has_additional_inputs: Boolean(
+      additionalInputs && Object.keys(additionalInputs).length > 0,
+    ),
   });
 
   return { ok: true, funding_brief_id: row.id, generated_at: row.generatedAt };

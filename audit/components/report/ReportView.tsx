@@ -8,6 +8,7 @@ import {
   SEVERITY_COLOR,
   type ReportRendered,
 } from "./types";
+import { ShortlistItem } from "./ShortlistItem";
 
 interface Props {
   data: ReportRendered;
@@ -158,20 +159,15 @@ export function ReportView({ data, pdfUrl }: Props) {
           <CardHeader title="Shortlist outils" description="Les vendeurs recommandés pour votre profil." />
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {data.tool_shortlist.map((t) => (
-              <li
-                key={t.vendor_id}
-                className="rounded-md px-3 py-2 [background:var(--color-bg-tertiary)]"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="font-medium">{t.name}</span>
-                  <span className="text-[10px] uppercase tracking-wide text-text-muted">
-                    {t.category}
-                  </span>
-                  <span className={`ml-auto text-[10px] ${BAND_COLOR[t.confidence]}`}>
-                    conf. {t.confidence}
-                  </span>
-                </div>
-                <p className="text-xs text-text-secondary">{t.reason}</p>
+              <li key={t.vendor_id}>
+                <ShortlistItem
+                  vendorId={t.vendor_id}
+                  vendorVersionId={t.vendor_version_id}
+                  name={t.name}
+                  category={t.category}
+                  reason={t.reason}
+                  confidence={t.confidence}
+                />
               </li>
             ))}
           </ul>
