@@ -183,7 +183,11 @@ function buildNextSteps(positives: RuleRecommendation[]): string[] {
     );
 }
 
-function lowerConfidenceForUnknownGdpr(
+/**
+ * FR-053 (US 7 / T116) — exported so contract tests can pin the behaviour
+ * without standing up the full rules pipeline.
+ */
+export function lowerConfidenceForUnknownGdpr(
   recs: RuleRecommendation[],
   ctx: RecommendationContext,
 ): RuleRecommendation[] {
