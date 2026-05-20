@@ -9,6 +9,7 @@ import {
   type ReportRendered,
 } from "./types";
 import { ShortlistItem } from "./ShortlistItem";
+import { TrackOnOpen } from "./TrackOnOpen";
 
 interface Props {
   data: ReportRendered;
@@ -134,6 +135,39 @@ export function ReportView({ data, pdfUrl }: Props) {
                     {s.recommendation_ids.length === 1 ? "" : "s"}.
                   </p>
                 ) : null}
+                <TrackOnOpen
+                  className="text-sm"
+                  eventName="scenario_compared"
+                  eventProps={{
+                    scenario_kind: s.kind,
+                    recommendation_count: s.recommendation_ids.length,
+                  }}
+                  summary="Comparer ce scénario"
+                  summaryClassName="cursor-pointer text-text-muted text-xs"
+                >
+                  <ul className="mt-2 text-xs space-y-1">
+                    {s.recommendation_ids.map((id) => {
+                      const rec = recsById.get(id);
+                      return (
+                        <li key={id} className="text-text-secondary">
+                          · {rec?.action ?? id}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {Object.keys(s.tradeoffs).length > 0 ? (
+                    <dl className="mt-3 text-xs space-y-1">
+                      {Object.entries(s.tradeoffs).map(([k, v]) => (
+                        <div key={k}>
+                          <dt className="text-text-muted uppercase tracking-wide text-[10px]">
+                            {k}
+                          </dt>
+                          <dd className="text-text-primary pl-2">{String(v)}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ) : null}
+                </TrackOnOpen>
               </div>
             ))}
           </div>
@@ -274,8 +308,16 @@ function RecommendationBlock({ r }: { r: ReportRendered["recommendations"][numbe
         </span>
       </div>
       <p className="text-sm text-text-secondary">{r.explanation.relevance}</p>
-      <details className="text-sm">
-        <summary className="cursor-pointer text-text-muted">Plus de détail</summary>
+      <TrackOnOpen
+        className="text-sm"
+        eventName="recommendation_inspected"
+        eventProps={{
+          recommendation_id: r.id,
+          vendor_id: r.vendor?.id ?? null,
+          inspect_kind: "detail",
+        }}
+        summary="Plus de détail"
+      >
         <dl className="mt-2 space-y-1 text-xs">
           <Detail label="Problème résolu" value={r.explanation.problem_solved} />
           <Detail label="Ce qui change" value={r.explanation.change} />
@@ -291,12 +333,18 @@ function RecommendationBlock({ r }: { r: ReportRendered["recommendations"][numbe
             />
           ) : null}
         </dl>
-      </details>
+      </TrackOnOpen>
       {totalSignals > 0 ? (
-        <details className="text-sm">
-          <summary className="cursor-pointer text-text-muted">
-            Pourquoi cette recommandation ? ({totalSignals} signaux)
-          </summary>
+        <TrackOnOpen
+          className="text-sm"
+          eventName="recommendation_inspected"
+          eventProps={{
+            recommendation_id: r.id,
+            vendor_id: r.vendor?.id ?? null,
+            inspect_kind: "signals",
+          }}
+          summary={`Pourquoi cette recommandation ? (${totalSignals} signaux)`}
+        >
           <div className="mt-2 space-y-2 text-xs">
             <SignalGroup label="Réponses du questionnaire" entries={trace.answers} />
             <SignalGroup label="Findings du scan" entries={trace.scan_findings} />
@@ -305,7 +353,7 @@ function RecommendationBlock({ r }: { r: ReportRendered["recommendations"][numbe
               entries={trace.vendor_fields}
             />
           </div>
-        </details>
+        </TrackOnOpen>
       ) : null}
     </div>
   );
